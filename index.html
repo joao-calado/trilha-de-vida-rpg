@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilhas de Vida · Mapa Completo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0f0f0f;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    display: flex; justify-content: center;
+    padding: 1rem; color: #eaeaea;
+  }
+  .container {
+    max-width: 1600px; width: 100%;
+    background: #1a1a1a; border-radius: 32px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    padding: 1.5rem 1rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  h1 {
+    text-align: center; font-weight: 600; font-size: 2.2rem;
+    letter-spacing: -0.5px; color: #f5f5f5; margin: 0 0 0.15rem;
+  }
+  .subtitle {
+    text-align: center; color: #999; font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .top-bar {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    align-items: center; justify-content: space-between;
+    background: #1c1c1c; border: 1px solid #2a2a2a;
+    border-radius: 16px; padding: 0.8rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .level-selector {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: #ccc; font-size: 0.85rem;
+    letter-spacing: 0.3px; text-transform: uppercase; font-weight: 600;
+  }
+  .level-selector select {
+    background: #2a2a2a; color: #eee;
+    border: 1px solid #3a3a3a; border-radius: 8px;
+    padding: 0.4rem 0.7rem; font-size: 0.95rem;
+    font-family: inherit; cursor: pointer; font-weight: 600;
+  }
+  .points-display { display: flex; gap: 1.4rem; align-items: center; }
+  .pt-item {
+    display: flex; flex-direction: column;
+    align-items: center; min-width: 60px;
+  }
+  .pt-value {
+    font-size: 1.25rem; font-weight: 700; line-height: 1.1;
+  }
+  .pt-label {
+    font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.8px; color: #777; font-weight: 600;
+    margin-top: 0.15rem;
+  }
+  .pt-item.disponivel .pt-value { color: #ccc; }
+  .pt-item.gasto .pt-value { color: #e07b5a; }
+  .pt-item.restante .pt-value { color: #7bc47f; }
+  .pt-item.restante.negativo .pt-value { color: #e05555; }
+  .origem-display {
+    display: flex; flex-direction: column;
+    align-items: flex-end; min-width: 160px; gap: 0.15rem;
+  }
+  .origem-label {
+    font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.8px; color: #777; font-weight: 600;
+  }
+  .origem-nome { font-size: 0.9rem; color: #e0b84a; font-weight: 600; }
+  .origem-nome.vazio { color: #555; font-style: italic; font-weight: 400; }
+  .btn-reset {
+    background: #2a2a2a; color: #ccc;
+    border: 1px solid #3a3a3a; border-radius: 8px;
+    padding: 0.5rem 0.9rem; cursor: pointer;
+    font-family: inherit; font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    transition: all 0.15s;
+  }
+  .btn-reset:hover { background: #3a3a3a; color: #fff; }
+  .viz-wrapper {
+    width: 100%; position: relative; border-radius: 20px;
+    background: #141414;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    overflow: hidden; touch-action: none;
+  }
+  svg { display: block; width: 100%; height: auto; cursor: grab; }
+  svg:active { cursor: grabbing; }
+  .node-group { cursor: pointer; }
+  .node-group:hover { filter: brightness(1.3) drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+  .node-circle { stroke: #1a1a1a; stroke-width: 2; transition: stroke 0.15s, stroke-width 0.15s; }
+  .node-group:hover .node-circle { stroke: #fff; }
+  .node-group.comprado .node-circle { stroke: #7bc47f; stroke-width: 3; }
+  .node-group.origem .node-circle { stroke: #e0b84a; stroke-width: 3.5; }
+  .node-group.comprado .node-text { fill: #dff5df; }
+  .node-group.origem .node-text { fill: #fff5d5; }
+  .origem-ring {
+    fill: none; stroke-dasharray: 3 4; stroke-width: 1.5;
+    opacity: 0.75; pointer-events: none;
+  }
+  .node-text {
+    fill: #f5f5f5; font-size: 9px; font-weight: 500;
+    text-anchor: middle; dominant-baseline: central;
+    pointer-events: none; user-select: none;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+  }
+  .link-line { stroke-linecap: round; }
+  .intersection-node { stroke: #ddd; stroke-width: 1.5; }
+  .intersection-node:hover { stroke: #fff; stroke-width: 2.5; }
+  .node-group.comprado .intersection-node { stroke: #7bc47f; stroke-width: 3; }
+  .node-group.origem .intersection-node { stroke: #e0b84a; stroke-width: 3.5; }
+  .legend {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 0.5rem 1.2rem; margin-top: 1.8rem; padding: 0.3rem 0.2rem;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.8rem; color: #ddd;
+  }
+  .legend-color {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .legend-diamond {
+    width: 14px; height: 14px; transform: rotate(45deg);
+    border: 1px solid rgba(255,255,255,0.15); background: #bbb;
+  }
+  .legend-origem {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1.5px dashed rgba(255,255,255,0.6); background: transparent;
+  }
+  .legend-comprado {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid #7bc47f; background: transparent;
+  }
+  .zoom-hint {
+    position: absolute; bottom: 12px; right: 16px;
+    background: rgba(20,20,20,0.85);
+    backdrop-filter: blur(4px);
+    padding: 0.3rem 0.8rem; border-radius: 30px;
+    font-size: 0.7rem; color: #aaa;
+    border: 1px solid #333; pointer-events: none;
+  }
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease; padding: 1rem;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .modal-card {
+    background: #222; border-radius: 24px;
+    max-width: 640px; width: 100%;
+    padding: 2rem 2rem 1.8rem;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    transform: scale(0.94);
+    transition: transform 0.2s cubic-bezier(0.2,0.9,0.3,1.1);
+    position: relative; max-height: 90vh; overflow-y: auto;
+    border: 1px solid #383838;
+  }
+  .modal-overlay.active .modal-card { transform: scale(1); }
+  .modal-close {
+    position: absolute; top: 12px; right: 18px;
+    background: none; border: none; font-size: 1.8rem; line-height: 1;
+    color: #888; cursor: pointer; padding: 0 6px;
+  }
+  .modal-close:hover { color: #eee; }
+  .modal-title {
+    font-size: 1.55rem; font-weight: 600;
+    margin: 0 0 0.4rem; color: #f5f5f5;
+  }
+  .modal-sub {
+    font-size: 0.85rem; color: #bbb;
+    margin-bottom: 1rem;
+    display: inline-block; background: #333;
+    padding: 0.25rem 0.8rem; border-radius: 30px;
+  }
+  .modal-purchase {
+    background: #1a1a1a;
+    border-radius: 14px;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid #2e2e2e;
+    margin-bottom: 1.1rem;
+  }
+  .custo-info {
+    display: flex; gap: 1.6rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .custo-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .custo-label {
+    font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.8px; color: #777; font-weight: 600;
+  }
+  .custo-valor { color: #e0b84a; font-weight: 700; font-size: 1.1rem; }
+  .custo-valor .acum-sub {
+    font-size: 0.75rem; color: #999; font-weight: 400;
+    margin-left: 0.3rem; letter-spacing: 0;
+  }
+  .modal-actions {
+    margin-top: 0.8rem;
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+  }
+  .modal-actions button {
+    flex: 1; min-width: 150px;
+    padding: 0.75rem 1rem; border-radius: 10px;
+    border: none; font-family: inherit;
+    font-size: 0.9rem; font-weight: 700;
+    letter-spacing: 0.3px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-comprar { background: #4a7a4a; color: #fff; }
+  .btn-comprar:hover:not(:disabled) { background: #5a8a5a; }
+  .btn-comprar:disabled { background: #2a2a2a; color: #555; cursor: not-allowed; }
+  .btn-reembolsar { background: #8a5a3a; color: #fff; }
+  .btn-reembolsar:hover:not(:disabled) { background: #9a6a4a; }
+  .btn-reembolsar:disabled { background: #2a2a2a; color: #555; cursor: not-allowed; }
+  .btn-origem { background: #8a7a2a; color: #fff; }
+  .btn-origem:hover:not(:disabled) { background: #9a8a3a; }
+  .btn-origem:disabled { background: #2a2a2a; color: #555; cursor: not-allowed; }
+  .modal-msg {
+    margin-top: 0.7rem; font-size: 0.85rem;
+    color: #e07b5a; min-height: 1.2em;
+  }
+  .modal-msg.ok { color: #7bc47f; }
+  .modal-section { margin-top: 1rem; }
+  .modal-section h4 {
+    font-size: 0.78rem; letter-spacing: 0.5px;
+    text-transform: uppercase; color: #888;
+    margin-bottom: 0.35rem; font-weight: 600;
+  }
+  .modal-section p { font-size: 0.95rem; line-height: 1.5; color: #ddd; }
+  .modal-section.combate h4 { color: #e07b5a; }
+  .modal-section.fora h4 { color: #7bb8a0; }
+  .modal-section.pacote h4 { color: #d4b46a; }
+  .pacote-box {
+    background: #1a1a1a; border-radius: 14px;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid #d4b46a;
+  }
+  .pacote-titulo {
+    font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase;
+    color: #d4b46a; margin-bottom: 0.6rem; font-weight: 700;
+  }
+  .pacote-linha {
+    display: flex; gap: 0.6rem; padding: 0.4rem 0;
+    font-size: 0.9rem; color: #ddd;
+    border-bottom: 1px solid #262626;
+  }
+  .pacote-linha:last-child { border-bottom: none; }
+  .pacote-label {
+    min-width: 95px; color: #888; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    padding-top: 0.15rem; font-weight: 600;
+  }
+  .pacote-valor { flex: 1; color: #eee; }
+  .pacote-valor em { color: #999; font-style: italic; font-size: 0.85rem; }
+  .modal-prereq {
+    margin-top: 1.2rem; padding: 0.7rem 1rem;
+    background: #1c1c1c; border-radius: 12px;
+    border-left: 3px solid #555;
+    font-size: 0.85rem; color: #bbb;
+  }
+  .modal-prereq strong { color: #eee; }
+  .modal-trilha-desc {
+    font-size: 0.85rem; color: #aaa;
+    background: #1c1c1c; padding: 0.8rem 1rem;
+    border-radius: 12px; margin-top: 1rem;
+    border-left: 3px solid #444;
+    line-height: 1.5; font-style: italic;
+  }
+  @media (max-width: 700px) {
+    .container { padding: 0.8rem 0.2rem; }
+    h1 { font-size: 1.5rem; }
+    .modal-card { padding: 1.6rem 1.2rem; }
+    .modal-title { font-size: 1.25rem; }
+    .node-text { font-size: 7px; }
+    .points-display { gap: 0.8rem; }
+    .pt-item { min-width: 48px; }
+    .pt-value { font-size: 1rem; }
+    .custo-info { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>⭒ Trilhas de Vida</h1>
+  <p class="subtitle">Clique em qualquer nó • Role para zoom • Arraste para mover</p>
+
+  <div class="top-bar">
+    <div class="level-selector">
+      <label for="nivelSelect">Nível</label>
+      <select id="nivelSelect"></select>
+    </div>
+    <div class="points-display">
+      <div class="pt-item disponivel">
+        <span class="pt-value" id="ptDisponivel">0</span>
+        <span class="pt-label">Disponível</span>
+      </div>
+      <div class="pt-item gasto">
+        <span class="pt-value" id="ptGasto">0</span>
+        <span class="pt-label">Gasto</span>
+      </div>
+      <div class="pt-item restante" id="ptRestanteBox">
+        <span class="pt-value" id="ptRestante">0</span>
+        <span class="pt-label">Restante</span>
+      </div>
+    </div>
+    <div class="origem-display">
+      <span class="origem-label">Trilha de Origem</span>
+      <span class="origem-nome vazio" id="origemNome">— nenhuma —</span>
+    </div>
+    <button class="btn-reset" id="btnReset">Resetar</button>
+  </div>
+
+  <div class="viz-wrapper" id="vizWrapper">
+    <div id="viz"></div>
+    <div class="zoom-hint">🔍 zoom + arraste</div>
+  </div>
+  <div class="legend" id="legend"></div>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-sub" id="modalSub"></div>
+
+    <div class="modal-purchase">
+      <div class="custo-info">
+        <div class="custo-item">
+          <span class="custo-label">Custo deste nó</span>
+          <span class="custo-valor" id="custoNo">—</span>
+        </div>
+        <div class="custo-item" id="custoAcumBox">
+          <span class="custo-label">Custo até este nó</span>
+          <span class="custo-valor" id="custoAcum">—</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-comprar" id="btnComprar">Comprar</button>
+        <button class="btn-origem" id="btnOrigem" style="display:none;">Definir como Origem</button>
+      </div>
+      <div class="modal-msg" id="modalMsg"></div>
+    </div>
+
+    <div class="modal-section pacote" id="modalPacoteSection" style="display:none;">
+      <div class="pacote-box">
+        <div class="pacote-titulo">◆ Pacote de Origem</div>
+        <div class="pacote-linha">
+          <span class="pacote-label">Perícia fixa</span>
+          <span class="pacote-valor" id="pacotePericia"></span>
+        </div>
+        <div class="pacote-linha">
+          <span class="pacote-label">Perícia livre</span>
+          <span class="pacote-valor"><em>Você escolhe 1 perícia de qualquer lista (exceto as que já possui).</em></span>
+        </div>
+        <div class="pacote-linha">
+          <span class="pacote-label">Ferramenta</span>
+          <span class="pacote-valor" id="pacoteFerramenta"></span>
+        </div>
+        <div class="pacote-linha">
+          <span class="pacote-label">Item pessoal</span>
+          <span class="pacote-valor" id="pacoteItem"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-section combate">
+      <h4>Em combate</h4>
+      <p id="modalCombate"></p>
+    </div>
+    <div class="modal-section fora">
+      <h4>Fora de combate</h4>
+      <p id="modalFora"></p>
+    </div>
+    <div class="modal-prereq" id="modalPrereq"></div>
+    <div class="modal-trilha-desc" id="modalTrilhaDesc"></div>
+  </div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// ===================================================================
+// DADOS DAS TRILHAS
+// ===================================================================
+const trilhasData = [
+  { id: "altar", nome: "O Altar Interior", cor: "#9B7BB8",
+    descricao: "Não há templo que baste. O sagrado não mora em pedra — mora no espaço que você abre dentro de si para aquilo que é maior. O Altar Interior não é sobre um deus específico: é sobre o que você decide venerar. Uma promessa. Uma memória. Uma causa. A esperança teimosa que se recusa a apagar. Quem cultiva este altar aprende que a fé não é certeza — é prática. É reacender a chama todos os dias, mesmo quando ninguém está olhando.",
+    pacoteOrigem: { pericia: "Religião", ferramenta: "Kit de herbalismo", item: "Um símbolo sagrado gasto, herdado de alguém que você não conheceu" },
+    nos: [
+      { nome: "Sopro de Bênção", combate: "Como ação, abençoa um aliado em alcance curto: +1d4 em um teste de resistência à sua escolha até o fim do próximo turno dele. 1/descanso curto.", foraCombate: "Bênção simples (30s) sobre pessoa, objeto ou lugar. Por até 1 dia, emana paz sutil. NPCs devotos ou supersticiosos mudam de atitude para melhor." },
+      { nome: "Cheiro de Heresia", combate: "Reação ao ser atacado por criatura que você observou por 1 rodada: seu próximo ataque contra ela tem vantagem.", foraCombate: "Vantagem em Religião e Intuição contra disfarces, rituais corrompidos, mentiras sobre fé. Usa Sabedoria em vez de Carisma com quem compartilha sua fé." },
+      { nome: "Mãos que Vertem", combate: "1/descanso curto, ação: cura 1d8 + Sab em aliado a 9m. Se alvo abaixo de metade dos PV, sofre 1d4 psíquico e cura o dobro.", foraCombate: "10 min cuidando de alguém: a pessoa recupera 1 Dado de Vida extra no próximo descanso e ganha vantagem contra medo/doença por 1h." },
+      { nome: "Presença que Acalma", combate: "Ação bônus: aura 3m impõe desvantagem em ataques hostis contra aliados até o início do seu próximo turno. 1/descanso curto.", foraCombate: "Fora de combate, criaturas hostis precisam passar em Sabedoria (CD 8+prof+Sab) para iniciar violência. Vale para motins, brigas de taverna." },
+      { nome: "A Mão que Segura", combate: "Reação: você ou aliado a 9m reduzido a 0 PV → role 1d20. Com 10+, dano cai à metade e alvo fica com 1 PV. 1/descanso longo.", foraCombate: "1/descanso longo: ritual de 1h consagra lugar (casa, clareira, sala) por 1 semana. Criaturas dentro têm vantagem contra medo e encantamento." }
+    ]},
+  { id: "maos", nome: "Mãos que Criam", cor: "#E07856",
+    descricao: "Toda criação começa com uma inquietação: algo que ainda não existe e que precisa existir. Mãos que Criam não é sobre ser artesão, ferreiro ou inventor — é sobre a recusa em aceitar que as coisas são como são. É a mão que conserta, a mente que improvisa, o olho que vê o que poderia ser. Quem trilha este caminho sabe que o mundo é matéria-prima, e que cada objeto carrega um pouco de quem o fez.",
+    pacoteOrigem: { pericia: "Investigação", ferramenta: "Ferramentas de artesão (à sua escolha)", item: "Uma ferramenta feita por você mesmo, ainda com a marca das suas mãos" },
+    nos: [
+      { nome: "Toque de Ofício", combate: "Ação bônus: analisa arma, armadura ou escudo visível. Sabe dano/CA, se é mágico, e se tem falha estrutural.", foraCombate: "Proficiência em uma ferramenta de artesão. Teste rápido de Ofício (CD 10) repara, ajusta ou improvisa algo pequeno." },
+      { nome: "Reforço Vivo", combate: "1 min de trabalho: +1 Durabilidade temporária em escudo/armadura até próximo descanso. 1/descanso curto. Se você criou a armadura, +2.", foraCombate: "Conserta qualquer objeto não-mágico quebrado em 10 min (fechaduras, cordas, rodas, instrumentos)." },
+      { nome: "A Ferramenta se Torna Arma", combate: "Proficiência em armas improvisadas. Ferramenta de artesão causa 1d6 + dobro do prof. Se você criou a ferramenta, 1d8.", foraCombate: "Transforma qualquer objeto comum em ferramenta funcional em 1 min (faca → chave de fenda, garfo → gazua, cinto → corda)." },
+      { nome: "Obra em Andamento", combate: "10 min: arma recebe +1 ataque ou armadura +1 CA até próximo descanso longo. Se você criou o item, dura o próximo descanso longo seguinte.", foraCombate: "Cria item comum (até 50 PO) em 1h, se tiver matéria-prima. Armas simples, armaduras leves, ferramentas, kits." },
+      { nome: "Criação Contínua", combate: "1/descanso longo: improvisa dispositivo alquímico (bomba, óleo, ácido) de CD 13. Com matéria-prima abundante, cria dois.", foraCombate: "1 dia de trabalho: cria item incomum (a critério do mestre) com oficina e matéria-prima. Não precisa de fórmula." }
+    ]},
+  { id: "mascara", nome: "A Máscara", cor: "#E8B84B",
+    descricao: "Toda face é uma escolha. A Máscara não é sobre enganar — é sobre saber que a identidade é fluida, que o 'eu' é uma performance que se ajusta ao palco. Quem trilha este caminho aprende a ler as máscaras alheias, a usar as suas com intenção, e a nunca confundir o papel com o ator. Não é mentira: é controle sobre o que se mostra.",
+    pacoteOrigem: { pericia: "Enganação", ferramenta: "Kit de disfarce", item: "Uma máscara física (ou um lenço) que você usa quando precisa ser outro" },
+    nos: [
+      { nome: "Rosto Emprestado", combate: "Reação ao ser alvo de ataque à distância: Enganação (CD 12). Se passar, atacante erra por confundir você com outro.", foraCombate: "Vantagem em Enganação para manter identidade falsa. Ação bônus: muda detalhes sutis da aparência sem kit de disfarce." },
+      { nome: "Golpe que Não Se Vê", combate: "Ataque em criatura que ainda não agiu: +1d6 dano. Se ela acredita na sua identidade falsa, 1d8.", foraCombate: "Assume identidade falsa completa em 1h. Investigar seu passado real tem CD 15 + prof." },
+      { nome: "Finta que Desarma", combate: "Reação ao ser atacado corpo a corpo: Enganação vs. Intuição. Se vencer, ataque erra e atacante fica desprevenido até o fim do próximo turno dele. 1/descanso curto.", foraCombate: "Conversa de 10 min: Enganação vs. Intuição. Se passar, a pessoa revela algo que não pretendia." },
+      { nome: "Voz de Mel", combate: "Persuasão, Enganação ou Intimidação: +1d4. Usos: mod. Carisma por descanso longo. Interpretando papel coerente, 1d6.", foraCombate: "1/dia: 'vende' ideia absurda. Persuasão (CD 15). Se passar, a pessoa acredita por 1h, mesmo que seja impossível." },
+      { nome: "O Duplo", combate: "1/descanso longo: dupla ilusória sem componentes. Troca de posição com ela como ação bônus. Inimigo atacando a duplicata dá vantagem no seu próximo ataque.", foraCombate: "Mantém duas identidades simultâneas com aparências diferentes. Trocar leva 1 min. Só magia de nível 4+ te reconhece como a outra." }
+    ]},
+  { id: "margem", nome: "A Margem", cor: "#5B8FB5",
+    descricao: "Há um mundo que não aparece nos mapas oficiais. A Margem é feita de quem aprendeu a viver nas frestas: nos becos, nas guildas informais, nas economias que não pagam imposto. Não é sobre ser criminoso — é sobre saber que as regras têm dono, e que quem está fora delas enxerga coisas que quem está dentro não vê. A Margem ensina a sobreviver onde a lei não chega.",
+    pacoteOrigem: { pericia: "Furtividade", ferramenta: "Ferramentas de ladrão", item: "Uma marca de nascença ou tatuagem que você não escolheu ter" },
+    nos: [
+      { nome: "Ouvir os Becos", combate: "Você sabe instintivamente saídas, esconderijos e coberturas de qualquer ambiente urbano. Ação bônus: você e um aliado se movem para cobertura sem ataques de oportunidade.", foraCombate: "Vantagem em Investigação para localizar guildas, mercadores ilegais, boatos. 1/aventura: favor menor (informação, item barato, esconderijo)." },
+      { nome: "Mãos que Abrem", combate: "Proficiência em ferramentas de ladrão. Ação bônus. 3 testes consecutivos no mesmo objeto: +2 permanente em testes futuros com ele.", foraCombate: "Abre qualquer fechadura não-mágica em 1 min sem teste, se não estiver sob pressão. Fechaduras mágicas exigem teste." },
+      { nome: "O Golpe Sem Eco", combate: "Ataque com vantagem: renuncie ao dano extra para silenciar alvo por 1 rodada. 1/descanso curto. Se alvo morrer no turno, ninguém percebe até o fim da cena.", foraCombate: "Move-se por uma área sem deixar rastro (pegadas, cheiro, perturbação) por até 10 min." },
+      { nome: "Mão Leve", combate: "Ação bônus: rouba objeto visível (Prestidigitação vs. Percepção). Alvo não percebe até o fim do turno. Devolvendo no mesmo turno, nunca percebe.", foraCombate: "'Planta' um objeto em alguém sem ser percebido (provas, mensagens, joias). Prestidigitação vs. Percepção." },
+      { nome: "Fantasma da Viela", combate: "1/descanso longo: invisibilidade (em si) sem componentes, até 1 min. Passos sem som, atravessa espaços apertados.", foraCombate: "1/dia: 'desaparece' de uma cidade. Ninguém te encontra por meios mundanos por 24h, exceto se você quiser. Precisa de esconderijo preparado." }
+    ]},
+  { id: "silencio", nome: "O Silêncio", cor: "#3DA890",
+    descricao: "O silêncio não é a ausência de som — é a presença de si. Quem trilha este caminho aprende que a mente é um lugar, e que a maioria das pessoas nunca entrou de fato nela. Não é preciso montanha, mosteiro ou solidão: é preciso coragem para ficar consigo. O Silêncio ensina a ouvir o que o barulho do mundo abafa, e a encontrar quietude no meio da tempestade.",
+    pacoteOrigem: { pericia: "Intuição", ferramenta: "— (o Silêncio não precisa de ferramenta)", item: "Um sino sem badalo — você o carrega para lembrar do som que não faz" },
+    nos: [
+      { nome: "Escutar o Invisível", combate: "Ação bônus: percebe presença de criaturas invisíveis a até 9m por 1 rodada. Não localiza, só sabe que estão lá.", foraCombate: "Vantagem em Natureza e Religião. Usa Sabedoria em vez de Inteligência. 1 min em silêncio: percebe presença de criaturas invisíveis/etéreas em 9m." },
+      { nome: "Mente Sem Brechas", combate: "Vantagem contra medo e encantamento. Se já resistiu a efeito mental no mesmo combate, imunidade a ele até o fim da cena.", foraCombate: "1h de foco absoluto: não pode ser distraído por barulho, dor ou desconforto. Permite ler, meditar ou trabalhar em condições impossíveis." },
+      { nome: "Respiração que Restaura", combate: "Descanso curto: recupera 1 Dado de Vida extra. 1/descanso longo. Meditando 10 min em silêncio total, recupera 1 espaço de magia de nível 1.", foraCombate: "1/dia: 'esvazia' a mente. Qualquer efeito mental ativo (medo, charme, sugestão) é encerrado, mesmo permanente." },
+      { nome: "Segunda Chance", combate: "Reação ao ser alvo de magia que exija Sabedoria: rerrole com +2. 1/descanso curto. Se falhar, gasta 1 Dado de Vida para anular.", foraCombate: "1 min: 'lê' uma sala. Sabe se há mentira, tensão não-dita, medo. Não sabe o quê, só o estado emocional." },
+      { nome: "A Calma que Desarma", combate: "Ação: aura 6m. Criaturas fazem Sabedoria (CD 8+prof+Sab) ou ficam incapazes de ataques hostis até o início do seu próximo turno. 1/descanso longo. Quem já te atacou na cena tem desvantagem.", foraCombate: "1h em silêncio cura trauma emocional (seu ou de outro). Remove um medo, fobia ou efeito mental persistente. 1/descanso longo." }
+    ]},
+  { id: "instinto", nome: "O Instinto", cor: "#7BA85A",
+    descricao: "Antes da linguagem, antes da ferramenta, havia o corpo e o mundo — e a negociação entre os dois. O Instinto é o que resta quando todo o resto falha: o cheiro de chuva antes dela cair, o arrepio antes do perigo, a certeza no estômago. Não é sobre viver na floresta. É sobre lembrar que você é um animal entre animais, e que a natureza não é um lugar — é a condição de tudo.",
+    pacoteOrigem: { pericia: "Sobrevivência", ferramenta: "Kit de caçador", item: "Uma pena, presa ou osso de um animal que você matou ou viu morrer" },
+    nos: [
+      { nome: "Ler o Mundo", combate: "Vantagem em Iniciativa. Pode usar Sabedoria em vez de Destreza.", foraCombate: "Vantagem em Sobrevivência. Percepção passiva +1. 1h observando ambiente natural: pergunta ao mestre (o que passou, o que está escondido, o que vai acontecer)." },
+      { nome: "Passo Sem Peso", combate: "Deslocamento +1,5m. Primeiro turno: terreno difícil não custa movimento extra. Descalço: +3m.", foraCombate: "Move-se por terreno natural sem deixar pegadas. Descalço: também não deixa cheiro rastreável por 1h." },
+      { nome: "A Armadilha Paciente", combate: "1 min: armadilha natural (1d4 dano, reduz deslocamento à metade, CD 8+prof+Sab). Local observado 1h: CD +2.", foraCombate: "Armadilha de caça que captura animal pequeno/médio em 1h. Garante comida para o grupo por 1 dia." },
+      { nome: "Olhar do Predador", combate: "Ação bônus: escolhe criatura visível. Próximo ataque contra ela tem vantagem. 1/descanso curto. Faminto (8h sem comer): +1d6 dano.", foraCombate: "'Fareja' criatura que já feriu você ou foi ferida por você por 1 dia. Sabe direção aproximada em até 1km." },
+      { nome: "A Pele do Frio", combate: "Resistência a frio. Guiando grupo até 6 em viagem: ritmo acelerado sem penalidade. Sozinho: deslocamento dobrado, não precisa dormir por 3 dias.", foraCombate: "Sobrevive em qualquer ambiente natural sem ferramentas por tempo indeterminado (desertos, tundras, selvas). Nunca sofre exaustão por clima." }
+    ]},
+  { id: "voz", nome: "A Voz", cor: "#F08844",
+    descricao: "Não é o cargo que move as pessoas — é a voz. A Voz é a trilha de quem descobriu que palavras têm peso, que um grito no momento certo vira exército, e que um sussurro bem colocado vira destino. Não é sobre ser nobre ou plebeu; é sobre ser ouvido. Quem trilha este caminho aprende que liderar é menos sobre mandar e mais sobre fazer o outro acreditar que pode.",
+    pacoteOrigem: { pericia: "Persuasão", ferramenta: "Instrumento musical (à sua escolha)", item: "Um caderno de discursos — alguns escritos, outros riscados" },
+    nos: [
+      { nome: "O Povo Reconhece", combate: "Ação bônus: um aliado a 9m ganha +1 em ataques até o início do seu próximo turno.", foraCombate: "Vantagem em Persuasão com plebeus. Abrigo modesto gratuito. 1h conversando com comunidade: sabe o que ela mais teme e deseja." },
+      { nome: "Grito que Levanta", combate: "Ação bônus: aliados a 9m ganham +1d4 em ataques até o início do seu próximo turno. 1/descanso curto. Aliados caídos (0 PV) ouvem e podem gastar 1 Dado de Vida para voltar com 1 PV.", foraCombate: "1 min de discurso: acalma multidão enfurecida. Persuasão (CD 15). Se passar, violência adiada por 10 min." },
+      { nome: "Mãos que Seguram", combate: "Ação de Ataque: renuncie a um ataque para agarrar/empurrar com +2. Protegendo alguém declarado: +4.", foraCombate: "Treina grupo de até 10 pessoas em 1 dia. Ganham +1 em ataques e +1 CA enquanto lutarem sob seu comando." },
+      { nome: "Corpo que Protege", combate: "Reação ao ver aliado a 1,5m ser atacado: absorve 1d10 + For do dano. 1/descanso curto. Aliado mais fraco (nível menor): você não sofre o dano absorvido.", foraCombate: "1/dia: discurso de 1h inspira comunidade. Quem ouve ganha vantagem em um teste de resistência contra desespero por 24h." },
+      { nome: "A Lenda que Anda", combate: "1/descanso longo: invoca 2d4 guardas plebeus (stats de Guarda) por 10 min. Em comunidade onde fez favor: 3d4 com lealdade absoluta.", foraCombate: "Seu nome é conhecido em toda uma região. 1/sessão: invoca reputação (audiência, passagem segura, informação privilegiada). Mestre decide limite." }
+    ]},
+  { id: "mare", nome: "A Maré", cor: "#3D7DA8",
+    descricao: "Nada é fixo. A Maré ensina que o mundo respira — sobe e desce, dá e tira, e quem luta contra ela se afoga. Não é sobre ser marinheiro; é sobre aprender o ritmo das coisas. Quem trilha este caminho sabe que a rigidez quebra e que a flexibilidade sobrevive. É a trilha de quem se adapta sem se perder, de quem dança com a tempestade em vez de esperar que ela passe.",
+    pacoteOrigem: { pericia: "Acrobacia", ferramenta: "Ferramentas de navegador", item: "Um pedaço de corda do primeiro navio em que você pisou" },
+    nos: [
+      { nome: "Pé que Não Escorrega", combate: "Vantagem em Acrobacia e Atletismo. Nada à metade sem penalidade. Superfície em movimento: +2 Destreza.", foraCombate: "Equilibra-se em qualquer superfície por tempo indeterminado (cordas, vigas, mastros, telhados inclinados)." },
+      { nome: "Nó que Segura", combate: "Proficiência com cordas. Amarrar/desamarrar: ação bônus. Laça criaturas Médias (4,5m, agarra).", foraCombate: "Amarra qualquer coisa de forma que ninguém desfaça, exceto você (prisioneiros, baús, portas)." },
+      { nome: "Luta Sem Regras", combate: "Armas improvisadas: 1d6 + For. 1/descanso curto: ao acertar, cega alvo (CD 8+prof+Des). Ambiente caótico: CD +2.", foraCombate: "Improvisa arma com qualquer objeto em 1 rodada (garrafas, cadeiras, pedras, remos)." },
+      { nome: "Corpo que se Ajusta", combate: "Reação ao ser deslocado: Acrobacia (CD 15) para reduzir distância à metade e não cair. Passando por 5+: não é deslocado.", foraCombate: "Move-se por multidão sem ser notado como ameaça. Ninguém te para, questiona ou lembra depois." },
+      { nome: "O Ritmo do Mundo", combate: "Prevê tempo, navega sem instrumentos. Combate aquático: natação dobrada, vantagem contra submersos. 1/descanso longo: muda maré do combate (escolhe terreno) e aliados ganham +1 em testes enquanto nele.", foraCombate: "Prevê clima de uma região por 3 dias (sempre exato). Sabe direção de qualquer corpo d'água a até 10km." }
+    ]},
+  { id: "tabuleiro", nome: "O Tabuleiro", cor: "#C98A9C",
+    descricao: "Enquanto a maioria vê peças, alguns veem o jogo. O Tabuleiro não é sobre linhagem nem sobre títulos — é sobre a capacidade de enxergar o todo enquanto os outros enxergam partes. Quem trilha este caminho aprende que toda decisão é um lance, que toda relação é uma aliança possível, e que a vitória raramente vem do golpe mais forte, mas do movimento mais preciso. É a trilha de quem pensa três jogadas à frente.",
+    pacoteOrigem: { pericia: "Persuasão", ferramenta: "Kit de falsificação", item: "Um tabuleiro de xadrez portátil, com peças desgastadas de tanto uso" },
+    nos: [
+      { nome: "Presença que Pesa", combate: "Ação bônus: ordena que um aliado se mova metade do deslocamento. Se observou a criatura por 1 rodada, ela obedece sem questionar.", foraCombate: "Vantagem em Intimidação e Persuasão com quem reconhece autoridade. Ao entrar em sala, sabe quem manda e quem obedece." },
+      { nome: "A Arte da Conversa", combate: "1/descanso curto: rerrole um teste de História ou Nobreza.", foraCombate: "Proficiência em duas perícias sociais. 10 min conversando com alguém: sabe um segredo dessa pessoa. 1h: descobre lealdade verdadeira." },
+      { nome: "Palavras que Erguem", combate: "10 min de discurso: até 6 aliados ganham PV temporários = nível + Car. 1/descanso curto. Se já tinham PV temporários, ganham o dobro.", foraCombate: "1/dia: convence grupo de até 20 pessoas a fazer algo por você (dentro do razoável). Persuasão (CD 15)." },
+      { nome: "A Sorte dos Preparados", combate: "Reação: transforma acerto crítico em acerto normal. 1/descanso longo. Se planejou a situação (declarou preparação antes), transforma em erro.", foraCombate: "1/dia: 'prevê' um evento. Declara uma preparação ('vou encontrar um traidor'). Mestre incorpora na próxima cena, se possível." },
+      { nome: "O Lance Decisivo", combate: "Ação: aliados que ouvem ganham +2 CA e +2 em testes de resistência até o início do próximo turno. 1/descanso longo. Move um aliado até 3m como parte da ação.", foraCombate: "1/sessão: 'vira o tabuleiro'. Escolhe situação social ou política e a resolve a seu favor (eleições, julgamentos, negociações). Mestre decide limite." }
+    ]},
+  { id: "pagina", nome: "A Página", cor: "#D9A3AE",
+    descricao: "Toda certeza é uma página virada. A Página não é sobre acumular fatos — é sobre o vício de perguntar, o desconforto produtivo de não saber, a alegria quase física de conectar dois pontos distantes. Quem trilha este caminho sabe que o conhecimento não é posse; é processo. É a trilha de quem nunca termina uma frase sem já estar pensando na próxima pergunta.",
+    pacoteOrigem: { pericia: "História", ferramenta: "Kit de caligrafia", item: "Um livro com páginas em branco — você ainda não escreveu a primeira" },
+    nos: [
+      { nome: "Olhos que Estudam", combate: "Ação bônus: analisa criatura visível. Sabe tipo, resistências e imunidades.", foraCombate: "Escolha duas perícias de Inteligência; vantagem em ambiente de pesquisa. 1h em local com informação: faz duas perguntas ao mestre em vez de uma." },
+      { nome: "Arquivo Vivo", combate: "1/descanso curto: rerrola teste de Inteligência para recordar. Se tiver anotado, +2.", foraCombate: "Memoriza texto, mapa ou imagem em 1 min. Reproduz com precisão absoluta por 1 semana." },
+      { nome: "Fresta no Véu", combate: "Aprende um truque da lista do Mago. Se for de adivinhação (detectar magia, ler pensamentos), usa sem gastar ação.", foraCombate: "1/dia: 'lê' um objeto. Toca-o e recebe visão curta do último evento significativo envolvendo-o." },
+      { nome: "O Padrão Escondido", combate: "Ação bônus: Investigação (CD 15) contra criatura. Próximo ataque ignora resistências e imunidades. 1/descanso curto. Já estudou a criatura: CD 12.", foraCombate: "10 min: decifra qualquer código, cifra ou linguagem não-mágica (mapas, diários, mensagens)." },
+      { nome: "Mente que Rebate", combate: "Reação ao sofrer dano psíquico ou leitura mental: anula dano, devolve 1d6 psíquico. 1/descanso longo. Int (CD 15): rouba a informação que o atacante tentava ler.", foraCombate: "1/dia: pergunta que o mestre responde com verdade absoluta sobre algo descobrível (não futuro, não segredos cósmicos)." }
+    ]},
+  { id: "lamina", nome: "A Lâmina", cor: "#D94D3D",
+    descricao: "A Lâmina não pergunta se você quer lutar — pergunta se você está pronta quando a luta chega. É a trilha de quem entendeu que a paz é uma trégua, e que a preparação é uma forma de respeito pela própria vida. Não é sobre gostar de violência; é sobre não ser pego desprevenido por ela. Quem trilha este caminho treina o corpo, a mente e o instinto até que a resposta venha sem pensar.",
+    pacoteOrigem: { pericia: "Atletismo", ferramenta: "Ferramentas de ferreiro", item: "Uma pedra de amolar que já era do seu mestre, ou de alguém que você admira" },
+    nos: [
+      { nome: "Ao Lado do Companheiro", combate: "Aliados adjacentes ganham +1 CA enquanto você estiver consciente. Flanqueado: bônus dobra para você mesmo.", foraCombate: "Avalia perícia de combate de alguém em 1 rodada. Sabe se é mais forte, mais fraco ou equivalente." },
+      { nome: "Postura que Resiste", combate: "Ação bônus: +2 CA até o início do próximo turno, deslocamento 0. 1/descanso curto. Se não se mover, mantém postura no próximo turno sem gastar ação.", foraCombate: "Fica de vigília por até 3 dias sem dormir, sem penalidade. Vale para guardar acampamento, porta, pessoa." },
+      { nome: "O Ataque que Vem do Outro", combate: "Ação de Ataque: renuncie a um ataque para aliado a 9m atacar corpo a corpo com reação. Se aliado acertar, você ganha +1 CA até o próximo turno.", foraCombate: "Treina um aliado por 1 dia. Ele ganha +1 em ataques permanentemente (até treinar outra coisa)." },
+      { nome: "Tiro que Cobre", combate: "Ataque à distância impõe desvantagem no próximo ataque de um inimigo contra aliado específico (1/turno). Errando o ataque, aliado ainda ganha +1 CA contra esse inimigo.", foraCombate: "1/dia: 'marca' um alvo. Sabe direção dele por 24h, a até 10km." },
+      { nome: "Velho de Guerra", combate: "Primeira vez que sofre dano em combate: reduz em bônus de proficiência. 1/combate. Dano do mesmo tipo que já te feriu na sessão: reduz o dobro.", foraCombate: "1/sessão: 'ensina' técnica a todo o grupo. Ganham +1 em ataques por 1 dia. Treinando sucessor (1 semana): +1 permanente." }
+    ]},
+  { id: "telhado", nome: "O Telhado", cor: "#4C7A3D",
+    descricao: "Quem olha a cidade do chão vê muros. Quem olha do telhado vê caminhos. O Telhado é a trilha de quem aprendeu a se mover nas alturas e nas margens da cidade — não por vocação criminosa, mas por necessidade de perspectiva. É sobre conhecer cada atalho, cada buraco, cada lugar onde a cidade esquece que existe gente. Quem trilha este caminho sabe que a cidade é um organismo, e que ele respira por lugares que a maioria nunca olha.",
+    pacoteOrigem: { pericia: "Furtividade", ferramenta: "Ferramentas de ladrão", item: "Uma telha solta que você tirou do primeiro telhado que subiu" },
+    nos: [
+      { nome: "Olhos de Rua", combate: "Ação bônus: identifica rota de fuga mais próxima. Você e aliados a 3m se movem para lá sem ataques de oportunidade por 1 turno.", foraCombate: "Vantagem em Furtividade em multidões e Percepção para emboscadas. 1h andando por bairro: sabe todos os pontos de fuga e esconderijo." },
+      { nome: "A Mão que Pega", combate: "Ação bônus: pega objeto pequeno desprevenido. Objeto caído: pega sem gastar ação.", foraCombate: "Vasculhando área: encontra 1d4 PO extras. Pode 'encontrar' algo que não estava lá (a critério do mestre) se fizer sentido." },
+      { nome: "Fugir é uma Arte", combate: "Ao Desengajar, move +3m. 1/descanso curto. Em altura (telhado, muro, árvore): +6m, sem ataques de oportunidade.", foraCombate: "Desaparece em uma cidade em 1 min. Ninguém te segue por meios mundanos, exceto se você quiser." },
+      { nome: "Língua que Corta", combate: "Enganação e Intimidação +2. 1/descanso curto, reação: insulto impõe desvantagem em ataque contra você. Insulto verdadeiro (mestre decide): atacante perde ação bônus.", foraCombate: "1 min de conversa: faz alguém perder a calma. Intimidação vs. Sabedoria. Se passar, pessoa faz algo impulsivo." },
+      { nome: "A Cidade é Minha", combate: "Proficiência em ferramentas de ladrão (dobro do bônus). 1/descanso longo: passos sem pegadas sem magia em ambiente urbano. 1h no telhado de um prédio: vê através das paredes dele por 1 min.", foraCombate: "1/dia: 'sente' uma cidade. Sabe onde estão líderes, onde há tensão, onde há esconderijo. Cidade até 10.000 hab." }
+    ]},
+  { id: "horizonte", nome: "O Horizonte", cor: "#3D6BA8",
+    descricao: "Há quem se sinta em casa em qualquer lugar — e há quem se sinta estrangeiro até na própria casa. O Horizonte é a trilha de quem é puxado pelo que ainda não viu. Não é sobre ser batedor ou cartógrafo; é sobre uma inquietação que não passa. Quem trilha este caminho aprende que a jornada não é o caminho entre dois pontos — é a própria razão de existir.",
+    pacoteOrigem: { pericia: "Sobrevivência", ferramenta: "Ferramentas de cartógrafo", item: "Um mapa incompleto — metade desenhada, metade em branco" },
+    nos: [
+      { nome: "Bússola Interna", combate: "Vantagem em Iniciativa. Perdido de propósito: +2 em Furtividade e Sobrevivência.", foraCombate: "Nunca se perde em ambiente selvagem. Vantagem contra armadilhas naturais. Sabe sempre onde está o norte." },
+      { nome: "Sentidos Afiados", combate: "Percepção passiva +2. Não pode ser surpreendido viajando. Lugar novo: +2 Percepção.", foraCombate: "1h: mapeia área de até 1km² de memória. Reproduz o mapa depois com precisão." },
+      { nome: "Passo Ligeiro", combate: "Deslocamento +1,5m. Viajando há mais de 8h: +3m.", foraCombate: "Viaja 12h/dia sem exaustão. Sozinho: 16h." },
+      { nome: "Corpo que Aguenta", combate: "Vantagem em testes de exaustão por marcha forçada e clima extremo. 3 dias viajando sem parar: imunidade a exaustão por 1 dia.", foraCombate: "Sobrevive sem comer por 1 semana, sem água por 3 dias, sem afetar capacidades." },
+      { nome: "A Bolsa Sem Fundo", combate: "Bolsa extradimensional 100 kg. Itens não pesam, sempre à mão. Guardando item que pertence a um lugar: gasta 1 min para voltar a esse lugar uma vez.", foraCombate: "1/dia: 'abre um caminho'. Escolhe destino que já visitou e viaja até lá em metade do tempo, sem encontros aleatórios." }
+    ]},
+  { id: "cadinho", nome: "O Cadinho", cor: "#8B9B5A",
+    descricao: "Toda transformação começa com calor, pressão e tempo. O Cadinho é a trilha de quem entendeu que mudar as coisas e mudar a si são o mesmo processo. Não é sobre frascos e poções — é sobre aceitar que nada permanece igual quando é exposto ao fogo certo. Quem trilha este caminho aprende a ver o potencial de transformação em tudo: no metal, no veneno, na própria dor.",
+    pacoteOrigem: { pericia: "Arcanismo", ferramenta: "Suprimentos de alquimista", item: "Um frasco vazio — sempre vazio, mesmo quando você jura que o encheu" },
+    nos: [
+      { nome: "Farejar o Essencial", combate: "Ação bônus: analisa poção ou substância visível. Sabe o que é, o que faz, como neutralizá-la.", foraCombate: "Vantagem para encontrar ervas, componentes, ingredientes raros. 10 min observando planta/mineral: sabe no que ele pode se tornar." },
+      { nome: "A Poção Certa", combate: "1/descanso curto: saca e bebe poção como ação bônus extra. Abaixo de metade dos PV: bebe duas.", foraCombate: "Reduz 25% custo e tempo de poções comuns/incomuns. Dano do tipo da poção (fogo, veneno, ácido): cria uma desse tipo na metade do tempo." },
+      { nome: "O Frasco na Manga", combate: "Aplica veneno em arma como ação bônus. Veneno dura 1h. Imune ao próprio veneno.", foraCombate: "1h: transforma uma poção em outra de mesmo nível (só poções que você criou)." },
+      { nome: "Corpo Endurecido", combate: "Vantagem contra venenos e metade do dano de veneno. Passando no teste: cura 1d4 PV em vez de sofrer dano.", foraCombate: "1/dia: 'purifica' alimento ou bebida envenenado. Também purifica água suja." },
+      { nome: "A Bomba Improvisada", combate: "1/descanso curto: bomba 2d6 dano elemental em área (CD 13 metade). Matéria-prima do próprio corpo (sangue, cabelo, lágrima): 3d6.", foraCombate: "1/sessão: 'transmutação menor'. Transforma material em outro de valor equivalente (chumbo em prata, pedra em vidro) para objetos pequenos." }
+    ]},
+  { id: "fio", nome: "O Fio", cor: "#E49A7A",
+    descricao: "Há uma linha fina entre controle e queda. O Fio é a trilha de quem aprendeu a habitar essa linha — não por imprudência, mas por precisão. É sobre o corpo como instrumento, sobre a confiança nos próprios reflexos, sobre saber que o chão não é garantia. Quem trilha este caminho transforma cada movimento em decisão, e cada decisão em arte.",
+    pacoteOrigem: { pericia: "Acrobacia", ferramenta: "Kit de disfarce ou instrumento musical (à sua escolha)", item: "Um pedaço de corda bamba — você nunca mais andou sobre ela, mas a carrega" },
+    nos: [
+      { nome: "Cair Bem", combate: "Reduz 3d6 de dano de queda. Escolhendo cair (em vez de ser derrubado): 4d6 e levanta sem gastar movimento.", foraCombate: "Cai de qualquer altura até 6m sem sofrer dano, se não estiver segurando nada." },
+      { nome: "Subir Sem Esforço", combate: "Escala usando deslocamento normal. Vantagem em Atletismo. Superfície escorregadia: mantém vantagem, sem teste.", foraCombate: "Escala qualquer superfície não-lisa em metade do tempo normal." },
+      { nome: "O Salto Certo", combate: "Distância de salto +1,5m. Saltando em direção a inimigo: ataca corpo a corpo como parte do salto.", foraCombate: "Salta de um telhado a outro sem teste, se a distância for até 6m." },
+      { nome: "Girar é Esquivar", combate: "Reação ao ser atacado: move 1,5m sem ataques de oportunidade. Movendo para trás do atacante: ele fica desprevenido contra seu próximo ataque.", foraCombate: "1 min: 'marca' uma área. Sabe todos os ângulos cegos dela." },
+      { nome: "O Equilíbrio Absoluto", combate: "Anda sobre superfícies estreitas e escorregadias sem testes, mesmo em combate. Superfície impossível (corda, arame, água): +2 CA e +2 Destreza.", foraCombate: "1/dia: 'anda no fio'. Atravessa distância impossível (abismo, telhado distante, corda sobre rio) sem teste, como se fosse natural." }
+    ]},
+  { id: "estrada", nome: "A Estrada", cor: "#B89D7C",
+    descricao: "A estrada é uma professora que não pede matrícula. A Estrada é a trilha de quem aprendeu que o mundo ensina de formas que nenhum mestre consegue — no frio que racha os lábios, na fome que ensina a economizar, no estranho que salva por nenhuma razão. Não é sobre ser viajante; é sobre aceitar que cada passo deixa marca em quem o dá. Quem trilha este caminho sabe que a experiência não se compra — se caminha.",
+    pacoteOrigem: { pericia: "Sobrevivência", ferramenta: "Veículos (terrestres)", item: "Uma bota gasta que você se recusa a trocar" },
+    nos: [
+      { nome: "Pés que Já Andaram", combate: "Deslocamento +1,5m (cumulativo). Botas gastas (sem valor): +3m.", foraCombate: "Viaja 8h sem cansaço. Sabe distância exata entre dois pontos que já visitou." },
+      { nome: "Dormir com um Olho Aberto", combate: "Não pode ser surpreendido dormindo. Dormindo ao relento: vantagem em Iniciativa no próximo combate.", foraCombate: "Dorme em qualquer lugar, em qualquer condição, sem penalidade." },
+      { nome: "A Memória da Estrada", combate: "Vantagem em testes de Inteligência para lembrar detalhes dos últimos 7 dias. Se contou a história, lembrança é permanente.", foraCombate: "1h: conta história que inspira uma pessoa. Ela ganha vantagem em teste de resistência contra medo por 1 dia." },
+      { nome: "Estômago de Ferro", combate: "Vantagem em Constituição contra álcool e venenos ingeridos. Passando no teste: cura 1d4 PV em vez de sofrer efeito.", foraCombate: "Come qualquer coisa comestível (mesmo estragada) sem adoecer." },
+      { nome: "Improviso de Sobrevivência", combate: "1/descanso curto: objeto comum como arma improvisada +1d4 dano e proficiência. Objeto com valor sentimental: +1d6 e conta como arma mágica por 1 min.", foraCombate: "1/sessão: 'improvisa' uma solução para um problema (ponte com cordas, abrigo com galhos, sinal de fumaça). Mestre decide limite, mas você sempre consegue algo." }
+    ]}
+];
+
+const intermediariosData = [
+  { id: "reliquia-viva", nome: "Relíquia Viva", trilhaA: "altar", trilhaB: "maos",
+    descricao: "Você não separa mais o sagrado do artesanal. Toda peça que sai das suas mãos carrega uma prece silenciosa — e toda prece que você faz pede um objeto onde morar. Sua criação é seu altar.",
+    combate: "Durante um descanso curto, consagre uma arma, armadura ou escudo que você mesmo criou (ou reparou). Ela recebe +1 em ataque e dano (arma) ou +1 CA (armadura) e conta como mágica. 1/combate, ao acertar com a relíquia, gaste ação bônus para invocar a bênção: +2d6 radiante ou cura 2d8 PV em aliado a 9m. Dura até o fim da cena.",
+    foraCombate: "Você pode consagrar qualquer objeto feito com suas próprias mãos. Enquanto existir, quem o carregar sente serenidade: vantagem contra medo e encantamento, e cura 1 Dado de Vida extra em descansos. Objetos consagrados podem ser deixados em locais para abençoá-los por 1 semana." },
+  { id: "falsificacao-perfeita", nome: "Falsificação Perfeita", trilhaA: "maos", trilhaB: "mascara",
+    descricao: "O que suas mãos criam, sua face convence. Documentos, moedas, selos, obras de arte — tudo sai impecável, e você sabe exatamente como apresentá-los para que ninguém duvide.",
+    combate: "Ação bônus: cria um truque mecânico-ilusório com material improvisado (fumaça, brilho, som). Escolha: (a) cega criatura a 9m até o fim do próximo turno dela, (b) cria 3m de escuridão, ou (c) faz uma criatura acreditar que você está em outro lugar (Intuição CD 8+prof+Int para desacreditar). Usável mod. Inteligência vezes por combate.",
+    foraCombate: "Você forja qualquer documento, moeda, selo ou obra de arte em 1 hora, desde que tenha visto um exemplo. A falsificação é tão perfeita que apenas magia de nível 3+ ou alguém que conhece o original pessoalmente pode identificar. Também pode falsificar sua identidade por completo em 1 dia — CD 20 para desmascarar." },
+  { id: "contrabando", nome: "O Contrabando", trilhaA: "mascara", trilhaB: "margem",
+    descricao: "Há coisas que precisam atravessar fronteiras — objetos, pessoas, verdades. Você é a ponte. Sua máscara abre portas que a lei fecha, e sua margem te dá rotas que ninguém vigia.",
+    combate: "Reação ao ser alvo de um ataque: você troca de posição com um objeto ou aliado a até 3m (você estava 'carregando' ele o tempo todo). O ataque atinge o que você deixou no lugar. 1/combate. Além disso, pode esconder qualquer objeto pequeno em si mesmo; ninguém o encontra sem revista completa.",
+    foraCombate: "Você transporta itens ou pessoas através de qualquer fronteira, checkpoint ou área vigiada sem ser detectado — desde que tenha 10 minutos para preparar. Conhece rotas de contrabando em qualquer cidade: onde entrar, onde sair, quem suborna, quem entrega. 1/sessão: 'sumir' com um objeto (tamanho médio) por 1 dia, escondido em local que só você sabe." },
+  { id: "vazio-silencioso", nome: "O Vazio Silencioso", trilhaA: "margem", trilhaB: "silencio",
+    descricao: "A margem ensina a ficar fora dos olhos. O silêncio ensina a ficar fora da mente. Juntos, você se torna o espaço onde nada acontece — até acontecer.",
+    combate: "Você pode se tornar invisível e inaudível para todas as criaturas por 1 rodada como ação bônus (não é magia — é presença tão apagada que o mundo te ignora). Enquanto nesse estado, seu próximo ataque tem vantagem e causa +2d6 de dano se você estiver sozinho contra o alvo. Usável mod. Sabedoria vezes por combate.",
+    foraCombate: "Você pode passar 1 hora em qualquer ambiente sem deixar vestígio: nem pegadas, nem cheiro, nem memória. Pessoas que te viram esquecem seu rosto em 10 minutos (a menos que magia). Pode dormir em qualquer lugar sem ser notado, e ninguém pode te rastrear por meios mundanos." },
+  { id: "cacador-paciente", nome: "O Caçador Paciente", trilhaA: "silencio", trilhaB: "instinto",
+    descricao: "A mente quieta vê o que o olho agitado perde. Você se move como um animal, pensa como um eremita, espera como a pedra. Quando age, é tarde demais para quem está do outro lado.",
+    combate: "Ação bônus: entre em Estado de Caça. Enquanto durar (até fim da cena), você tem vantagem em Percepção e +2 em Iniciativa, e cada ataque seu contra criatura que ainda não te viu causa +1d8 de dano. Se passar 1 rodada inteira sem atacar, no próximo turno seus ataques ignoram resistências do alvo escolhido.",
+    foraCombate: "Você pode rastrear qualquer criatura que tenha passado por um local nas últimas 48h, com precisão de 100m. Também pode ficar imóvel por horas em posição de espreita sem sofrer penalidade, e percebe qualquer criatura que se aproximar em 30m mesmo dormindo." },
+  { id: "brado-selvagem", nome: "O Brado Selvagem", trilhaA: "instinto", trilhaB: "voz",
+    descricao: "Nem todo comando vem da corte. O grito que une uma tribo, o uivo que faz o inimigo hesitar — isso é sua voz. Você fala a língua que o corpo entende antes da mente.",
+    combate: "Ação bônus: solta um brado. Todos os aliados a 18m ganham +2 em ataques e +1d6 de dano até o início do seu próximo turno. Inimigos a 9m devem passar em Sabedoria (CD 8+prof+Car) ou ficam amedrontados por 1 rodada (não podem se aproximar de você). Usável mod. Carisma vezes por combate.",
+    foraCombate: "Você pode comunicar ideias complexas a qualquer criatura que tenha instinto (animais, bestas, monstros não-intelectuais) — não é falar, é fazer o corpo e o tom entenderem. Isso inclui acalmar, intimidar ou convocar animais selvagens. Também pode inspirar uma multidão a agir em 1 minuto de discurso: eles ganham vantagem em um teste coletivo à sua escolha." },
+  { id: "lider-tempestade", nome: "O Líder da Tempestade", trilhaA: "voz", trilhaB: "mare",
+    descricao: "Você não lidera apesar do caos — você lidera dentro dele. Sua voz se adapta como a água, contorna a resistência, encontra a fenda. Em qualquer crise, é você quem respira primeiro.",
+    combate: "Ação: Redemoinho de Comando. Até 6 aliados que podem te ouvir ganham +2 CA, +2 em testes de resistência e podem se mover 3m imediatamente como reação, sem provocar ataques de oportunidade. Dura até o início do seu próximo turno. 1/combate. Se um aliado usar esse movimento para flanquear, o próximo ataque dele tem vantagem.",
+    foraCombate: "Você pode assumir o comando de qualquer grupo em crise (naufrágio, incêndio, motim, evacuação). Em 1 minuto, organiza até 20 pessoas, define funções e coordena uma ação coletiva sem testes — a operação funciona, a menos que haja sabotagem ativa. Também pode ler o clima emocional de qualquer grupo em 10 minutos e saber exatamente quem está prestes a quebrar." },
+  { id: "timoneiro", nome: "O Timoneiro", trilhaA: "mare", trilhaB: "tabuleiro",
+    descricao: "Você vê o tabuleiro em movimento. Enquanto outros traçam planos rígidos, você navega — ajusta, cede, avança. A vitória não é a jogada perfeita; é a jogada que se adapta.",
+    combate: "Ação bônus: escolha um ponto no campo de batalha (até 18m). Até o fim do seu próximo turno, qualquer aliado nesse ponto tem +2 CA, +2 em ataques e vantagem em testes de resistência. Se o inimigo se mover para lá, sofre 2d6 de dano (você 'leu' o movimento dele). Usável mod. Inteligência vezes por combate.",
+    foraCombate: "Você pode replanejar qualquer operação em 10 minutos. Se um plano estiver falhando (negociação, infiltração, viagem), você pode substituir o plano por um novo que tenha pensado — e o grupo inteiro se adapta sem quebra. 1/dia. Além disso, sempre sabe a rota mais rápida e segura entre dois pontos, seja no mar, na terra ou na política." },
+  { id: "estrategista-erudito", nome: "O Estrategista Erudito", trilhaA: "tabuleiro", trilhaB: "pagina",
+    descricao: "Você leu sobre isso. Depois leu sobre o que veio antes. Depois escreveu sobre isso. Todo campo de batalha é uma biblioteca, todo inimigo é um livro aberto — e você já leu o índice.",
+    combate: "Ação bônus: faça um teste de Investigação (CD 15) contra criatura visível. Se passar, até o fim da cena, seus ataques e os de aliados que você instruir (ação bônus no turno deles) ignoram resistências e imunidades da criatura. Além disso, 1/combate, você pode prever um ataque: quando uma criatura declara ataque contra você ou aliado a 9m, você pode anulá-lo (a criatura 'repensa' e escolhe outro alvo ou desiste).",
+    foraCombate: "Você pode estudar qualquer tema por 1 hora e se tornar proficiente nele até o próximo descanso longo — desde idiomas antigos até táticas militares, leis, venenos, história local. Durante esse período, seus testes com esse conhecimento têm vantagem. Também pode escrever um tratado curto (1 dia) que concede a qualquer leitor um bônus permanente de +1 em uma perícia à sua escolha." },
+  { id: "duelista-estudioso", nome: "O Duelista Estudioso", trilhaA: "pagina", trilhaB: "lamina",
+    descricao: "Você lê sobre a morte antes de causá-la. Cada golpe seu é uma citação, cada defesa é uma nota de rodapé. A lâmina é sua caneta; o campo, seu papel.",
+    combate: "Ação bônus: faça um teste de História, Investigação ou Percepção (CD 14). Se passar, você aprende a guarda do inimigo e escolhe um efeito por 1 rodada: (a) seus ataques contra ele têm vantagem e causam +2d6 de dano; (b) você anula um ataque dele por turno; ou (c) você pode redirecionar o próximo ataque dele para outra criatura à escolha. Usável mod. Inteligência vezes por combate.",
+    foraCombate: "Você pode analisar qualquer luta que tenha visto (ao vivo ou descrita) e extrair uma técnica: em 1 dia de treino, você e até 3 aliados ganham +1 em ataques com a arma usada na luta analisada, permanentemente. Também pode identificar a origem e o estilo de qualquer guerreiro apenas observando-o lutar por 1 rodada." },
+  { id: "guarda-urbano", nome: "O Guarda Urbano", trilhaA: "lamina", trilhaB: "telhado",
+    descricao: "Você protege a cidade que conhece. Cada beco é uma posição defensiva, cada telhado é uma torre. O crime não passa por onde você está — e se passar, não volta.",
+    combate: "Enquanto estiver em ambiente urbano (ruas, becos, telhados, interiores), você ganha +2 CA e +1d6 em ataques contra qualquer criatura que tenha atacado um aliado ou civil nesta cena. Você pode usar ação bônus para interpor-se: qualquer aliado a 3m ganha +3 CA contra ataques até o início do seu próximo turno. Se um civil ou aliado a 9m for reduzido a 0 PV, você pode reagir e mover-se até ele (mesmo sem deslocamento) e atacar o agressor imediatamente.",
+    foraCombate: "Você conhece qualquer cidade como se tivesse nascido nela após 1 dia de exploração: rotas, esconderijos, guildas, autoridades corruptas, pontos cegos. Pode organizar uma milícia civil em 1 dia (até 30 pessoas treinadas com stats de Guarda) que protege um bairro por 1 semana. 1/sessão: pode impedir um crime que ainda não aconteceu — porque você estava no lugar certo, na hora certa." },
+  { id: "andarilho-fronteiras", nome: "O Andarilho das Fronteiras", trilhaA: "telhado", trilhaB: "horizonte",
+    descricao: "Você não pertence nem à cidade nem à selva — pertence às bordas entre elas. As muralhas, as estradas esquecidas, os portões que ninguém vigia. Você conhece os dois mundos e não deve lealdade a nenhum.",
+    combate: "Você ignora terreno difícil de qualquer tipo (urbano ou selvagem) e pode usar ação bônus para atravessar 6m por qualquer rota, incluindo vertical (muros, árvores, telhados). Se estiver em uma fronteira (entre cidade e natureza), você tem +2 CA e +1d6 em ataques. Inimigos que tentam te seguir por terreno difícil ficam reduzidos à metade do deslocamento naquele turno.",
+    foraCombate: "Você pode atravessar qualquer fronteira — muralhas, rios, montanhas, fronteiras políticas — sem ser parado, testado ou interrogado, desde que esteja sozinho ou com até 3 aliados. Também pode encontrar uma passagem secreta entre dois pontos quaisquer em 1 hora de busca (a critério do mestre, mas sempre existe uma). 1/sessão: pode desaparecer de um lugar e reaparecer em outro dentro da mesma região — como se o mundo tivesse uma porta dos fundos." },
+  { id: "naturalista-alquimico", nome: "O Naturalista Alquímico", trilhaA: "horizonte", trilhaB: "cadinho",
+    descricao: "Você transforma o que encontra em algo que nunca existiu. A floresta é seu laboratório, a estrada é sua bancada. Cada planta, cada mineral, cada inseto é um reagente esperando propósito.",
+    combate: "Você carrega 3 reagentes instáveis preparados durante descansos. Como ação, pode arremessá-los: (a) Ácido Natural: 3d6 de dano em área 3m, CD 14 metade; (b) Veneno Paralisante: alvo faz Constituição (CD 14) ou fica paralisado 1 rodada; (c) Cura Selvagem: aliado a 9m recupera 3d8 PV e vantagem contra veneno por 1h. Você pode preparar 1 reagente por descanso curto em qualquer ambiente natural.",
+    foraCombate: "Você pode identificar qualquer planta, mineral ou criatura natural em 1 minuto, sabendo suas propriedades, venenos e usos. Pode criar antídotos e curas para qualquer doença ou veneno natural em 1h, desde que tenha os ingredientes. Também pode transformar material natural em outro de valor equivalente em 1 dia (chumbo em prata, madeira em carvão, pedra em vidro) — não é mágico, é alquímico." },
+  { id: "pocao-equilibrio", nome: "A Poção do Equilíbrio", trilhaA: "cadinho", trilhaB: "fio",
+    descricao: "Você destila o próprio corpo. Cada movimento seu é química, cada respiração é cálculo. Você não fica mais forte — fica mais preciso, mais rápido, mais impossível de derrubar.",
+    combate: "Ação bônus: beba uma poção destilada de si mesmo (criada durante descanso curto, sem custo). Escolha um efeito por 1d4 rodadas: (a) +3m de deslocamento e +2 CA; (b) vantagem em Acrobacia e Destreza e ignora terreno difícil; (c) +2 em ataques e +1d6 de dano. Se você sofrer dano enquanto o efeito estiver ativo, ele persiste (não é interrompido). Você pode preparar mod. Constituição poções por descanso longo.",
+    foraCombate: "Você pode alterar temporariamente seu corpo com uma dose: escolha por 1h — respirar na água, suportar frio/calor extremo, ou não precisar dormir. Também pode destilar um veneno ou droga em 1h a partir de qualquer substância ingerida, criando uma versão concentrada que dura 1 semana. Seus frascos nunca quebram por acidente." },
+  { id: "saltimbanco-andarilho", nome: "O Saltimbanco Andarilho", trilhaA: "fio", trilhaB: "estrada",
+    descricao: "A estrada é seu palco, o fio é seu chão. Você dança sobre o mundo como se ele fosse feito para isso. Cada cidade é um novo show; cada jornada, um novo número.",
+    combate: "Ação bônus: entre em Estado de Performance. Enquanto durar (até o fim da cena), você pode se mover 3m após cada ataque seu (mesmo se errou), sem provocar ataques de oportunidade. Se você se mover para uma posição elevada ou diferente (telhado, mesa, corda), seu próximo ataque tem vantagem e +2d6 de dano. Usável mod. Destreza vezes por combate.",
+    foraCombate: "Você pode se apresentar em qualquer lugar: em 10 minutos, reúne uma plateia e ganha 1d4×10 PO por apresentação (ou o equivalente em favores, informações, hospedagem). Pode ensinar truques de acrobacia a qualquer aliado em 1 dia: eles ganham proficiência em Acrobacia e +1,5m de deslocamento permanentemente. 1/sessão: pode fazer um número impossível (malabarismo com facas, equilíbrio extremo, salto sobre abismo) que deixa todos que assistem fascinados por 1 minuto — tempo suficiente para qualquer coisa." },
+  { id: "peregrino-sagrado", nome: "O Peregrino Sagrado", trilhaA: "estrada", trilhaB: "altar",
+    descricao: "Para você, a estrada é templo. Cada passo é prece, cada horizonte é revelação. Você não viaja para chegar — viaja para se tornar. E cada lugar que visita deixa uma marca sagrada em você.",
+    combate: "Reação ao sofrer dano: você pode invocar a lembrança de um lugar sagrado que visitou. Escolha um efeito imediato: (a) cura 3d8 PV em si mesmo; (b) anula completamente o dano e o efeito da fonte (uma vez por combate); (c) teletransporta você e até 1 aliado a 9m para qualquer lugar a 18m que você já tenha visto nesta cena. Usável mod. Sabedoria vezes por dia.",
+    foraCombate: "Você pode consagrar qualquer lugar com 1h de ritual: uma casa, uma encruzilhada, uma ruína, uma clareira. O lugar se torna sagrado para você e para quem você permitir: criaturas hostis não podem entrar (teste de Sabedoria CD 20), aliados curam 1 Dado de Vida extra ali, e você sempre sabe quando algo ameaça o lugar. Pode manter até 5 lugares sagrados ao mesmo tempo. Além disso, pode fazer uma peregrinação: em 3 dias de viagem a um lugar sagrado, você ganha uma revelação — o mestre responde uma pergunta verdadeira sobre o mundo." }
+];
+
+// ===================================================================
+// SISTEMA DE PONTOS
+// ===================================================================
+const pontosPorNivel = [0,2,5,8,13,17,21,25,31,35,39,43,49,53,57,61,67,71,75,81,88];
+const custoPorNivel = [0,1,3,6,10,15];
+const custoAcumuladoNivel = [0,1,4,10,20,35];
+const custoIntermediario = 7;
+
+let nosComprados = new Set();
+let origemAtual = null;
+let nivelPersonagem = 1;
+
+// ===================================================================
+// POSICIONAMENTO
+// ===================================================================
+const numTrilhas = trilhasData.length;
+const anguloStep = (2 * Math.PI) / numTrilhas;
+const raioBase = 180, raioStep = 140, cx = 1000, cy = 1000;
+const width = 2000, height = 2000;
+
+const nodePositions = {};
+trilhasData.forEach((trilha, idx) => {
+  const angulo = idx * anguloStep - Math.PI/2;
+  trilha.nos.forEach((no, nivelIdx) => {
+    const nivel = nivelIdx + 1;
+    const raio = raioBase + (nivel-1) * raioStep;
+    nodePositions[`${trilha.id}-${nivel}`] = {
+      x: cx + raio * Math.cos(angulo),
+      y: cy + raio * Math.sin(angulo)
+    };
+  });
+});
+
+const intermediariosPos = [];
+intermediariosData.forEach(inter => {
+  const i = trilhasData.findIndex(t => t.id === inter.trilhaA);
+  const j = trilhasData.findIndex(t => t.id === inter.trilhaB);
+  let angA = i * anguloStep - Math.PI/2;
+  let angB = j * anguloStep - Math.PI/2;
+  if (Math.abs(angA - angB) > Math.PI) {
+    if (angA > angB) angA -= 2*Math.PI; else angB -= 2*Math.PI;
+  }
+  const anguloMedio = (angA + angB) / 2;
+  const raio = raioBase + 2 * raioStep;
+  intermediariosPos.push({
+    ...inter,
+    x: cx + raio * Math.cos(anguloMedio),
+    y: cy + raio * Math.sin(anguloMedio)
+  });
+});
+
+// ===================================================================
+// RENDERIZAÇÃO
+// ===================================================================
+const svg = d3.select("#viz").append("svg")
+  .attr("viewBox", `0 0 ${width} ${height}`)
+  .attr("preserveAspectRatio", "xMidYMid meet")
+  .style("width", "100%").style("height", "auto");
+
+const g = svg.append("g");
+g.append("rect")
+  .attr("width", width).attr("height", height)
+  .attr("fill", "#141414").attr("rx", 18);
+
+trilhasData.forEach(trilha => {
+  for (let i = 0; i < 4; i++) {
+    const from = nodePositions[`${trilha.id}-${i+1}`];
+    const to = nodePositions[`${trilha.id}-${i+2}`];
+    if (from && to) {
+      g.append("line")
+        .attr("x1", from.x).attr("y1", from.y)
+        .attr("x2", to.x).attr("y2", to.y)
+        .attr("stroke", trilha.cor).attr("opacity", 0.5)
+        .attr("stroke-width", 2.5).attr("stroke-linecap", "round");
+    }
+  }
+});
+
+intermediariosPos.forEach(inter => {
+  [nodePositions[`${inter.trilhaA}-3`], nodePositions[`${inter.trilhaB}-3`]].forEach(pos => {
+    if (pos) {
+      g.append("line")
+        .attr("x1", inter.x).attr("y1", inter.y)
+        .attr("x2", pos.x).attr("y2", pos.y)
+        .attr("stroke", "#777").attr("opacity", 0.4)
+        .attr("stroke-width", 1.5).attr("stroke-dasharray", "5,5");
+    }
+  });
+});
+
+trilhasData.forEach((trilha, idx) => {
+  const angulo = idx * anguloStep - Math.PI/2;
+  const raioLabel = raioBase + 5 * raioStep + 60;
+  g.append("text")
+    .attr("x", cx + raioLabel * Math.cos(angulo))
+    .attr("y", cy + raioLabel * Math.sin(angulo))
+    .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+    .style("fill", trilha.cor).style("font-size", "14px")
+    .style("font-weight", "700").style("letter-spacing", "0.3px")
+    .style("opacity", 0.95).style("text-shadow", "0 2px 8px rgba(0,0,0,0.8)")
+    .text(trilha.nome);
+});
+
+const todosNos = [];
+trilhasData.forEach(trilha => {
+  trilha.nos.forEach((no, nivelIdx) => {
+    const nivel = nivelIdx + 1;
+    const pos = nodePositions[`${trilha.id}-${nivel}`];
+    todosNos.push({
+      _id: `${trilha.id}-nv${nivel}`,
+      tipo: "habilidade",
+      trilhaId: trilha.id, trilhaNome: trilha.nome, trilhaCor: trilha.cor,
+      trilhaDescricao: trilha.descricao, pacoteOrigem: trilha.pacoteOrigem,
+      nome: no.nome, nivel, x: pos.x, y: pos.y,
+      combate: no.combate, foraCombate: no.foraCombate,
+      custo: custoPorNivel[nivel],
+      custoAcumulado: custoAcumuladoNivel[nivel]
+    });
+  });
+});
+
+intermediariosPos.forEach(inter => {
+  const tA = trilhasData.find(t => t.id === inter.trilhaA);
+  const tB = trilhasData.find(t => t.id === inter.trilhaB);
+  todosNos.push({
+    _id: `inter-${inter.id}`,
+    tipo: "intermediario", nome: inter.nome, nivel: 3,
+    x: inter.x, y: inter.y,
+    trilhaA: tA.nome, trilhaB: tB.nome,
+    trilhaAId: tA.id, trilhaBId: tB.id,
+    combate: inter.combate, foraCombate: inter.foraCombate, descricao: inter.descricao,
+    custo: custoIntermediario, custoAcumulado: null
+  });
+});
+
+const nodeGroups = g.selectAll("g.node-group")
+  .data(todosNos).enter().append("g")
+  .attr("class", "node-group")
+  .attr("data-id", d => d._id)
+  .on("click", (event, d) => abrirModal(d));
+
+nodeGroups.filter(d => d.tipo === "habilidade" && d.nivel === 1)
+  .append("circle")
+  .attr("class", "origem-ring")
+  .attr("cx", d => d.x).attr("cy", d => d.y)
+  .attr("r", d => 22 + d.nivel * 2 + 6)
+  .attr("stroke", d => d.trilhaCor);
+
+nodeGroups.filter(d => d.tipo === "habilidade")
+  .append("circle")
+  .attr("class", "node-circle")
+  .attr("cx", d => d.x).attr("cy", d => d.y)
+  .attr("r", d => 22 + d.nivel * 2)
+  .attr("fill", d => d.trilhaCor);
+
+nodeGroups.filter(d => d.tipo === "intermediario")
+  .append("polygon")
+  .attr("class", "intersection-node")
+  .attr("points", d => {
+    const r = 26;
+    return `${d.x},${d.y-r} ${d.x+r},${d.y} ${d.x},${d.y+r} ${d.x-r},${d.y}`;
+  })
+  .attr("fill", "#bbb");
+
+nodeGroups.append("text")
+  .attr("class", "node-text")
+  .attr("x", d => d.x)
+  .attr("y", d => d.y + (d.tipo === "intermediario" ? 40 : 0))
+  .text(d => {
+    let label = d.nome;
+    if (label.length > 18) label = label.slice(0,16) + "…";
+    return label;
+  })
+  .style("font-size", "10px")
+  .style("font-weight", d => d.tipo === "intermediario" ? "600" : "500");
+
+// ===================================================================
+// HELPERS
+// ===================================================================
+function getAnteriorNode(node) {
+  if (node.tipo !== "habilidade" || node.nivel === 1) return null;
+  const id = `${node.trilhaId}-nv${node.nivel - 1}`;
+  return todosNos.find(n => n._id === id);
+}
+
+// ===================================================================
+// LÓGICA DE COMPRA
+// ===================================================================
+function pontosDisponiveis() { return pontosPorNivel[nivelPersonagem]; }
+
+function pontosGastos() {
+  let total = 0;
+  nosComprados.forEach(id => {
+    if (id === origemAtual) return;
+    const node = todosNos.find(n => n._id === id);
+    if (node) total += node.custo;
+  });
+  return total;
+}
+
+function temPreRequisito(node) {
+  if (node.tipo === "habilidade") {
+    if (node.nivel === 1) return true;
+    const anterior = getAnteriorNode(node);
+    return anterior ? nosComprados.has(anterior._id) : false;
+  } else {
+    const naA = [...nosComprados].some(id => id.startsWith(node.trilhaAId + "-nv"));
+    const naB = [...nosComprados].some(id => id.startsWith(node.trilhaBId + "-nv"));
+    return naA || naB;
+  }
+}
+
+function podeComprar(node) {
+  if (nosComprados.has(node._id)) return { ok: false, motivo: "Já comprado." };
+  if (!temPreRequisito(node)) {
+    if (node.tipo === "habilidade") {
+      const anterior = getAnteriorNode(node);
+      if (anterior) {
+        return { ok: false, motivo: `Precisa ter comprado ${anterior.nome} · ${node.trilhaNome} Nível ${node.nivel - 1}.` };
+      }
+      return { ok: false, motivo: `Precisa do nó anterior desta trilha.` };
+    }
+    return { ok: false, motivo: `Precisa de 1 nó em ${node.trilhaA} ou ${node.trilhaB}.` };
+  }
+  const disponivel = pontosDisponiveis() - pontosGastos();
+  if (node.custo > disponivel) return { ok: false, motivo: `Pontos insuficientes (faltam ${node.custo - disponivel}).` };
+  return { ok: true };
+}
+
+function podeReembolsar(node) {
+  if (!nosComprados.has(node._id)) return { ok: false, motivo: "Não foi comprado." };
+  if (node.tipo === "intermediario") return { ok: true };
+  if (node.nivel < 5 && nosComprados.has(`${node.trilhaId}-nv${node.nivel + 1}`)) {
+    return { ok: false, motivo: `Bloqueado: Nível ${node.nivel + 1} depende deste nó.` };
+  }
+  return { ok: true };
+}
+
+function comprarNo(node) {
+  const check = podeComprar(node);
+  if (!check.ok) return check;
+  nosComprados.add(node._id);
+  atualizarTudo();
+  return { ok: true, msg: `Comprado: ${node.nome}` };
+}
+
+function reembolsarNo(node) {
+  const check = podeReembolsar(node);
+  if (!check.ok) return check;
+  nosComprados.delete(node._id);
+  if (origemAtual === node._id) origemAtual = null;
+  atualizarTudo();
+  return { ok: true, msg: `Reembolsado: ${node.nome}` };
+}
+
+function definirOrigem(node) {
+  if (node.tipo !== "habilidade" || node.nivel !== 1)
+    return { ok: false, motivo: "Só nós de nível 1 podem ser Origem." };
+  if (!nosComprados.has(node._id)) nosComprados.add(node._id);
+  origemAtual = node._id;
+  atualizarTudo();
+  return { ok: true, msg: `${node.nome} definido como Trilha de Origem.` };
+}
+
+function resetar() {
+  if (!confirm("Tem certeza que deseja resetar todos os nós comprados?")) return;
+  nosComprados.clear();
+  origemAtual = null;
+  atualizarTudo();
+}
+
+function atualizarTudo() {
+  atualizarBarra();
+  atualizarVisual();
+  if (modal.classList.contains("active") && noAtualModal) {
+    atualizarBotoesModal(noAtualModal);
+  }
+}
+
+function atualizarBarra() {
+  const disp = pontosDisponiveis();
+  const gasto = pontosGastos();
+  const rest = disp - gasto;
+  document.getElementById("ptDisponivel").textContent = disp;
+  document.getElementById("ptGasto").textContent = gasto;
+  document.getElementById("ptRestante").textContent = rest;
+  document.getElementById("ptRestanteBox").classList.toggle("negativo", rest < 0);
+
+  const origemEl = document.getElementById("origemNome");
+  if (origemAtual) {
+    const node = todosNos.find(n => n._id === origemAtual);
+    if (node) {
+      origemEl.textContent = node.trilhaNome;
+      origemEl.classList.remove("vazio");
+    }
+  } else {
+    origemEl.textContent = "— nenhuma —";
+    origemEl.classList.add("vazio");
+  }
+}
+
+function atualizarVisual() {
+  nodeGroups.each(function(d) {
+    const el = d3.select(this);
+    el.classed("comprado", nosComprados.has(d._id));
+    el.classed("origem", origemAtual === d._id);
+  });
+}
+
+// ===================================================================
+// SELECTOR DE NÍVEL
+// ===================================================================
+const nivelSelect = document.getElementById("nivelSelect");
+for (let i = 1; i <= 20; i++) {
+  const opt = document.createElement("option");
+  opt.value = i;
+  opt.textContent = `${i} (${pontosPorNivel[i]} pts)`;
+  nivelSelect.appendChild(opt);
+}
+nivelSelect.value = 1;
+nivelSelect.addEventListener("change", (e) => {
+  nivelPersonagem = parseInt(e.target.value);
+  atualizarBarra();
+});
+document.getElementById("btnReset").addEventListener("click", resetar);
+
+// ===================================================================
+// MODAL
+// ===================================================================
+const modal = document.getElementById("modal");
+const modalClose = document.getElementById("modalClose");
+const modalTitle = document.getElementById("modalTitle");
+const modalSub = document.getElementById("modalSub");
+const modalPacoteSection = document.getElementById("modalPacoteSection");
+const pacotePericia = document.getElementById("pacotePericia");
+const pacoteFerramenta = document.getElementById("pacoteFerramenta");
+const pacoteItem = document.getElementById("pacoteItem");
+const modalCombate = document.getElementById("modalCombate");
+const modalFora = document.getElementById("modalFora");
+const modalPrereq = document.getElementById("modalPrereq");
+const modalTrilhaDesc = document.getElementById("modalTrilhaDesc");
+const modalMsg = document.getElementById("modalMsg");
+const custoNo = document.getElementById("custoNo");
+const custoAcum = document.getElementById("custoAcum");
+const custoAcumBox = document.getElementById("custoAcumBox");
+const btnComprar = document.getElementById("btnComprar");
+const btnOrigem = document.getElementById("btnOrigem");
+
+let noAtualModal = null;
+
+function abrirModal(d) {
+  noAtualModal = d;
+  modalMsg.textContent = "";
+  modalMsg.className = "modal-msg";
+
+  if (d.tipo === "habilidade") {
+    modalTitle.textContent = d.nome;
+    modalSub.textContent = `${d.trilhaNome} · Nível ${d.nivel}`;
+    modalSub.style.background = d.trilhaCor;
+    modalSub.style.color = "#111";
+
+    if (d.nivel === 1 && d.pacoteOrigem) {
+      modalPacoteSection.style.display = "block";
+      pacotePericia.textContent = d.pacoteOrigem.pericia;
+      pacoteFerramenta.textContent = d.pacoteOrigem.ferramenta;
+      pacoteItem.textContent = d.pacoteOrigem.item;
+    } else {
+      modalPacoteSection.style.display = "none";
+    }
+
+    custoNo.textContent = `${d.custo} pts`;
+    custoAcumBox.style.display = "flex";
+    custoAcum.innerHTML = `${d.custoAcumulado} pts <span class="acum-sub">(total na trilha)</span>`;
+
+    if (d.nivel === 1) {
+      modalPrereq.innerHTML = "<strong>Pré-requisito:</strong> nenhum. <br><em>Se esta for sua <strong>Trilha de Origem</strong>, o nó é gratuito e você também recebe o Pacote de Origem.</em>";
+    } else {
+      const anterior = getAnteriorNode(d);
+      const nomeAnterior = anterior ? anterior.nome : "nó anterior";
+      modalPrereq.innerHTML = `<strong>Pré-requisito:</strong> ter comprado <em>${nomeAnterior} · ${d.trilhaNome} Nível ${d.nivel - 1}</em>.`;
+    }
+  } else {
+    modalTitle.textContent = d.nome;
+    modalSub.textContent = `Nó intermediário · Custo ${custoIntermediario} pts`;
+    modalSub.style.background = "#444";
+    modalSub.style.color = "#eee";
+    modalPacoteSection.style.display = "none";
+    custoNo.textContent = `${custoIntermediario} pts`;
+    custoAcumBox.style.display = "none";
+    modalPrereq.innerHTML = `<strong>Acesso:</strong> ter pelo menos <em>1 nó</em> em <em>${d.trilhaA}</em> <strong>ou</strong> <em>${d.trilhaB}</em>.`;
+  }
+
+  modalCombate.textContent = d.combate;
+  modalFora.textContent = d.foraCombate;
+  modalTrilhaDesc.textContent = d.tipo === "habilidade" ? d.trilhaDescricao : d.descricao;
+  modalTrilhaDesc.style.borderLeftColor = d.tipo === "habilidade" ? d.trilhaCor : "#888";
+
+  atualizarBotoesModal(d);
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function atualizarBotoesModal(d) {
+  const comprado = nosComprados.has(d._id);
+  const isOrigem = origemAtual === d._id;
+
+  if (comprado) {
+    btnComprar.textContent = isOrigem ? "Remover Origem" : `Reembolsar (+${d.custo} pts)`;
+    btnComprar.className = "btn-reembolsar";
+    btnComprar.disabled = false;
+    btnComprar.dataset.acao = "reembolsar";
+  } else {
+    const check = podeComprar(d);
+    btnComprar.textContent = `Comprar (${d.custo} pts)`;
+    btnComprar.className = "btn-comprar";
+    btnComprar.disabled = !check.ok;
+    btnComprar.dataset.acao = "comprar";
+    if (!check.ok && modalMsg.textContent === "") modalMsg.textContent = check.motivo;
+  }
+
+  if (d.tipo === "habilidade" && d.nivel === 1) {
+    btnOrigem.style.display = "block";
+    if (isOrigem) {
+      btnOrigem.textContent = "★ É sua Origem";
+      btnOrigem.disabled = true;
+    } else {
+      btnOrigem.textContent = "Definir como Origem (grátis)";
+      btnOrigem.disabled = false;
+    }
+  } else {
+    btnOrigem.style.display = "none";
+  }
+}
+
+btnComprar.addEventListener("click", () => {
+  if (!noAtualModal) return;
+  modalMsg.className = "modal-msg";
+  const acao = btnComprar.dataset.acao;
+  if (acao === "reembolsar") {
+    const res = reembolsarNo(noAtualModal);
+    modalMsg.textContent = res.ok ? res.msg : res.motivo;
+    if (res.ok) modalMsg.classList.add("ok");
+  } else {
+    const res = comprarNo(noAtualModal);
+    modalMsg.textContent = res.ok ? res.msg : res.motivo;
+    if (res.ok) modalMsg.classList.add("ok");
+  }
+});
+
+btnOrigem.addEventListener("click", () => {
+  if (!noAtualModal) return;
+  const res = definirOrigem(noAtualModal);
+  modalMsg.textContent = res.ok ? res.msg : res.motivo;
+  modalMsg.className = res.ok ? "modal-msg ok" : "modal-msg";
+});
+
+function fecharModal() {
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+  noAtualModal = null;
+}
+modalClose.addEventListener("click", fecharModal);
+modal.addEventListener("click", (e) => { if (e.target === modal) fecharModal(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharModal(); });
+
+// ===================================================================
+// ZOOM
+// ===================================================================
+const zoom = d3.zoom().scaleExtent([0.25, 3.5])
+  .on("zoom", (event) => { g.attr("transform", event.transform); });
+svg.call(zoom);
+
+// ===================================================================
+// LEGENDA
+// ===================================================================
+const legendDiv = document.getElementById("legend");
+trilhasData.forEach(t => {
+  const item = document.createElement("div");
+  item.className = "legend-item";
+  const dot = document.createElement("span");
+  dot.className = "legend-color";
+  dot.style.background = t.cor;
+  item.appendChild(dot);
+  const lbl = document.createElement("span");
+  lbl.textContent = t.nome;
+  item.appendChild(lbl);
+  legendDiv.appendChild(item);
+});
+[{ cls: "legend-origem", label: "Possível Origem" },
+ { cls: "legend-comprado", label: "Comprado" },
+ { cls: "legend-diamond", label: "Nó intermediário" }
+].forEach(({ cls, label }) => {
+  const item = document.createElement("div");
+  item.className = "legend-item";
+  const dot = document.createElement("span");
+  dot.className = cls;
+  item.appendChild(dot);
+  const lbl = document.createElement("span");
+  lbl.textContent = label;
+  item.appendChild(lbl);
+  legendDiv.appendChild(item);
+});
+
+atualizarBarra();
+atualizarVisual();
+console.log("✅ Trilhas carregadas!");
+</script>
+</body>
+</html>
