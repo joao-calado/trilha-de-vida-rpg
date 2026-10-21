@@ -105,7 +105,9 @@ Trilhas compradas depois dão apenas os nós — o pacote de identidade pertence
 
 ## O mapa interativo
 
-O arquivo `index.html` contém uma visualização radial construída com **D3.js**, com:
+A visualização radial é construída com **D3.js** e está dividida em três camadas: estrutura (`index.html`), estilos (`css/styles.css`) e lógica (`js/app.js`). Todo o conteúdo das trilhas vem de `assets/trilhas.json`, que funciona como fonte única de dados.
+
+O mapa oferece:
 
 - **Zoom** (roda do mouse) e **arraste** (clique e segure)
 - **Clique em qualquer nó** para ver:
@@ -131,9 +133,21 @@ Substitua `SEU-USUARIO` pelo seu nome de usuário do GitHub.
 
 ### Rodar localmente
 
-1. Baixe o arquivo `index.html`.
-2. Abra no navegador (duplo clique).
-3. Pronto — não precisa de servidor.
+Como o mapa carrega `assets/trilhas.json` via `fetch`, ele precisa ser servido por um servidor local — abrir o `index.html` direto do disco (`file://`) faz o navegador bloquear a leitura do JSON.
+
+Na pasta do projeto, execute:
+
+```bash
+python3 -m http.server 8000
+```
+
+Depois acesse:
+
+```
+http://localhost:8000
+```
+
+Qualquer servidor estático equivalente funciona (Live Server do VS Code, `npx serve`, etc.).
 
 ### Incorporar no Notion
 
@@ -147,12 +161,78 @@ Substitua `SEU-USUARIO` pelo seu nome de usuário do GitHub.
 
 ```
 trilhas-vida/
-├── index.html # Mapa interativo completo (HTML + CSS + JS + D3.js)
-└── README.md # Este arquivo
+├── index.html            # Estrutura da página
+├── css/
+│   └── styles.css        # Estilos da interface
+├── js/
+│   └── app.js            # Renderização do mapa e lógica de compra
+├── assets/
+│   └── trilhas.json      # Fonte de dados: trilhas, nós, custos e pontos
+└── README.md             # Este arquivo
 ```
 
+A única dependência externa é o **D3.js**, carregado via CDN. O JSON é lido em tempo de execução, então basta editá-lo para atualizar o mapa — não é preciso mexer no HTML, no CSS ou no JS.
 
-Tudo é **auto-contido** em um único arquivo HTML. Não há dependências locais além do D3.js (carregado via CDN).
+---
+
+## Fonte de dados (`assets/trilhas.json`)
+
+O arquivo é organizado em três blocos:
+
+```json
+{
+  "meta": {
+    "nome": "Trilhas de Vida",
+    "descricao": "Dados do sistema de progressão por trilhas para D&D 5e.",
+    "versao": 1
+  },
+  "sistema": {
+    "custoIntermediario": 7,
+    "pontosPorNivel": [0, 2, 5, 8, 13, 17, 21, 25, 31, 35, 39, 43, 49, 53, 57, 61, 67, 71, 75, 81, 88],
+    "custoPorNivel": [0, 1, 3, 6, 10, 15],
+    "custoAcumuladoNivel": [0, 1, 4, 10, 20, 35]
+  },
+  "trilhas": [
+    {
+      "id": "altar",
+      "nome": "O Altar Interior",
+      "cor": "#9B7BB8",
+      "descricao": "Texto de apresentação da trilha…",
+      "pacoteOrigem": {
+        "pericia": "Religião",
+        "ferramenta": "Kit de herbalismo",
+        "item": "Um símbolo sagrado gasto…"
+      },
+      "nos": [
+        {
+          "nome": "Sopro de Bênção",
+          "combate": "Efeito em combate…",
+          "foraCombate": "Efeito fora de combate…"
+        }
+      ]
+    }
+  ],
+  "intermediarios": [
+    {
+      "id": "reliquia-viva",
+      "nome": "Relíquia Viva",
+      "trilhaA": "altar",
+      "trilhaB": "maos",
+      "descricao": "Texto do nó intermediário…",
+      "combate": "Efeito em combate…",
+      "foraCombate": "Efeito fora de combate…"
+    }
+  ]
+}
+```
+
+- **`trilhas[].nos`** deve ter os 5 níveis em ordem (do nível 1 ao 5). O custo e o pré-requisito de cada nó são calculados a partir dessa posição.
+- **`trilhas[].id`** é o identificador usado nas conexões; os nós de nível 3 de cada trilha são ligados aos intermediários.
+- **`intermediarios[].trilhaA` / `trilhaB`** devem referenciar `id`s existentes em `trilhas`.
+- **`pontosPorNivel`** é indexado pelo nível do personagem (índice 0 a 20).
+- **`custoPorNivel`** e **`custoAcumuladoNivel`** são indexados pelo nível do nó (índice 0 a 5).
+
+Se o JSON estiver inválido ou algum `id` não existir, o mapa exibe uma mensagem de erro em vez de renderizar incompleto.
 
 ---
 
