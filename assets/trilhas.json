@@ -60,28 +60,28 @@
       "nos": [
         {
           "nome": "Sopro de Bênção",
-          "combate": "Como ação, abençoa um aliado em alcance curto: +1d4 em um teste de resistência à sua escolha até o fim do próximo turno dele. 1/descanso curto.",
-          "foraCombate": "Bênção simples (30s) sobre pessoa, objeto ou lugar. Por até 1 dia, emana paz sutil. NPCs devotos ou supersticiosos mudam de atitude para melhor."
+          "combate": "Como ação bônus, escolha um aliado visível a até 9m. Até o início do seu próximo turno, ele pode somar 1d4 a um teste de resistência, após rolar e antes de saber o resultado. 1/descanso curto ou longo.",
+          "foraCombate": "Após 1 minuto de bênção, você tem vantagem no próximo teste de Religião ou Persuasão feito em até 1 hora para consolar uma pessoa que aceite o ritual. Não muda crenças nem obriga cooperação."
         },
         {
           "nome": "Cheiro de Heresia",
-          "combate": "Reação ao ser atacado por criatura que você observou por 1 rodada: seu próximo ataque contra ela tem vantagem.",
-          "foraCombate": "Vantagem em Religião e Intuição contra disfarces, rituais corrompidos, mentiras sobre fé. Usa Sabedoria em vez de Carisma com quem compartilha sua fé."
+          "combate": "Reação ao ser atacado por criatura que você observou por 1 rodada: seu próximo ataque contra ela até o fim do seu próximo turno tem vantagem.",
+          "foraCombate": "Vantagem em Religião para reconhecer rituais corrompidos e em Intuição para perceber mentiras sobre fé. Usa Sabedoria em vez de Carisma em Persuasão sobre questões religiosas com quem compartilha sua fé."
         },
         {
           "nome": "Mãos que Vertem",
-          "combate": "1/descanso curto, ação: cura 1d8 + Sab em aliado a 9m. Se alvo abaixo de metade dos PV, sofre 1d4 psíquico e cura o dobro.",
-          "foraCombate": "10 min cuidando de alguém: a pessoa recupera 1 Dado de Vida extra no próximo descanso e ganha vantagem contra medo/doença por 1h."
+          "combate": "1/descanso curto ou longo, ação: cure PV iguais a 2d8 + seu modificador de Sabedoria em um aliado visível a 9m. Se o alvo estiver abaixo de metade dos PV máximos, você pode perder PV iguais ao seu bônus de proficiência para curar +1d8. Esse custo não pode ser reduzido nem deixar você com menos de 1 PV.",
+          "foraCombate": "Durante um descanso curto, cuide de até um número de criaturas igual ao seu bônus de proficiência. Cada uma soma seu bônus de proficiência aos PV recuperados ao gastar seu primeiro Dado de Vida nesse descanso. Uma criatura só recebe esse benefício uma vez por descanso."
         },
         {
           "nome": "Presença que Acalma",
-          "combate": "Ação bônus: aura 3m impõe desvantagem em ataques hostis contra aliados até o início do seu próximo turno. 1/descanso curto.",
-          "foraCombate": "Fora de combate, criaturas hostis precisam passar em Sabedoria (CD 8+prof+Sab) para iniciar violência. Vale para motins, brigas de taverna."
+          "combate": "Ação bônus: aura 3m impõe desvantagem em ataques hostis contra aliados dentro dela até o início do seu próximo turno. Não protege você. 2/descanso longo.",
+          "foraCombate": "Uma vez por descanso curto ou longo, fale por 1 minuto em uma briga de taverna ou motim civil a até 9m. Faça Persuasão com vantagem para obter uma trégua de 10 minutos entre quem entende você. A CD é definida pelo mestre conforme a hostilidade. A trégua termina para quem for atacado; não afeta combates militares, caçadas ou inimigos determinados a matar."
         },
         {
           "nome": "A Mão que Segura",
-          "combate": "Reação: você ou aliado a 9m reduzido a 0 PV → role 1d20. Com 10+, dano cai à metade e alvo fica com 1 PV. 1/descanso longo.",
-          "foraCombate": "1/descanso longo: ritual de 1h consagra lugar (casa, clareira, sala) por 1 semana. Criaturas dentro têm vantagem contra medo e encantamento."
+          "combate": "Reação: quando você ou um aliado visível a até 9m seria reduzido a 0 PV (mas não morto instantaneamente), o alvo fica com 1 PV e ganha PV temporários iguais a 2 × seu bônus de proficiência. 1/descanso longo.",
+          "foraCombate": "Ritual de 1 hora consagra um lugar (casa, clareira, sala) de até 9m de raio por 1 semana. Durante descansos ali, você e até 6 convidados têm vantagem contra medo e encantamento. Uma vez por descanso longo, cada um pode recuperar 1 Dado de Vida gasto ao concluir um descanso curto ali. Só é possível manter um lugar consagrado."
         }
       ]
     },
@@ -98,28 +98,28 @@
       "nos": [
         {
           "nome": "Toque de Ofício",
-          "combate": "Ação bônus: analisa arma, armadura ou escudo visível. Sabe dano/CA, se é mágico, e se tem falha estrutural.",
-          "foraCombate": "Proficiência em uma ferramenta de artesão. Teste rápido de Ofício (CD 10) repara, ajusta ou improvisa algo pequeno."
-        },
-        {
-          "nome": "Reforço Vivo",
-          "combate": "1 min de trabalho: +1 Durabilidade temporária em escudo/armadura até próximo descanso. 1/descanso curto. Se você criou a armadura, +2.",
-          "foraCombate": "Conserta qualquer objeto não-mágico quebrado em 10 min (fechaduras, cordas, rodas, instrumentos)."
+          "combate": "Ação bônus: observe uma criatura visível a até 9m e avalie o equipamento dela. Você descobre a CA dela e o bônus de ataque dela com a arma que empunha, além do tipo, material aparente e desgaste do item, e pode comunicar isso aos aliados até o fim do seu próximo turno. Manuseando uma arma, armadura ou escudo por 1 minuto, você sabe se é mágico, mas não suas propriedades.",
+          "foraCombate": "Proficiência em uma ferramenta de artesão; se já tiver, escolha outra. Com ferramentas e material adequado, você repara um defeito simples em um objeto Pequeno não mágico em 10 minutos. Mecanismos complexos exigem teste."
         },
         {
           "nome": "A Ferramenta se Torna Arma",
-          "combate": "Proficiência em armas improvisadas. Ferramenta de artesão causa 1d6 + dobro do prof. Se você criou a ferramenta, 1d8.",
-          "foraCombate": "Transforma qualquer objeto comum em ferramenta funcional em 1 min (faca → chave de fenda, garfo → gazua, cinto → corda)."
+          "combate": "Proficiência em ferramentas de artesão usadas como armas improvisadas. Causam 1d6 + For de dano adequado ao objeto (contundente, cortante ou perfurante). Se você criou a ferramenta, 1d8 + For.",
+          "foraCombate": "Com ferramentas e materiais adequados, improvise em 1 minuto um utensílio simples, como gancho, cunha ou alavanca. Dura até o fim do próximo descanso longo. Não cria matéria nem substitui um kit completo de ferramentas."
+        },
+        {
+          "nome": "Reforço Vivo",
+          "combate": "Como ação, faça um reparo de emergência em uma armadura ou escudo a até 1,5m usando ferramentas de artesão: o item recupera 2 PD (pontos de durabilidade), ou 3 PD se você o criou, sem exceder o máximo. Uma vez por descanso curto ou longo.",
+          "foraCombate": "Em 10 minutos, com ferramentas e material, reforce uma armadura ou escudo. Até o próximo descanso longo, o usuário pode usar reação ao sofrer dano contundente, cortante ou perfurante para reduzi-lo em 1d8 + seu bônus de proficiência. Você pode manter até dois itens reforçados; uma criatura só usa um reforço por ocorrência de dano. Com o mesmo tempo, você também conserta um objeto não mágico quebrado de até tamanho Médio (fechaduras, cordas, rodas, instrumentos), se tiver as peças principais e material de reposição; mecanismos de segurança exigem teste de ferramentas."
         },
         {
           "nome": "Obra em Andamento",
-          "combate": "10 min: arma recebe +1 ataque ou armadura +1 CA até próximo descanso longo. Se você criou o item, dura o próximo descanso longo seguinte.",
-          "foraCombate": "Cria item comum (até 50 PO) em 1h, se tiver matéria-prima. Armas simples, armaduras leves, ferramentas, kits."
+          "combate": "Durante um descanso curto ou longo, aprimore uma arma não mágica (+1 em ataques e dano), armadura ou escudo não mágico (+1 CA). Pode manter dois itens aprimorados até seu próximo descanso longo. Uma criatura só recebe +1 CA deste nó, e a arma continua não mágica.",
+          "foraCombate": "Você cria item comum não mágico (até 50 PO) em 4h, com oficina, ferramentas e materiais de metade do preço de venda. Não produz consumíveis nem materiais preciosos."
         },
         {
           "nome": "Criação Contínua",
-          "combate": "1/descanso longo: improvisa dispositivo alquímico (bomba, óleo, ácido) de CD 13. Com matéria-prima abundante, cria dois.",
-          "foraCombate": "1 dia de trabalho: cria item incomum (a critério do mestre) com oficina e matéria-prima. Não precisa de fórmula."
+          "combate": "Como ação, faça um reparo de emergência em um item seu aprimorado por Obra em Andamento, empunhado ou vestido por um aliado a até 1,5m. O item absorve o impacto: o aliado ganha PV temporários iguais a 2d8 + seu bônus de proficiência e pode encerrar a condição caído. Uma vez por descanso curto ou longo.",
+          "foraCombate": "Durante um descanso longo com suas ferramentas, crie uma obra-prima: arma +1, escudo +1 ou bolsa de carga extradimensional (100 kg), usando um objeto-base e 100 PO de materiais. A criação é mágica. Só pode manter uma; criar outra torna a anterior mundana e deposita seu conteúdo em espaço livre. Não pode produzir outras categorias de item mágico."
         }
       ]
     },
@@ -136,28 +136,28 @@
       "nos": [
         {
           "nome": "Rosto Emprestado",
-          "combate": "Reação ao ser alvo de ataque à distância: Enganação (CD 12). Se passar, atacante erra por confundir você com outro.",
-          "foraCombate": "Vantagem em Enganação para manter identidade falsa. Ação bônus: muda detalhes sutis da aparência sem kit de disfarce."
+          "combate": "Reação ao ser alvo de um ataque à distância de criatura visível a até 18m: você usa o rosto emprestado para confundir o atacante, ganhando +2 CA contra esse ataque antes da rolagem. 1/descanso curto ou longo.",
+          "foraCombate": "Vantagem em Enganação para manter identidade falsa preparada com kit de disfarce. Em 1 min, muda penteado, postura e voz. Não altera o corpo nem engana conhecidos automaticamente."
         },
         {
           "nome": "Golpe que Não Se Vê",
-          "combate": "Ataque em criatura que ainda não agiu: +1d6 dano. Se ela acredita na sua identidade falsa, 1d8.",
-          "foraCombate": "Assume identidade falsa completa em 1h. Investigar seu passado real tem CD 15 + prof."
+          "combate": "1/combate, ao acertar uma criatura que ainda não teve seu primeiro turno: +1d6 de dano. Se ela acreditava na sua identidade falsa antes da luta, +1d8.",
+          "foraCombate": "Em 1 hora com kit de disfarce, prepare uma identidade com nome, voz e história coerentes. Testes mundanos para relacioná-la a você têm desvantagem, salvo por quem presenciou sua transformação ou conhece sua aparência real de perto. Documentos exigem obtenção ou falsificação separada."
         },
         {
           "nome": "Finta que Desarma",
-          "combate": "Reação ao ser atacado corpo a corpo: Enganação vs. Intuição. Se vencer, ataque erra e atacante fica desprevenido até o fim do próximo turno dele. 1/descanso curto.",
-          "foraCombate": "Conversa de 10 min: Enganação vs. Intuição. Se passar, a pessoa revela algo que não pretendia."
+          "combate": "Quando uma criatura que você possa ver errar um ataque corpo a corpo contra você, use sua reação para fintá-la. Seu próximo ataque contra ela até o fim do seu próximo turno tem vantagem e, se acertar, causa +1d6 de dano. Uma vez por descanso curto ou longo.",
+          "foraCombate": "Conversa de 10 min: Enganação vs. Intuição. Se passar, identifica um assunto que a pessoa tenta evitar, sem descobrir automaticamente o segredo. Uma tentativa por criatura por descanso longo."
         },
         {
           "nome": "Voz de Mel",
-          "combate": "Persuasão, Enganação ou Intimidação: +1d4. Usos: mod. Carisma por descanso longo. Interpretando papel coerente, 1d6.",
-          "foraCombate": "1/dia: 'vende' ideia absurda. Persuasão (CD 15). Se passar, a pessoa acredita por 1h, mesmo que seja impossível."
+          "combate": "Persuasão, Enganação ou Intimidação: +1d6, após rolar e antes do resultado. Você pode usar este benefício um número de vezes igual ao seu bônus de proficiência por descanso longo.",
+          "foraCombate": "Após 10 minutos apresentando uma identidade preparada, faça Enganação contra Intuição para tornar plausível uma alegação improvável, mas possível. Em sucesso, o alvo a aceita provisoriamente por 1 hora, até surgir evidência contrária. Não força ações nem permite crenças impossíveis. Uma tentativa por criatura por dia."
         },
         {
           "nome": "O Duplo",
-          "combate": "1/descanso longo: dupla ilusória sem componentes. Troca de posição com ela como ação bônus. Inimigo atacando a duplicata dá vantagem no seu próximo ataque.",
-          "foraCombate": "Mantém duas identidades simultâneas com aparências diferentes. Trocar leva 1 min. Só magia de nível 4+ te reconhece como a outra."
+          "combate": "Como ação bônus, crie uma duplicata ilusória em espaço livre a até 9m, por 1 minuto. Uma vez em cada um dos seus turnos seguintes, como ação bônus, troque de lugar com ela se ambos os espaços estiverem visíveis e livres. Ela tem CA 12, 1 PV, não age nem bloqueia passagem e desaparece ao sofrer dano. Uma vez por descanso longo.",
+          "foraCombate": "Mantém duas identidades preparadas. Trocar leva 1 min com kit de disfarce. Vantagem em Enganação para resistir a interrogatórios sobre suas histórias. Não protege contra magia que revele sua forma ou pensamentos."
         }
       ]
     },
@@ -174,28 +174,28 @@
       "nos": [
         {
           "nome": "Ouvir os Becos",
-          "combate": "Você sabe instintivamente saídas, esconderijos e coberturas de qualquer ambiente urbano. Ação bônus: você e um aliado se movem para cobertura sem ataques de oportunidade.",
-          "foraCombate": "Vantagem em Investigação para localizar guildas, mercadores ilegais, boatos. 1/aventura: favor menor (informação, item barato, esconderijo)."
+          "combate": "Ação bônus: identifique uma cobertura visível a até 3m e mova-se até ela, gastando seu deslocamento, sem ataques de oportunidade. 1/descanso curto ou longo.",
+          "foraCombate": "Vantagem em Investigação para localizar contatos do submundo e boatos sobre comércio ilegal. 1/aventura: favor menor de contato já estabelecido, sem risco grave ou traição."
         },
         {
           "nome": "Mãos que Abrem",
-          "combate": "Proficiência em ferramentas de ladrão. Ação bônus. 3 testes consecutivos no mesmo objeto: +2 permanente em testes futuros com ele.",
-          "foraCombate": "Abre qualquer fechadura não-mágica em 1 min sem teste, se não estiver sob pressão. Fechaduras mágicas exigem teste."
-        },
-        {
-          "nome": "O Golpe Sem Eco",
-          "combate": "Ataque com vantagem: renuncie ao dano extra para silenciar alvo por 1 rodada. 1/descanso curto. Se alvo morrer no turno, ninguém percebe até o fim da cena.",
-          "foraCombate": "Move-se por uma área sem deixar rastro (pegadas, cheiro, perturbação) por até 10 min."
+          "combate": "Proficiência em ferramentas de ladrão; se já tiver, +1 nos testes com elas. Ao usar uma ação para abrir fechadura, saca as ferramentas como parte da ação.",
+          "foraCombate": "Você abre fechadura não mágica simples (CD 10 ou menor) em 1 min sem teste, com ferramentas e sem pressão. Nas mais difíceis, 10 min concedem vantagem em uma tentativa. Se falhar, não repete esse benefício no mesmo objeto até o próximo descanso longo."
         },
         {
           "nome": "Mão Leve",
-          "combate": "Ação bônus: rouba objeto visível (Prestidigitação vs. Percepção). Alvo não percebe até o fim do turno. Devolvendo no mesmo turno, nunca percebe.",
-          "foraCombate": "'Planta' um objeto em alguém sem ser percebido (provas, mensagens, joias). Prestidigitação vs. Percepção."
+          "combate": "Ação bônus: rouba objeto visível de até 1 kg, solto em bolso ou cinto e ao alcance da mão (Prestidigitação vs. Percepção). Não pode pegar armas, escudos, armaduras ou objetos empunhados, presos ou vestidos. O alvo percebe a falta ao tentar usar o objeto. 1/turno.",
+          "foraCombate": "'Planta' ou retira discretamente um objeto em alguém (provas, mensagens, joias), nas mesmas condições do efeito de combate. Vantagem em Prestidigitação; falhar pode alertar o alvo."
+        },
+        {
+          "nome": "O Golpe Sem Eco",
+          "combate": "Uma vez por descanso curto ou longo, ao acertar um ataque com vantagem, você pode causar +1d6 de dano e impedir o alvo de falar até o início do seu próximo turno, se ele falhar em resistência de Constituição (CD 8 + seu bônus de proficiência + seu modificador de Destreza). Isso impede componentes verbais, mas não silencia a área.",
+          "foraCombate": "Após 1 min de preparação, move-se sem deixar pegadas nem cheiro rastreável por até 1h. Objetos movidos, portas abertas e testemunhas ainda revelam sua passagem. 1/descanso curto ou longo."
         },
         {
           "nome": "Fantasma da Viela",
-          "combate": "1/descanso longo: invisibilidade (em si) sem componentes, até 1 min. Passos sem som, atravessa espaços apertados.",
-          "foraCombate": "1/dia: 'desaparece' de uma cidade. Ninguém te encontra por meios mundanos por 24h, exceto se você quiser. Precisa de esconderijo preparado."
+          "combate": "2/descanso longo, ação bônus: invisibilidade em si por até 1 min. Passos sem som. Termina ao atacar, conjurar magia ou ficar incapacitado.",
+          "foraCombate": "Após 1 hora preparando um esconderijo urbano, você e até cinco aliados têm vantagem em Furtividade contra buscas enquanto permanecerem nele por até 24 horas. Descanso e conversas baixas não removem essa vantagem; pistas que levem diretamente ao local ainda funcionam."
         }
       ]
     },
@@ -212,28 +212,28 @@
       "nos": [
         {
           "nome": "Escutar o Invisível",
-          "combate": "Ação bônus: percebe presença de criaturas invisíveis a até 9m por 1 rodada. Não localiza, só sabe que estão lá.",
-          "foraCombate": "Vantagem em Natureza e Religião. Usa Sabedoria em vez de Inteligência. 1 min em silêncio: percebe presença de criaturas invisíveis/etéreas em 9m."
+          "combate": "Ação bônus: perceba a presença de criaturas invisíveis a até 9m até o início do seu próximo turno, exceto atrás de cobertura total. Não localiza nem remove desvantagem para atacá-las.",
+          "foraCombate": "Escolha Natureza ou Religião: usa Sabedoria em vez de Inteligência. 1 min em silêncio: vantagem no próximo teste dessa perícia feito em até 10 min."
         },
         {
           "nome": "Mente Sem Brechas",
-          "combate": "Vantagem contra medo e encantamento. Se já resistiu a efeito mental no mesmo combate, imunidade a ele até o fim da cena.",
-          "foraCombate": "1h de foco absoluto: não pode ser distraído por barulho, dor ou desconforto. Permite ler, meditar ou trabalhar em condições impossíveis."
+          "combate": "Vantagem em testes de resistência contra medo e encantamento.",
+          "foraCombate": "10 min de meditação: trabalha por 1h sem desvantagem causada por barulho ou desconforto leve. Não ignora dano, exaustão ou condições."
         },
         {
           "nome": "Respiração que Restaura",
-          "combate": "Descanso curto: recupera 1 Dado de Vida extra. 1/descanso longo. Meditando 10 min em silêncio total, recupera 1 espaço de magia de nível 1.",
-          "foraCombate": "1/dia: 'esvazia' a mente. Qualquer efeito mental ativo (medo, charme, sugestão) é encerrado, mesmo permanente."
+          "combate": "Descanso curto: recupera 1 Dado de Vida gasto ou 1 espaço de magia de nível 1, à sua escolha. 1/descanso longo.",
+          "foraCombate": "Como ação, repita um teste de resistência contra um efeito que o deixa amedrontado ou enfeitiçado, se esse efeito originalmente permitiu resistência. Pode fazê-lo mesmo se o efeito restringir suas ações, desde que esteja consciente. Uma vez por descanso longo."
         },
         {
           "nome": "Segunda Chance",
-          "combate": "Reação ao ser alvo de magia que exija Sabedoria: rerrole com +2. 1/descanso curto. Se falhar, gasta 1 Dado de Vida para anular.",
-          "foraCombate": "1 min: 'lê' uma sala. Sabe se há mentira, tensão não-dita, medo. Não sabe o quê, só o estado emocional."
+          "combate": "Reação ao falhar em teste de resistência de Sabedoria: rerrole com +2 e aceite o novo resultado. 2/descanso longo.",
+          "foraCombate": "1 min observando grupo de até 6 pessoas: Intuição com vantagem para identificar quem demonstra maior tensão ou medo. Não detecta mentiras automaticamente nem lê pensamentos."
         },
         {
           "nome": "A Calma que Desarma",
-          "combate": "Ação: aura 6m. Criaturas fazem Sabedoria (CD 8+prof+Sab) ou ficam incapazes de ataques hostis até o início do seu próximo turno. 1/descanso longo. Quem já te atacou na cena tem desvantagem.",
-          "foraCombate": "1h em silêncio cura trauma emocional (seu ou de outro). Remove um medo, fobia ou efeito mental persistente. 1/descanso longo."
+          "combate": "Ação: escolha criaturas que vejam ou ouçam você a 6m, até um número igual ao seu bônus de proficiência. Cada uma faz resistência de Sabedoria (CD 8 + seu bônus de proficiência + seu modificador de Sabedoria) ou fica incapaz de atacar ou usar efeitos que causem dano até o início do seu próximo turno. Sofrer dano encerra o efeito para aquela criatura. 1/descanso curto ou longo.",
+          "foraCombate": "Após 1 hora de meditação com um aliado disposto, ele pode repetir com vantagem a resistência original contra um efeito que o deixe amedrontado ou enfeitiçado. Uma tentativa por efeito por descanso longo. Não apaga memórias, personalidade ou traumas narrativos."
         }
       ]
     },
@@ -249,29 +249,29 @@
       },
       "nos": [
         {
-          "nome": "Ler o Mundo",
-          "combate": "Vantagem em Iniciativa. Pode usar Sabedoria em vez de Destreza.",
-          "foraCombate": "Vantagem em Sobrevivência. Percepção passiva +1. 1h observando ambiente natural: pergunta ao mestre (o que passou, o que está escondido, o que vai acontecer)."
+          "nome": "A Armadilha Paciente",
+          "combate": "Em 1 minuto, usando corda e materiais naturais, prepare uma armadilha em espaço de 1,5m. A primeira criatura Pequena ou Média a entrar faz resistência de Destreza (CD 8 + seu bônus de proficiência + seu modificador de Sabedoria); na falha, sofre 1d4 perfurante e perde 3m de deslocamento até gastar uma ação para se soltar. Investigação contra a mesma CD detecta a armadilha. Só pode manter uma ativa.",
+          "foraCombate": "Após 1 hora de busca em área com caça ou vegetação comestível, faça Sobrevivência com vantagem para obter comida para até seis pessoas por um dia. O benefício não cria alimento em locais sem recursos."
         },
         {
           "nome": "Passo Sem Peso",
-          "combate": "Deslocamento +1,5m. Primeiro turno: terreno difícil não custa movimento extra. Descalço: +3m.",
-          "foraCombate": "Move-se por terreno natural sem deixar pegadas. Descalço: também não deixa cheiro rastreável por 1h."
-        },
-        {
-          "nome": "A Armadilha Paciente",
-          "combate": "1 min: armadilha natural (1d4 dano, reduz deslocamento à metade, CD 8+prof+Sab). Local observado 1h: CD +2.",
-          "foraCombate": "Armadilha de caça que captura animal pequeno/médio em 1h. Garante comida para o grupo por 1 dia."
+          "combate": "Deslocamento +1,5m. Primeiro turno: terreno difícil natural não custa movimento extra.",
+          "foraCombate": "Ao viajar em ritmo normal ou lento, você tem vantagem em Furtividade para ocultar rastros em terreno natural. Não evita testemunhas nem sentidos mágicos."
         },
         {
           "nome": "Olhar do Predador",
-          "combate": "Ação bônus: escolhe criatura visível. Próximo ataque contra ela tem vantagem. 1/descanso curto. Faminto (8h sem comer): +1d6 dano.",
-          "foraCombate": "'Fareja' criatura que já feriu você ou foi ferida por você por 1 dia. Sabe direção aproximada em até 1km."
+          "combate": "Ação bônus: escolha uma criatura visível a até 18m. Seu próximo ataque contra ela até o fim deste turno tem vantagem e +1d6 de dano. Usos: um número de vezes igual ao seu bônus de proficiência por descanso longo.",
+          "foraCombate": "Vantagem em Sobrevivência para rastrear criatura que já feriu você ou foi ferida por você nas últimas 24h. Examinando rastros recentes por 10 min, sabe a direção de viagem, se houver pistas."
+        },
+        {
+          "nome": "Ler o Mundo",
+          "combate": "Vantagem em Iniciativa. Pode usar Sabedoria em vez de Destreza.",
+          "foraCombate": "Vantagem em Sobrevivência. Percepção passiva +2. 1h observando ambiente natural: pergunta ao mestre por uma pista concreta sobre rastros, ameaças ou abrigos presentes. A resposta depende de evidências observáveis, sem prever o futuro."
         },
         {
           "nome": "A Pele do Frio",
-          "combate": "Resistência a frio. Guiando grupo até 6 em viagem: ritmo acelerado sem penalidade. Sozinho: deslocamento dobrado, não precisa dormir por 3 dias.",
-          "foraCombate": "Sobrevive em qualquer ambiente natural sem ferramentas por tempo indeterminado (desertos, tundras, selvas). Nunca sofre exaustão por clima."
+          "combate": "Resistência a frio. Reação ao sofrer dano de frio, fogo ou elétrico: resistência ao tipo desse dano até o início do seu próximo turno, incluindo o dano desencadeador. 2/descanso longo.",
+          "foraCombate": "Você e até cinco companheiros que você guie têm vantagem nas resistências contra efeitos de clima extremo. Em ambiente natural com recursos, uma hora de preparação produz abrigo adequado para o grupo. Seu próprio deslocamento em viagem não é reduzido por terreno natural difícil."
         }
       ]
     },
@@ -288,28 +288,28 @@
       "nos": [
         {
           "nome": "O Povo Reconhece",
-          "combate": "Ação bônus: um aliado a 9m ganha +1 em ataques até o início do seu próximo turno.",
-          "foraCombate": "Vantagem em Persuasão com plebeus. Abrigo modesto gratuito. 1h conversando com comunidade: sabe o que ela mais teme e deseja."
-        },
-        {
-          "nome": "Grito que Levanta",
-          "combate": "Ação bônus: aliados a 9m ganham +1d4 em ataques até o início do seu próximo turno. 1/descanso curto. Aliados caídos (0 PV) ouvem e podem gastar 1 Dado de Vida para voltar com 1 PV.",
-          "foraCombate": "1 min de discurso: acalma multidão enfurecida. Persuasão (CD 15). Se passar, violência adiada por 10 min."
-        },
-        {
-          "nome": "Mãos que Seguram",
-          "combate": "Ação de Ataque: renuncie a um ataque para agarrar/empurrar com +2. Protegendo alguém declarado: +4.",
-          "foraCombate": "Treina grupo de até 10 pessoas em 1 dia. Ganham +1 em ataques e +1 CA enquanto lutarem sob seu comando."
+          "combate": "Ação bônus: um aliado a 9m que possa ouvir você ganha +1 no próximo ataque que fizer antes do início do seu próximo turno.",
+          "foraCombate": "Você tem vantagem em Persuasão para pedir abrigo modesto ou informações comuns a moradores de uma comunidade que você ajudou. Após 1 hora de conversa, conhece uma preocupação pública e uma necessidade local, sem descobrir segredos."
         },
         {
           "nome": "Corpo que Protege",
-          "combate": "Reação ao ver aliado a 1,5m ser atacado: absorve 1d10 + For do dano. 1/descanso curto. Aliado mais fraco (nível menor): você não sofre o dano absorvido.",
-          "foraCombate": "1/dia: discurso de 1h inspira comunidade. Quem ouve ganha vantagem em um teste de resistência contra desespero por 24h."
+          "combate": "Quando um aliado a até 1,5m sofrer dano de um ataque, use sua reação para reduzir esse dano em 1d8 + seu modificador de Força ou Constituição (escolha ao obter o nó; mínimo 1). Uma vez por descanso curto ou longo.",
+          "foraCombate": "Após 10 minutos instruindo até seis pessoas em uma evacuação, elas têm vantagem no primeiro teste para resistir a medo ou atravessar uma área perigosa nessa evacuação, nas próximas 2 horas. Uma vez por descanso longo."
+        },
+        {
+          "nome": "Mãos que Seguram",
+          "combate": "Ação de Ataque: renuncie a um ataque para agarrar ou empurrar com +2 no teste de Atletismo. Se o alvo atacou um aliado desde o fim do seu último turno: +4.",
+          "foraCombate": "Você treina um grupo de até 10 pessoas dispostas em 1 dia. Escolha +1 CA ou +1 no primeiro ataque de cada turno enquanto ouvirem suas instruções a até 18m. Dura 24h. Só pode manter um grupo treinado; uma criatura só recebe um benefício de treinamento de trilha por vez."
+        },
+        {
+          "nome": "Grito que Levanta",
+          "combate": "Ação bônus: escolha até um número de aliados igual ao seu bônus de proficiência, a 9m e que possam ouvir você. Cada um ganha +1d4 no próximo ataque antes do início do seu próximo turno. Um deles a 0 PV, mas ainda vivo, pode gastar 1 Dado de Vida para voltar com 1 PV. 1/descanso curto ou longo.",
+          "foraCombate": "1 min de discurso: faça um teste de Persuasão com vantagem para acalmar motim civil ou briga de taverna. Se passar, violência adiada por 10 min; a trégua termina para quem for atacado. 1/descanso curto ou longo. Não funciona contra violência premeditada."
         },
         {
           "nome": "A Lenda que Anda",
-          "combate": "1/descanso longo: invoca 2d4 guardas plebeus (stats de Guarda) por 10 min. Em comunidade onde fez favor: 3d4 com lealdade absoluta.",
-          "foraCombate": "Seu nome é conhecido em toda uma região. 1/sessão: invoca reputação (audiência, passagem segura, informação privilegiada). Mestre decide limite."
+          "combate": "Como ação bônus, mobilize até seis aliados que ouçam você a até 18m. Cada um ganha PV temporários iguais a seu nível de personagem + seu modificador de Carisma (mínimo 1) e pode usar reação para mover até metade do deslocamento sem ataques de oportunidade. Uma vez por descanso longo.",
+          "foraCombate": "Em uma comunidade onde você prestou ajuda relevante, uma vez por aventura consiga audiência com autoridade local ou mobilize até dez voluntários para uma tarefa civil de até 8 horas. Eles não aceitam combate, suicídio ou traição; precisam de meios para a tarefa e podem falhar em testes necessários."
         }
       ]
     },
@@ -326,28 +326,28 @@
       "nos": [
         {
           "nome": "Pé que Não Escorrega",
-          "combate": "Vantagem em Acrobacia e Atletismo. Nada à metade sem penalidade. Superfície em movimento: +2 Destreza.",
-          "foraCombate": "Equilibra-se em qualquer superfície por tempo indeterminado (cordas, vigas, mastros, telhados inclinados)."
-        },
-        {
-          "nome": "Nó que Segura",
-          "combate": "Proficiência com cordas. Amarrar/desamarrar: ação bônus. Laça criaturas Médias (4,5m, agarra).",
-          "foraCombate": "Amarra qualquer coisa de forma que ninguém desfaça, exceto você (prisioneiros, baús, portas)."
-        },
-        {
-          "nome": "Luta Sem Regras",
-          "combate": "Armas improvisadas: 1d6 + For. 1/descanso curto: ao acertar, cega alvo (CD 8+prof+Des). Ambiente caótico: CD +2.",
-          "foraCombate": "Improvisa arma com qualquer objeto em 1 rodada (garrafas, cadeiras, pedras, remos)."
+          "combate": "Vantagem em Acrobacia para manter equilíbrio em superfícies instáveis. Não sofre penalidade em ataques apenas por estar no convés de embarcação em movimento.",
+          "foraCombate": "Ganhe proficiência em veículos aquáticos. Seu deslocamento de natação é igual à metade do seu deslocamento terrestre; se já tiver natação melhor, mantenha a maior."
         },
         {
           "nome": "Corpo que se Ajusta",
-          "combate": "Reação ao ser deslocado: Acrobacia (CD 15) para reduzir distância à metade e não cair. Passando por 5+: não é deslocado.",
-          "foraCombate": "Move-se por multidão sem ser notado como ameaça. Ninguém te para, questiona ou lembra depois."
+          "combate": "Reação ao ser empurrado, puxado ou derrubado: reduz deslocamento forçado em até 3m e ganha vantagem no teste ou resistência para não cair, se houver. 1/descanso curto ou longo.",
+          "foraCombate": "Você tem vantagem em Acrobacia para atravessar multidões sem cair e em Furtividade para se misturar a uma multidão. Não evita guardas atentos nem apaga memórias."
+        },
+        {
+          "nome": "Nó que Segura",
+          "combate": "Como ação, use uma corda de pelo menos 3m para laçar uma criatura Pequena ou Média a até 3m: Atletismo contra Atletismo ou Acrobacia do alvo. Em sucesso, ela fica agarrada enquanto você segura a corda com uma mão. Pode escapar com uma ação e novo teste oposto ou cortando a corda. Apenas um alvo por vez.",
+          "foraCombate": "Você tem vantagem em testes com cordas e pode amarrar ou desatar um nó simples como ação bônus. Amarras suas exigem um teste de Destreza (CD 8 + seu bônus de proficiência + seu modificador de Destreza) para desfazer sem cortá-las; você as desfaz sem teste."
+        },
+        {
+          "nome": "Luta Sem Regras",
+          "combate": "Proficiência em armas improvisadas: 1d6 + For. 1/descanso curto ou longo: ao acertar com uma, você cega o alvo até o início do seu próximo turno se ele falhar em resistência de Constituição (CD 8 + seu bônus de proficiência + seu modificador de Força ou Destreza, escolha ao obter o nó).",
+          "foraCombate": "Em 10 minutos, prepare um espaço de até 6m de lado usando objetos existentes. Você e até cinco aliados têm vantagem em Acrobacia para atravessá-lo, e uma passagem de 1,5m se torna terreno difícil para todos até ser desobstruída com uma ação. Não cria cobertura ou materiais."
         },
         {
           "nome": "O Ritmo do Mundo",
-          "combate": "Prevê tempo, navega sem instrumentos. Combate aquático: natação dobrada, vantagem contra submersos. 1/descanso longo: muda maré do combate (escolhe terreno) e aliados ganham +1 em testes enquanto nele.",
-          "foraCombate": "Prevê clima de uma região por 3 dias (sempre exato). Sabe direção de qualquer corpo d'água a até 10km."
+          "combate": "Seu deslocamento de natação passa a ser igual ao terrestre. Como ação bônus, entre no Ritmo por 1 minuto: ganhe +2 CA e ignore terreno difícil; uma vez em cada um dos seus turnos, após acertar um ataque, mova 1,5m sem ataques de oportunidade. Uma vez por descanso longo.",
+          "foraCombate": "Com 10 minutos observando céu e correntes, prevê tendências do clima nas próximas 24 horas e tem vantagem em testes de navegação. Ao guiar embarcação, você e até seis tripulantes têm vantagem contra quedas e deslocamentos causados por tempestades durante uma viagem de até 8 horas."
         }
       ]
     },
@@ -364,28 +364,28 @@
       "nos": [
         {
           "nome": "Presença que Pesa",
-          "combate": "Ação bônus: ordena que um aliado se mova metade do deslocamento. Se observou a criatura por 1 rodada, ela obedece sem questionar.",
-          "foraCombate": "Vantagem em Intimidação e Persuasão com quem reconhece autoridade. Ao entrar em sala, sabe quem manda e quem obedece."
+          "combate": "Ação bônus: um aliado a 9m que ouça você pode usar reação para se mover até 3m, provocando ataques de oportunidade normalmente. 1/descanso curto ou longo.",
+          "foraCombate": "Você tem vantagem em Intuição para identificar relações de autoridade numa conversa que observe por pelo menos 1 minuto. Não revela hierarquias secretas."
         },
         {
           "nome": "A Arte da Conversa",
-          "combate": "1/descanso curto: rerrole um teste de História ou Nobreza.",
-          "foraCombate": "Proficiência em duas perícias sociais. 10 min conversando com alguém: sabe um segredo dessa pessoa. 1h: descobre lealdade verdadeira."
+          "combate": "1/descanso curto ou longo: rerrole um teste de História ou Persuasão e aceite o novo resultado.",
+          "foraCombate": "Ganhe proficiência em Persuasão ou Intuição; se já tiver ambas, escolha História. Após 10 minutos conversando, pode testar Intuição contra Enganação para identificar uma prioridade atual do interlocutor. Não revela segredo nem lealdade automaticamente; uma tentativa por criatura por dia."
         },
         {
           "nome": "Palavras que Erguem",
-          "combate": "10 min de discurso: até 6 aliados ganham PV temporários = nível + Car. 1/descanso curto. Se já tinham PV temporários, ganham o dobro.",
-          "foraCombate": "1/dia: convence grupo de até 20 pessoas a fazer algo por você (dentro do razoável). Persuasão (CD 15)."
+          "combate": "10 min de discurso: até 6 aliados que ouçam você ganham PV temporários iguais ao seu nível + seu modificador de Carisma (mínimo 1). 1/descanso curto ou longo. Substituem outros PV temporários apenas se forem maiores.",
+          "foraCombate": "1/descanso longo, 10 min de discurso: Persuasão com vantagem para convencer grupo de até 20 pessoas a realizar tarefa razoável por até 2h. Se passar, dispensa testes sociais individuais; testes para executar a tarefa ainda se aplicam."
         },
         {
           "nome": "A Sorte dos Preparados",
-          "combate": "Reação: transforma acerto crítico em acerto normal. 1/descanso longo. Se planejou a situação (declarou preparação antes), transforma em erro.",
-          "foraCombate": "1/dia: 'prevê' um evento. Declara uma preparação ('vou encontrar um traidor'). Mestre incorpora na próxima cena, se possível."
+          "combate": "Reação: transforma um acerto crítico contra você ou um aliado visível a 9m em acerto normal. 2/descanso longo.",
+          "foraCombate": "Durante um descanso longo, registre uma contingência concreta e execute seus preparativos com os recursos disponíveis: rota de fuga, sinal combinado ou documento de cobertura, por exemplo. Na primeira execução antes do próximo descanso longo, você e até cinco envolvidos têm vantagem em um teste de habilidade diretamente ligado ao plano. Só uma contingência ativa; não cria fatos, pessoas ou eventos."
         },
         {
           "nome": "O Lance Decisivo",
-          "combate": "Ação: aliados que ouvem ganham +2 CA e +2 em testes de resistência até o início do próximo turno. 1/descanso longo. Move um aliado até 3m como parte da ação.",
-          "foraCombate": "1/sessão: 'vira o tabuleiro'. Escolhe situação social ou política e a resolve a seu favor (eleições, julgamentos, negociações). Mestre decide limite."
+          "combate": "Ação bônus: até 6 aliados a 18m que ouvem você ganham +2 CA e +2 em testes de resistência até o início do seu próximo turno. Um deles pode usar reação para atacar com arma ou mover metade do deslocamento sem ataques de oportunidade. 1/descanso curto ou longo.",
+          "foraCombate": "Uma vez por descanso longo, ao falhar em Persuasão, Enganação ou Intuição numa negociação em que participou por pelo menos 10 minutos, pode rerrolar com vantagem e aceitar o novo resultado. Exige apresentar uma nova proposta ou evidência realmente disponível; não muda leis, votos ou decisões automaticamente."
         }
       ]
     },
@@ -401,29 +401,29 @@
       },
       "nos": [
         {
-          "nome": "Olhos que Estudam",
-          "combate": "Ação bônus: analisa criatura visível. Sabe tipo, resistências e imunidades.",
-          "foraCombate": "Escolha duas perícias de Inteligência; vantagem em ambiente de pesquisa. 1h em local com informação: faz duas perguntas ao mestre em vez de uma."
+          "nome": "Arquivo Vivo",
+          "combate": "1/descanso curto ou longo: rerrola teste de Inteligência para recordar informação estudada e aceita o novo resultado. Se tiver anotações pertinentes à mão, +1.",
+          "foraCombate": "Você memoriza uma página de texto, mapa de até uma folha ou símbolo em 10 min, examinando de perto. Reproduz por 1 semana; mantém até 3 registros. Não memoriza panoramas, multidões ou detalhes não percebidos, nem traduz ou decifra o conteúdo."
         },
         {
-          "nome": "Arquivo Vivo",
-          "combate": "1/descanso curto: rerrola teste de Inteligência para recordar. Se tiver anotado, +2.",
-          "foraCombate": "Memoriza texto, mapa ou imagem em 1 min. Reproduz com precisão absoluta por 1 semana."
+          "nome": "Olhos que Estudam",
+          "combate": "Como ação bônus, escolha uma criatura visível a até 18m. Faça um teste de Arcana, Natureza ou Religião apropriado ao tipo (CD 12 + metade do ND arredondada para baixo; se não houver ND, CD definida pelo mestre). Em sucesso, você sabe o tipo dela e uma resistência ou imunidade a dano, se houver. Uma tentativa por criatura por descanso curto ou longo.",
+          "foraCombate": "Escolha duas perícias de Inteligência; vantagem nos testes sobre o tema após 1h de pesquisa em fonte pertinente. Fontes incompletas podem fornecer pistas em vez de respostas finais."
         },
         {
           "nome": "Fresta no Véu",
-          "combate": "Aprende um truque da lista do Mago. Se for de adivinhação (detectar magia, ler pensamentos), usa sem gastar ação.",
-          "foraCombate": "1/dia: 'lê' um objeto. Toca-o e recebe visão curta do último evento significativo envolvendo-o."
+          "combate": "Você aprende um truque da lista do Mago, usando Inteligência para conjurá-lo. Se já conhecer o escolhido, selecione outro.",
+          "foraCombate": "Uma vez por descanso longo, examine um objeto por 10 minutos para receber uma impressão sensorial do evento mais recente que deixou marca física relevante nele, como quebra, uso violento ou exposição ao fogo. A visão dura instantes, não revela nomes, pensamentos ou acontecimentos sem vestígios."
         },
         {
           "nome": "O Padrão Escondido",
-          "combate": "Ação bônus: Investigação (CD 15) contra criatura. Próximo ataque ignora resistências e imunidades. 1/descanso curto. Já estudou a criatura: CD 12.",
-          "foraCombate": "10 min: decifra qualquer código, cifra ou linguagem não-mágica (mapas, diários, mensagens)."
+          "combate": "Ação bônus: Investigação (CD 15) contra criatura visível a até 18m. Se passar, seus ataques ignoram uma resistência a dano dela, escolhida por você, até o início do seu próximo turno. Não ignora imunidades. 1/descanso curto ou longo.",
+          "foraCombate": "Após 1 hora estudando uma cifra ou escrita com fonte comparativa adequada, faça Investigação com vantagem para decifrar uma passagem de até uma página. Sem referência, consegue identificar padrões e possíveis repetições, mas não traduz automaticamente um idioma desconhecido."
         },
         {
           "nome": "Mente que Rebate",
-          "combate": "Reação ao sofrer dano psíquico ou leitura mental: anula dano, devolve 1d6 psíquico. 1/descanso longo. Int (CD 15): rouba a informação que o atacante tentava ler.",
-          "foraCombate": "1/dia: pergunta que o mestre responde com verdade absoluta sobre algo descobrível (não futuro, não segredos cósmicos)."
+          "combate": "Quando você ou um aliado que você veja a até 9m sofrer dano psíquico ou falhar em resistência contra encantamento, use reação: reduza dano psíquico em 3d8 + seu modificador de Inteligência, ou permita rerrolar a resistência e aceitar o novo resultado. Duas vezes por descanso longo.",
+          "foraCombate": "Após 4 horas consultando fontes pertinentes sobre uma pergunta específica, obtenha uma pista verdadeira e verificável, se existir nesses materiais; caso contrário, identifique qual tipo de fonte ou especialista seria necessário. Uma vez por descanso longo. Não revela informação ausente das fontes nem altera a história."
         }
       ]
     },
@@ -440,28 +440,28 @@
       "nos": [
         {
           "nome": "Ao Lado do Companheiro",
-          "combate": "Aliados adjacentes ganham +1 CA enquanto você estiver consciente. Flanqueado: bônus dobra para você mesmo.",
-          "foraCombate": "Avalia perícia de combate de alguém em 1 rodada. Sabe se é mais forte, mais fraco ou equivalente."
+          "combate": "Quando um aliado a até 1,5m for alvo de ataque que você veja, use reação para conceder +1 CA contra esse ataque antes da rolagem. Você precisa estar empunhando arma ou escudo.",
+          "foraCombate": "Após observar alguém lutar por 1 minuto, pode fazer Intuição com vantagem para identificar se demonstra treino marcial e qual arma parece dominar. Não revela nível, PV ou ficha."
         },
         {
           "nome": "Postura que Resiste",
-          "combate": "Ação bônus: +2 CA até o início do próximo turno, deslocamento 0. 1/descanso curto. Se não se mover, mantém postura no próximo turno sem gastar ação.",
-          "foraCombate": "Fica de vigília por até 3 dias sem dormir, sem penalidade. Vale para guardar acampamento, porta, pessoa."
+          "combate": "Ação bônus: +1 CA por até 1 min, deslocamento à metade. Termina se ficar incapacitado. 1/descanso curto ou longo.",
+          "foraCombate": "Durante um descanso longo em local seguro, você pode dedicar até 2 horas a vigília sem atrapalhar o descanso. Tem vantagem em Percepção para notar criaturas se aproximando durante essa vigília. Não dispensa sono nem protege contra exaustão."
         },
         {
           "nome": "O Ataque que Vem do Outro",
-          "combate": "Ação de Ataque: renuncie a um ataque para aliado a 9m atacar corpo a corpo com reação. Se aliado acertar, você ganha +1 CA até o próximo turno.",
-          "foraCombate": "Treina um aliado por 1 dia. Ele ganha +1 em ataques permanentemente (até treinar outra coisa)."
+          "combate": "1/turno, ação de Ataque: renuncie a um ataque para que um aliado a 9m que ouça você ataque corpo a corpo com a reação dele. Se o aliado acertar, você ganha +1 CA até o início do seu próximo turno.",
+          "foraCombate": "Você treina um aliado disposto por 1h. Ele ganha +1 no primeiro ataque com arma de cada combate por 8h. Só mantém um aliado treinado; ele só recebe um benefício de treinamento de trilha por vez."
         },
         {
           "nome": "Tiro que Cobre",
-          "combate": "Ataque à distância impõe desvantagem no próximo ataque de um inimigo contra aliado específico (1/turno). Errando o ataque, aliado ainda ganha +1 CA contra esse inimigo.",
-          "foraCombate": "1/dia: 'marca' um alvo. Sabe direção dele por 24h, a até 10km."
+          "combate": "1/turno, ao fazer um ataque à distância, escolha um aliado visível a até 9m do alvo. Se acertar, o alvo tem desvantagem no próximo ataque contra esse aliado até o início do seu próximo turno. Se errar, o aliado ainda ganha +1 CA contra o próximo ataque do alvo até o início do seu próximo turno.",
+          "foraCombate": "Você observa uma criatura por 1 min: vantagem em Sobrevivência para rastreá-la e Percepção para reconhecê-la em multidões por 24h. Só um alvo por vez; não revela localização sem pistas."
         },
         {
           "nome": "Velho de Guerra",
-          "combate": "Primeira vez que sofre dano em combate: reduz em bônus de proficiência. 1/combate. Dano do mesmo tipo que já te feriu na sessão: reduz o dobro.",
-          "foraCombate": "1/sessão: 'ensina' técnica a todo o grupo. Ganham +1 em ataques por 1 dia. Treinando sucessor (1 semana): +1 permanente."
+          "combate": "1/combate, ao sofrer dano: você reduz o dano em 2d8 + seu bônus de proficiência, sem gastar reação. Postura que Resiste passa a conceder +2 CA, mantendo as demais condições.",
+          "foraCombate": "Após 1 hora de treino, até seis aliados ganham +1 no primeiro ataque com arma de cada combate durante 8 horas. Substitui o benefício de O Ataque que Vem do Outro; cada criatura só recebe um benefício de treinamento de trilha por vez. Uma vez por descanso longo."
         }
       ]
     },
@@ -477,29 +477,29 @@
       },
       "nos": [
         {
-          "nome": "Olhos de Rua",
-          "combate": "Ação bônus: identifica rota de fuga mais próxima. Você e aliados a 3m se movem para lá sem ataques de oportunidade por 1 turno.",
-          "foraCombate": "Vantagem em Furtividade em multidões e Percepção para emboscadas. 1h andando por bairro: sabe todos os pontos de fuga e esconderijo."
-        },
-        {
           "nome": "A Mão que Pega",
-          "combate": "Ação bônus: pega objeto pequeno desprevenido. Objeto caído: pega sem gastar ação.",
-          "foraCombate": "Vasculhando área: encontra 1d4 PO extras. Pode 'encontrar' algo que não estava lá (a critério do mestre) se fizer sentido."
+          "combate": "Ação bônus: escolha um objeto visível que uma criatura a até 1,5m esteja carregando ou tenha preso ao corpo, exceto armadura vestida ou escudo empunhado. Faça Prestidigitação contra Percepção do alvo; se ele usar sua reação para resistir, você tem desvantagem no teste. Em sucesso, você toma o objeto, e o alvo só percebe a falta ao tentar usá-lo ou revistar-se. Em falha, o alvo percebe a tentativa. Você não pode tomar um objeto maior que seu corpo. 1/turno.",
+          "foraCombate": "Você tem vantagem em Investigação para encontrar objetos de valor escondidos em bolsos, frestas, entulho e esconderijos urbanos. Uma vez por descanso longo, ao vasculhar uma área por 10 minutos, você encontra um achado de valor que já estivesse ali (até 1d4 × 10 PO em joias, moedas ou mercadoria; o mestre define o que existe). Você também sabe avaliar e vender esses achados por seu valor de mercado, sem precisar de intermediário."
         },
         {
-          "nome": "Fugir é uma Arte",
-          "combate": "Ao Desengajar, move +3m. 1/descanso curto. Em altura (telhado, muro, árvore): +6m, sem ataques de oportunidade.",
-          "foraCombate": "Desaparece em uma cidade em 1 min. Ninguém te segue por meios mundanos, exceto se você quiser."
+          "nome": "Olhos de Rua",
+          "combate": "Ação bônus: identifique uma cobertura ou passagem livre visível a até 6m. Você e um aliado a 3m que ouça você podem usar reação para mover até 3m em direção a ela, sem ataques de oportunidade. 1/descanso curto ou longo.",
+          "foraCombate": "Você tem vantagem em Percepção para notar emboscadas em ruas e telhados. Após 1 hora explorando um bairro, conhece as rotas públicas que percorreu e pode indicar caminhos de fuga nelas, sem descobrir esconderijos secretos automaticamente."
         },
         {
           "nome": "Língua que Corta",
-          "combate": "Enganação e Intimidação +2. 1/descanso curto, reação: insulto impõe desvantagem em ataque contra você. Insulto verdadeiro (mestre decide): atacante perde ação bônus.",
-          "foraCombate": "1 min de conversa: faz alguém perder a calma. Intimidação vs. Sabedoria. Se passar, pessoa faz algo impulsivo."
+          "combate": "1/descanso curto ou longo, reação após a declaração de um ataque contra você: insulte o atacante, impondo desvantagem nesse ataque antes da rolagem. O atacante precisa estar visível a até 9m e ouvir e compreender você.",
+          "foraCombate": "Você ganha +2 em Enganação e Intimidação. Após 1 minuto de conversa, pode testar Intimidação contra Intuição para perceber um ponto de orgulho ou insegurança demonstrado pelo alvo. Não obriga comportamento impulsivo. Uma tentativa por criatura por dia."
+        },
+        {
+          "nome": "Fugir é uma Arte",
+          "combate": "Seu deslocamento de escalada é igual ao terrestre. Uma vez por descanso curto ou longo, pode Desengajar como ação bônus e ganhar +3m de deslocamento até o fim desse turno.",
+          "foraCombate": "Ao quebrar a linha de visão de perseguidores em ambiente urbano, você pode tentar Furtividade com vantagem para despistá-los, mesmo usando apenas cobertura parcial na tentativa inicial. Precisa continuar ocultando-se normalmente depois."
         },
         {
           "nome": "A Cidade é Minha",
-          "combate": "Proficiência em ferramentas de ladrão (dobro do bônus). 1/descanso longo: passos sem pegadas sem magia em ambiente urbano. 1h no telhado de um prédio: vê através das paredes dele por 1 min.",
-          "foraCombate": "1/dia: 'sente' uma cidade. Sabe onde estão líderes, onde há tensão, onde há esconderijo. Cidade até 10.000 hab."
+          "combate": "Você dobra seu bônus de proficiência nos testes com ferramentas de ladrão, caso tenha proficiência. Como ação bônus em ambiente urbano, escolha um ponto visível a até 9m ao qual exista rota física para você: mova-se até ele sem ataques de oportunidade, sem gastar seu deslocamento. Duas vezes por descanso curto ou longo.",
+          "foraCombate": "Após 1 hora explorando os arredores de um prédio, faça Investigação com vantagem para identificar acessos, saídas e indícios de passagens ocultas. Após um dia num bairro, estabeleça um contato que pode indicar serviços públicos e rumores, sem revelar segredos automaticamente."
         }
       ]
     },
@@ -516,28 +516,28 @@
       "nos": [
         {
           "nome": "Bússola Interna",
-          "combate": "Vantagem em Iniciativa. Perdido de propósito: +2 em Furtividade e Sobrevivência.",
-          "foraCombate": "Nunca se perde em ambiente selvagem. Vantagem contra armadilhas naturais. Sabe sempre onde está o norte."
-        },
-        {
-          "nome": "Sentidos Afiados",
-          "combate": "Percepção passiva +2. Não pode ser surpreendido viajando. Lugar novo: +2 Percepção.",
-          "foraCombate": "1h: mapeia área de até 1km² de memória. Reproduz o mapa depois com precisão."
-        },
-        {
-          "nome": "Passo Ligeiro",
-          "combate": "Deslocamento +1,5m. Viajando há mais de 8h: +3m.",
-          "foraCombate": "Viaja 12h/dia sem exaustão. Sozinho: 16h."
+          "combate": "Iniciativa +1. Vantagem em Sobrevivência para manter orientação em ambiente selvagem.",
+          "foraCombate": "Você sempre identifica o norte e pode refazer um caminho que percorreu nas últimas 24 horas, se ele continuar fisicamente acessível. Tem vantagem em Sobrevivência ou Investigação para encontrar trilhas e caminhos ocultos, passagens, saídas de labirintos e esconderijos de tesouros em ambientes selvagens e ruínas. Isso revela a direção ou a existência do caminho, não o conteúdo nem armadilhas. Magia que altere orientação ou terreno ainda pode confundir você."
         },
         {
           "nome": "Corpo que Aguenta",
-          "combate": "Vantagem em testes de exaustão por marcha forçada e clima extremo. 3 dias viajando sem parar: imunidade a exaustão por 1 dia.",
-          "foraCombate": "Sobrevive sem comer por 1 semana, sem água por 3 dias, sem afetar capacidades."
+          "combate": "Você tem vantagem em testes de resistência contra exaustão, seja por marcha forçada, clima extremo ou efeitos mágicos.",
+          "foraCombate": "Você precisa de metade da quantidade normal de comida e água e tem vantagem em Sobrevivência para localizar fontes naturais de água potável. Isso não cria água em regiões sem fontes."
+        },
+        {
+          "nome": "Passo Ligeiro",
+          "combate": "Deslocamento terrestre +3m.",
+          "foraCombate": "Você e até cinco companheiros guiados por você podem viajar 2 horas adicionais por dia antes de testar exaustão por marcha forçada. O benefício não se acumula com outro guia da mesma trilha."
+        },
+        {
+          "nome": "Sentidos Afiados",
+          "combate": "Vantagem em Iniciativa. Percepção passiva +2. Mantém o +1 em Iniciativa de Bússola Interna.",
+          "foraCombate": "Ao explorar uma região por pelo menos 1 hora, pode desenhar um mapa das rotas e pontos de referência que realmente observou. Você e até cinco companheiros têm vantagem em testes para evitar perigos naturais previamente identificados nesse mapa por 24 horas."
         },
         {
           "nome": "A Bolsa Sem Fundo",
-          "combate": "Bolsa extradimensional 100 kg. Itens não pesam, sempre à mão. Guardando item que pertence a um lugar: gasta 1 min para voltar a esse lugar uma vez.",
-          "foraCombate": "1/dia: 'abre um caminho'. Escolhe destino que já visitou e viaja até lá em metade do tempo, sem encontros aleatórios."
+          "combate": "Durante um descanso longo, vincule uma bolsa: ela comporta até 100 kg sem aumentar seu peso externo; retirar ou guardar item exige interação normal e não pode conter criaturas. Só mantém uma bolsa. Destruí-la ou substituí-la deposita o conteúdo em espaço livre próximo.",
+          "foraCombate": "Uma vez por descanso longo, viaje por um atalho sobrenatural após 10 minutos de concentração: você e até cinco criaturas dispostas a 3m surgem num ponto seguro e desocupado que você visitou e marcou pessoalmente nas últimas 24 horas, a até 10 km no mesmo plano. Só mantém uma marca; não atravessa barreira que impeça teleporte."
         }
       ]
     },
@@ -554,28 +554,28 @@
       "nos": [
         {
           "nome": "Farejar o Essencial",
-          "combate": "Ação bônus: analisa poção ou substância visível. Sabe o que é, o que faz, como neutralizá-la.",
-          "foraCombate": "Vantagem para encontrar ervas, componentes, ingredientes raros. 10 min observando planta/mineral: sabe no que ele pode se tornar."
-        },
-        {
-          "nome": "A Poção Certa",
-          "combate": "1/descanso curto: saca e bebe poção como ação bônus extra. Abaixo de metade dos PV: bebe duas.",
-          "foraCombate": "Reduz 25% custo e tempo de poções comuns/incomuns. Dano do tipo da poção (fogo, veneno, ácido): cria uma desse tipo na metade do tempo."
+          "combate": "Ação bônus: analise uma substância visível a até 1,5m. Faça um teste de Natureza ou Investigação com vantagem para identificar sinais de veneno, ácido ou combustível comum. Não revela propriedades mágicas.",
+          "foraCombate": "Ganhe proficiência no kit de herbalismo ou no kit de venenos. Após 10 minutos examinando uma amostra com o kit, você identifica um uso mundano conhecido dela, se houver."
         },
         {
           "nome": "O Frasco na Manga",
-          "combate": "Aplica veneno em arma como ação bônus. Veneno dura 1h. Imune ao próprio veneno.",
-          "foraCombate": "1h: transforma uma poção em outra de mesmo nível (só poções que você criou)."
+          "combate": "Ação bônus: aplique uma dose de veneno em uma arma, com a duração e as aplicações normais do veneno. Você tem vantagem em resistências contra exposição acidental ao aplicá-lo.",
+          "foraCombate": "Com 1 hora de trabalho e suprimentos de alquimista, identifique a função de uma poção comum ou incomum sem consumi-la. Não remove maldições nem transforma sua raridade. Uma vez por descanso curto ou longo."
+        },
+        {
+          "nome": "A Poção Certa",
+          "combate": "Você pode sacar e beber uma poção como ação bônus, em vez de ação. Uma vez por descanso curto ou longo, ao beber uma poção de cura, recupere PV adicionais iguais ao seu bônus de proficiência.",
+          "foraCombate": "Você reduz em 25% o tempo de fabricação de poções comuns ou incomuns que conheça, com ferramentas e receita apropriadas. O custo de materiais não muda."
         },
         {
           "nome": "Corpo Endurecido",
-          "combate": "Vantagem contra venenos e metade do dano de veneno. Passando no teste: cura 1d4 PV em vez de sofrer dano.",
-          "foraCombate": "1/dia: 'purifica' alimento ou bebida envenenado. Também purifica água suja."
+          "combate": "Vantagem em testes de resistência contra envenenamento e resistência a dano de veneno.",
+          "foraCombate": "Com 10 minutos e seu kit, purifique água (até 10 litros) ou comida para 6 pessoas, removendo contaminantes e venenos não mágicos. 1/descanso curto ou longo. Não cura quem já consumiu o material."
         },
         {
           "nome": "A Bomba Improvisada",
-          "combate": "1/descanso curto: bomba 2d6 dano elemental em área (CD 13 metade). Matéria-prima do próprio corpo (sangue, cabelo, lágrima): 3d6.",
-          "foraCombate": "1/sessão: 'transmutação menor'. Transforma material em outro de valor equivalente (chumbo em prata, pedra em vidro) para objetos pequenos."
+          "combate": "Durante um descanso longo, prepare duas bombas com suprimentos de alquimista e 10 PO de reagentes por bomba. Como ação, arremesse uma a até 18m: criaturas num raio de 3m fazem resistência de Destreza (CD 8 + seu bônus de proficiência + seu modificador de Inteligência), sofrendo 4d6 de ácido ou fogo (escolha no preparo), metade no sucesso. As bombas perdem potência no próximo descanso longo; só você pode ativá-las.",
+          "foraCombate": "Uma vez por sessão, com suprimentos de alquimista e 10 minutos de trabalho, transforme um objeto Pequeno de material comum em outro de valor equivalente (chumbo em prata, pedra em vidro). A transformação é química, não mágica, e não funciona em itens mágicos, seres vivos ou materiais de valor especial. O novo material mantém o valor do original, não o aumenta."
         }
       ]
     },
@@ -592,28 +592,28 @@
       "nos": [
         {
           "nome": "Cair Bem",
-          "combate": "Reduz 3d6 de dano de queda. Escolhendo cair (em vez de ser derrubado): 4d6 e levanta sem gastar movimento.",
-          "foraCombate": "Cai de qualquer altura até 6m sem sofrer dano, se não estiver segurando nada."
-        },
-        {
-          "nome": "Subir Sem Esforço",
-          "combate": "Escala usando deslocamento normal. Vantagem em Atletismo. Superfície escorregadia: mantém vantagem, sem teste.",
-          "foraCombate": "Escala qualquer superfície não-lisa em metade do tempo normal."
+          "combate": "Você reduz o dano de queda em 2d6 enquanto estiver consciente e livre para mover os membros.",
+          "foraCombate": "Você tem vantagem em Acrobacia para aterrissar de pé e manter equilíbrio em vigas ou cordas estáveis. Não permite caminhar sobre água nem atravessar vãos sem apoio."
         },
         {
           "nome": "O Salto Certo",
-          "combate": "Distância de salto +1,5m. Saltando em direção a inimigo: ataca corpo a corpo como parte do salto.",
-          "foraCombate": "Salta de um telhado a outro sem teste, se a distância for até 6m."
+          "combate": "Distância de salto +1,5m, limitada pelo deslocamento disponível. Saltando em direção a um inimigo: você pode fazer seu ataque corpo a corpo normal durante o salto; não ganha ataque adicional nem movimento gratuito.",
+          "foraCombate": "Você tem vantagem em Atletismo para saltar obstáculos e em Acrobacia para alcançar apoio ao fim de um salto, desde que exista um ponto ao seu alcance."
+        },
+        {
+          "nome": "Subir Sem Esforço",
+          "combate": "Você escala usando deslocamento normal e tem vantagem em Atletismo para escalar superfícies com apoios. Superfícies lisas ou perigos especiais podem exigir testes.",
+          "foraCombate": "Com 1 minuto, pode fixar corda de até 15m num ponto que alcance com segurança; até cinco aliados têm vantagem nos testes para subir por ela. Exige corda e ancoragem adequada."
         },
         {
           "nome": "Girar é Esquivar",
-          "combate": "Reação ao ser atacado: move 1,5m sem ataques de oportunidade. Movendo para trás do atacante: ele fica desprevenido contra seu próximo ataque.",
-          "foraCombate": "1 min: 'marca' uma área. Sabe todos os ângulos cegos dela."
+          "combate": "Reação após resolver um ataque contra você: mova 3m sem ataques de oportunidade. Terminando fora do alcance corpo a corpo do atacante, você ganha vantagem no próximo ataque contra ele até o fim do seu próximo turno. Usos: um número de vezes igual ao seu bônus de proficiência por descanso longo.",
+          "foraCombate": "Após 1 minuto observando uma área de até 9m de lado, você tem vantagem no próximo teste de Furtividade para atravessá-la em até 10 minutos. Exige cobertura ou outra forma real de ocultação."
         },
         {
           "nome": "O Equilíbrio Absoluto",
-          "combate": "Anda sobre superfícies estreitas e escorregadias sem testes, mesmo em combate. Superfície impossível (corda, arame, água): +2 CA e +2 Destreza.",
-          "foraCombate": "1/dia: 'anda no fio'. Atravessa distância impossível (abismo, telhado distante, corda sobre rio) sem teste, como se fosse natural."
+          "combate": "Você ignora terreno difícil causado por entulho ou superfícies escorregadias. Como ação bônus, ganhe por 1 minuto +2 CA e vantagem em testes de resistência de Destreza, enquanto não estiver incapacitado nem usar armadura pesada. Uma vez por descanso longo.",
+          "foraCombate": "Uma vez por descanso curto ou longo, ao atravessar uma passagem estreita de até 18m com apoio físico contínuo, você pode fazê-lo sem teste de equilíbrio e levar uma criatura disposta do seu tamanho ou menor, respeitando sua capacidade de carga. Não cria apoios nem permite andar sobre água."
         }
       ]
     },
@@ -630,28 +630,28 @@
       "nos": [
         {
           "nome": "Pés que Já Andaram",
-          "combate": "Deslocamento +1,5m (cumulativo). Botas gastas (sem valor): +3m.",
-          "foraCombate": "Viaja 8h sem cansaço. Sabe distância exata entre dois pontos que já visitou."
-        },
-        {
-          "nome": "Dormir com um Olho Aberto",
-          "combate": "Não pode ser surpreendido dormindo. Dormindo ao relento: vantagem em Iniciativa no próximo combate.",
-          "foraCombate": "Dorme em qualquer lugar, em qualquer condição, sem penalidade."
-        },
-        {
-          "nome": "A Memória da Estrada",
-          "combate": "Vantagem em testes de Inteligência para lembrar detalhes dos últimos 7 dias. Se contou a história, lembrança é permanente.",
-          "foraCombate": "1h: conta história que inspira uma pessoa. Ela ganha vantagem em teste de resistência contra medo por 1 dia."
+          "combate": "Deslocamento terrestre +1,5m.",
+          "foraCombate": "Você tem vantagem em Sobrevivência para estimar tempo de viagem e identificar abrigo ao longo de estradas. Você recorda a distância aproximada entre pontos que já percorreu."
         },
         {
           "nome": "Estômago de Ferro",
-          "combate": "Vantagem em Constituição contra álcool e venenos ingeridos. Passando no teste: cura 1d4 PV em vez de sofrer efeito.",
-          "foraCombate": "Come qualquer coisa comestível (mesmo estragada) sem adoecer."
+          "combate": "Vantagem em testes de resistência contra álcool e venenos ingeridos. Não reduz automaticamente dano de veneno.",
+          "foraCombate": "Você come qualquer coisa comestível, mesmo estragada, sem adoecer por decomposição comum. Não protege contra venenos, parasitas especiais ou contaminação mágica."
+        },
+        {
+          "nome": "A Memória da Estrada",
+          "combate": "Vantagem em testes de Inteligência para lembrar lugares, pessoas e acontecimentos presenciados nos últimos 7 dias. Não recupera detalhes não percebidos nem reproduz cenas com precisão fotográfica.",
+          "foraCombate": "Durante um descanso curto, conte uma experiência pertinente a até seis aliados. Cada um pode somar 1d4 a um teste de resistência contra medo ou a um teste de Sobrevivência nas próximas 8 horas, após rolar e antes do resultado. Uma vez por descanso longo."
+        },
+        {
+          "nome": "Dormir com um Olho Aberto",
+          "combate": "Enquanto dormir, sons de uma criatura se aproximando ainda podem ser percebidos por sua Percepção passiva. Ao perceber uma ameaça, acorda imediatamente. Uma vez por descanso longo, pode rerrolar Iniciativa e aceitar o novo resultado.",
+          "foraCombate": "Você dorme em locais desconfortáveis sem penalidade causada por chão duro, barulho moderado ou falta de cama. Não ignora dano, clima perigoso ou interrupções por atividade."
         },
         {
           "nome": "Improviso de Sobrevivência",
-          "combate": "1/descanso curto: objeto comum como arma improvisada +1d4 dano e proficiência. Objeto com valor sentimental: +1d6 e conta como arma mágica por 1 min.",
-          "foraCombate": "1/sessão: 'improvisa' uma solução para um problema (ponte com cordas, abrigo com galhos, sinal de fumaça). Mestre decide limite, mas você sempre consegue algo."
+          "combate": "Como ação bônus, escolha um objeto que empunhe: por 1 minuto ele funciona como arma mágica em que você é proficiente, causando 1d8 + Força ou Destreza (escolha por ataque). Uma vez em cada um dos seus turnos, ao acertar com ele, cause +1d6 de dano. Uma vez por descanso curto ou longo.",
+          "foraCombate": "Uma vez por descanso longo, após 10 minutos usando materiais realmente disponíveis, construa uma solução temporária: abrigo para seis pessoas, passagem segura sobre vão de até 3m ou dispositivo de sinalização visível a até 1 km em condições claras. Dura 8 horas; obstáculos que excedam esses limites ainda exigem outro plano."
         }
       ]
     }
@@ -663,8 +663,8 @@
       "trilhaA": "altar",
       "trilhaB": "maos",
       "descricao": "Você não separa mais o sagrado do artesanal. Toda peça que sai das suas mãos carrega uma prece silenciosa — e toda prece que você faz pede um objeto onde morar. Sua criação é seu altar.",
-      "combate": "Durante um descanso curto, consagre uma arma, armadura ou escudo que você mesmo criou (ou reparou). Ela recebe +1 em ataque e dano (arma) ou +1 CA (armadura) e conta como mágica. 1/combate, ao acertar com a relíquia, gaste ação bônus para invocar a bênção: +2d6 radiante ou cura 2d8 PV em aliado a 9m. Dura até o fim da cena.",
-      "foraCombate": "Você pode consagrar qualquer objeto feito com suas próprias mãos. Enquanto existir, quem o carregar sente serenidade: vantagem contra medo e encantamento, e cura 1 Dado de Vida extra em descansos. Objetos consagrados podem ser deixados em locais para abençoá-los por 1 semana."
+      "combate": "Durante um descanso curto, consagre uma arma, armadura ou escudo que você criou ou reparou. Até o próximo descanso longo, o portador pode, uma vez por descanso curto ou longo, usar reação ao acertar com a arma ou sofrer um ataque usando a armadura ou escudo para ganhar PV temporários iguais a 1d8 + seu bônus de proficiência. Só é possível manter uma relíquia.",
+      "foraCombate": "O portador dessa relíquia tem vantagem em resistências contra medo enquanto a carregar. Uma vez por descanso longo, ao gastar um Dado de Vida em descanso curto, ele soma seu bônus de proficiência aos PV recuperados. A relíquia não concede bônus de ataque, dano ou CA."
     },
     {
       "id": "falsificacao-perfeita",
@@ -672,8 +672,8 @@
       "trilhaA": "maos",
       "trilhaB": "mascara",
       "descricao": "O que suas mãos criam, sua face convence. Documentos, moedas, selos, obras de arte — tudo sai impecável, e você sabe exatamente como apresentá-los para que ninguém duvide.",
-      "combate": "Ação bônus: cria um truque mecânico-ilusório com material improvisado (fumaça, brilho, som). Escolha: (a) cega criatura a 9m até o fim do próximo turno dela, (b) cria 3m de escuridão, ou (c) faz uma criatura acreditar que você está em outro lugar (Intuição CD 8+prof+Int para desacreditar). Usável mod. Inteligência vezes por combate.",
-      "foraCombate": "Você forja qualquer documento, moeda, selo ou obra de arte em 1 hora, desde que tenha visto um exemplo. A falsificação é tão perfeita que apenas magia de nível 3+ ou alguém que conhece o original pessoalmente pode identificar. Também pode falsificar sua identidade por completo em 1 dia — CD 20 para desmascarar."
+      "combate": "Como ação bônus com kit de disfarce ou ferramentas de artesão à mão, crie uma distração visível a até 9m. Uma criatura que veja você faz resistência de Sabedoria (CD 8 + seu bônus de proficiência + seu modificador de Inteligência); na falha, seu próximo ataque contra ela até o fim do turno tem vantagem, e você pode mover 3m sem provocar ataques de oportunidade dela. Uma vez por descanso curto ou longo.",
+      "foraCombate": "Com kit de falsificação, materiais e 1 hora por página, copie um documento cujo modelo possa examinar. Tem vantagem no teste de falsificação. Quem conhece o documento original pessoalmente tem vantagem para detectar a fraude. Não copia assinaturas desconhecidas, moeda, selos mágicos ou propriedades sobrenaturais."
     },
     {
       "id": "contrabando",
@@ -681,8 +681,8 @@
       "trilhaA": "mascara",
       "trilhaB": "margem",
       "descricao": "Há coisas que precisam atravessar fronteiras — objetos, pessoas, verdades. Você é a ponte. Sua máscara abre portas que a lei fecha, e sua margem te dá rotas que ninguém vigia.",
-      "combate": "Reação ao ser alvo de um ataque: você troca de posição com um objeto ou aliado a até 3m (você estava 'carregando' ele o tempo todo). O ataque atinge o que você deixou no lugar. 1/combate. Além disso, pode esconder qualquer objeto pequeno em si mesmo; ninguém o encontra sem revista completa.",
-      "foraCombate": "Você transporta itens ou pessoas através de qualquer fronteira, checkpoint ou área vigiada sem ser detectado — desde que tenha 10 minutos para preparar. Conhece rotas de contrabando em qualquer cidade: onde entrar, onde sair, quem suborna, quem entrega. 1/sessão: 'sumir' com um objeto (tamanho médio) por 1 dia, escondido em local que só você sabe."
+      "combate": "Reação após resolver um ataque contra você: troque de posição com um aliado disposto e visível a até 3m, com caminho livre e espaço para ambos. Não provoca ataques de oportunidade nem redireciona o ataque já resolvido. 1/descanso curto ou longo.",
+      "foraCombate": "Após 10 minutos preparando carga ou disfarces, você e até três aliados têm vantagem em Enganação ou Furtividade para atravessar um único posto de controle. Exige uma rota transitável e uma justificativa ou ocultação plausível; buscas físicas e detecção mágica ainda funcionam. Uma vez por descanso curto ou longo."
     },
     {
       "id": "vazio-silencioso",
@@ -690,8 +690,8 @@
       "trilhaA": "margem",
       "trilhaB": "silencio",
       "descricao": "A margem ensina a ficar fora dos olhos. O silêncio ensina a ficar fora da mente. Juntos, você se torna o espaço onde nada acontece — até acontecer.",
-      "combate": "Você pode se tornar invisível e inaudível para todas as criaturas por 1 rodada como ação bônus (não é magia — é presença tão apagada que o mundo te ignora). Enquanto nesse estado, seu próximo ataque tem vantagem e causa +2d6 de dano se você estiver sozinho contra o alvo. Usável mod. Sabedoria vezes por combate.",
-      "foraCombate": "Você pode passar 1 hora em qualquer ambiente sem deixar vestígio: nem pegadas, nem cheiro, nem memória. Pessoas que te viram esquecem seu rosto em 10 minutos (a menos que magia). Pode dormir em qualquer lugar sem ser notado, e ninguém pode te rastrear por meios mundanos."
+      "combate": "Como ação bônus, você pode se Esconder com vantagem em Furtividade, desde que tenha cobertura ou ocultação suficiente. Até o início do seu próximo turno, seus passos não fazem som. Uma vez por descanso curto ou longo.",
+      "foraCombate": "Após 10 minutos de preparação, você não deixa pegadas em terreno urbano ou natural por 1 hora e tem vantagem em Furtividade para permanecer imóvel. Não apaga cheiro, objetos deslocados ou lembranças de testemunhas. Uma vez por descanso longo."
     },
     {
       "id": "cacador-paciente",
@@ -699,8 +699,8 @@
       "trilhaA": "silencio",
       "trilhaB": "instinto",
       "descricao": "A mente quieta vê o que o olho agitado perde. Você se move como um animal, pensa como um eremita, espera como a pedra. Quando age, é tarde demais para quem está do outro lado.",
-      "combate": "Ação bônus: entre em Estado de Caça. Enquanto durar (até fim da cena), você tem vantagem em Percepção e +2 em Iniciativa, e cada ataque seu contra criatura que ainda não te viu causa +1d8 de dano. Se passar 1 rodada inteira sem atacar, no próximo turno seus ataques ignoram resistências do alvo escolhido.",
-      "foraCombate": "Você pode rastrear qualquer criatura que tenha passado por um local nas últimas 48h, com precisão de 100m. Também pode ficar imóvel por horas em posição de espreita sem sofrer penalidade, e percebe qualquer criatura que se aproximar em 30m mesmo dormindo."
+      "combate": "Se terminar seu turno sem atacar nem causar dano, você pode observar uma criatura que veja a até 18m. No seu próximo turno, o primeiro ataque que acertar nela causa +1d8 de dano. Não exige ação, não se acumula, e a observação termina se você perder o alvo de vista antes desse turno.",
+      "foraCombate": "Após 10 minutos examinando rastros, tem vantagem em Sobrevivência para seguir uma criatura por até 8 horas. Pode permanecer imóvel de espreita por até 2 horas sem desvantagem causada apenas por desconforto; precisa continuar atento e não percebe automaticamente criaturas ocultas."
     },
     {
       "id": "brado-selvagem",
@@ -708,8 +708,8 @@
       "trilhaA": "instinto",
       "trilhaB": "voz",
       "descricao": "Nem todo comando vem da corte. O grito que une uma tribo, o uivo que faz o inimigo hesitar — isso é sua voz. Você fala a língua que o corpo entende antes da mente.",
-      "combate": "Ação bônus: solta um brado. Todos os aliados a 18m ganham +2 em ataques e +1d6 de dano até o início do seu próximo turno. Inimigos a 9m devem passar em Sabedoria (CD 8+prof+Car) ou ficam amedrontados por 1 rodada (não podem se aproximar de você). Usável mod. Carisma vezes por combate.",
-      "foraCombate": "Você pode comunicar ideias complexas a qualquer criatura que tenha instinto (animais, bestas, monstros não-intelectuais) — não é falar, é fazer o corpo e o tom entenderem. Isso inclui acalmar, intimidar ou convocar animais selvagens. Também pode inspirar uma multidão a agir em 1 minuto de discurso: eles ganham vantagem em um teste coletivo à sua escolha."
+      "combate": "Ação bônus: solte um brado. Até 3 aliados a 9m que ouçam você ganham +1d4 no dano do próximo ataque que acertarem até o início do seu próximo turno. 1/descanso curto ou longo.",
+      "foraCombate": "Você tem vantagem em Lidar com Animais para acalmar ou afastar uma besta não hostil. Pode comunicar intenções simples por gestos e tom (parar, seguir, perigo), mas não transmite conceitos complexos nem controla o animal."
     },
     {
       "id": "lider-tempestade",
@@ -717,8 +717,8 @@
       "trilhaA": "voz",
       "trilhaB": "mare",
       "descricao": "Você não lidera apesar do caos — você lidera dentro dele. Sua voz se adapta como a água, contorna a resistência, encontra a fenda. Em qualquer crise, é você quem respira primeiro.",
-      "combate": "Ação: Redemoinho de Comando. Até 6 aliados que podem te ouvir ganham +2 CA, +2 em testes de resistência e podem se mover 3m imediatamente como reação, sem provocar ataques de oportunidade. Dura até o início do seu próximo turno. 1/combate. Se um aliado usar esse movimento para flanquear, o próximo ataque dele tem vantagem.",
-      "foraCombate": "Você pode assumir o comando de qualquer grupo em crise (naufrágio, incêndio, motim, evacuação). Em 1 minuto, organiza até 20 pessoas, define funções e coordena uma ação coletiva sem testes — a operação funciona, a menos que haja sabotagem ativa. Também pode ler o clima emocional de qualquer grupo em 10 minutos e saber exatamente quem está prestes a quebrar."
+      "combate": "Ação bônus: até 3 aliados a 9m que possam ouvir você ganham +1 CA até o início do seu próximo turno e podem se mover 3m imediatamente como reação, sem ataques de oportunidade. 1/descanso curto ou longo.",
+      "foraCombate": "Após 1 minuto organizando até dez pessoas dispostas numa crise, elas têm vantagem no próximo teste coletivo para evacuar, estabilizar embarcação ou combater incêndio, realizado em até 10 minutos. Não garante o resultado e exige meios para agir. Uma vez por descanso curto ou longo."
     },
     {
       "id": "timoneiro",
@@ -726,8 +726,8 @@
       "trilhaA": "mare",
       "trilhaB": "tabuleiro",
       "descricao": "Você vê o tabuleiro em movimento. Enquanto outros traçam planos rígidos, você navega — ajusta, cede, avança. A vitória não é a jogada perfeita; é a jogada que se adapta.",
-      "combate": "Ação bônus: escolha um ponto no campo de batalha (até 18m). Até o fim do seu próximo turno, qualquer aliado nesse ponto tem +2 CA, +2 em ataques e vantagem em testes de resistência. Se o inimigo se mover para lá, sofre 2d6 de dano (você 'leu' o movimento dele). Usável mod. Inteligência vezes por combate.",
-      "foraCombate": "Você pode replanejar qualquer operação em 10 minutos. Se um plano estiver falhando (negociação, infiltração, viagem), você pode substituir o plano por um novo que tenha pensado — e o grupo inteiro se adapta sem quebra. 1/dia. Além disso, sempre sabe a rota mais rápida e segura entre dois pontos, seja no mar, na terra ou na política."
+      "combate": "Ação bônus: escolha uma área visível de 3m de raio a até 9m. Até 3 aliados escolhidos dentro dela ganham +1 CA até o início do seu próximo turno. Sair encerra o bônus para aquele aliado. 1/descanso curto ou longo.",
+      "foraCombate": "Uma vez por descanso longo, após 10 minutos reavaliando uma rota ou operação com o grupo, um participante pode rerrolar um teste de navegação, Investigação ou Sobrevivência realizado nas próximas 8 horas e aceitar o novo resultado. Precisa de informações reais sobre o plano."
     },
     {
       "id": "estrategista-erudito",
@@ -735,8 +735,8 @@
       "trilhaA": "tabuleiro",
       "trilhaB": "pagina",
       "descricao": "Você leu sobre isso. Depois leu sobre o que veio antes. Depois escreveu sobre isso. Todo campo de batalha é uma biblioteca, todo inimigo é um livro aberto — e você já leu o índice.",
-      "combate": "Ação bônus: faça um teste de Investigação (CD 15) contra criatura visível. Se passar, até o fim da cena, seus ataques e os de aliados que você instruir (ação bônus no turno deles) ignoram resistências e imunidades da criatura. Além disso, 1/combate, você pode prever um ataque: quando uma criatura declara ataque contra você ou aliado a 9m, você pode anulá-lo (a criatura 'repensa' e escolhe outro alvo ou desiste).",
-      "foraCombate": "Você pode estudar qualquer tema por 1 hora e se tornar proficiente nele até o próximo descanso longo — desde idiomas antigos até táticas militares, leis, venenos, história local. Durante esse período, seus testes com esse conhecimento têm vantagem. Também pode escrever um tratado curto (1 dia) que concede a qualquer leitor um bônus permanente de +1 em uma perícia à sua escolha."
+      "combate": "Ação bônus: Investigação (CD 15) contra criatura visível a até 18m. Se passar, identifica uma resistência a dano dela. O próximo ataque seu ou de um aliado que ouça sua explicação ignora essa resistência até o início do seu próximo turno. Não ignora imunidades. 1/descanso curto ou longo.",
+      "foraCombate": "Após 1 hora estudando fonte pertinente, escolha Arcana, História, Natureza ou Religião: some 1d4 a um teste dessa perícia sobre o tema nas próximas 8 horas, depois de rolar e antes do resultado. Uma vez por descanso curto ou longo."
     },
     {
       "id": "duelista-estudioso",
@@ -744,8 +744,8 @@
       "trilhaA": "pagina",
       "trilhaB": "lamina",
       "descricao": "Você lê sobre a morte antes de causá-la. Cada golpe seu é uma citação, cada defesa é uma nota de rodapé. A lâmina é sua caneta; o campo, seu papel.",
-      "combate": "Ação bônus: faça um teste de História, Investigação ou Percepção (CD 14). Se passar, você aprende a guarda do inimigo e escolhe um efeito por 1 rodada: (a) seus ataques contra ele têm vantagem e causam +2d6 de dano; (b) você anula um ataque dele por turno; ou (c) você pode redirecionar o próximo ataque dele para outra criatura à escolha. Usável mod. Inteligência vezes por combate.",
-      "foraCombate": "Você pode analisar qualquer luta que tenha visto (ao vivo ou descrita) e extrair uma técnica: em 1 dia de treino, você e até 3 aliados ganham +1 em ataques com a arma usada na luta analisada, permanentemente. Também pode identificar a origem e o estilo de qualquer guerreiro apenas observando-o lutar por 1 rodada."
+      "combate": "Após observar uma criatura lutar por uma rodada, como ação bônus faça um teste de História ou Percepção (CD 14). Em sucesso, escolha: +2 CA contra o próximo ataque dela ou +1d6 no próximo ataque seu que a acertar. O benefício expira no início do seu próximo turno. Uma vez por descanso curto ou longo.",
+      "foraCombate": "Após 10 minutos analisando uma luta que presenciou, descreva uma técnica a até três aliados. Nas próximas 8 horas, cada um pode somar 1d4 a um teste de Atletismo ou Acrobacia relacionado à técnica. Uma vez por descanso longo; não concede bônus permanentes de ataque."
     },
     {
       "id": "guarda-urbano",
@@ -753,8 +753,8 @@
       "trilhaA": "lamina",
       "trilhaB": "telhado",
       "descricao": "Você protege a cidade que conhece. Cada beco é uma posição defensiva, cada telhado é uma torre. O crime não passa por onde você está — e se passar, não volta.",
-      "combate": "Enquanto estiver em ambiente urbano (ruas, becos, telhados, interiores), você ganha +2 CA e +1d6 em ataques contra qualquer criatura que tenha atacado um aliado ou civil nesta cena. Você pode usar ação bônus para interpor-se: qualquer aliado a 3m ganha +3 CA contra ataques até o início do seu próximo turno. Se um civil ou aliado a 9m for reduzido a 0 PV, você pode reagir e mover-se até ele (mesmo sem deslocamento) e atacar o agressor imediatamente.",
-      "foraCombate": "Você conhece qualquer cidade como se tivesse nascido nela após 1 dia de exploração: rotas, esconderijos, guildas, autoridades corruptas, pontos cegos. Pode organizar uma milícia civil em 1 dia (até 30 pessoas treinadas com stats de Guarda) que protege um bairro por 1 semana. 1/sessão: pode impedir um crime que ainda não aconteceu — porque você estava no lugar certo, na hora certa."
+      "combate": "Quando um aliado que você veja a até 3m for atacado, use reação para mover até 1,5m em direção a ele, sem ataques de oportunidade, e conceder +2 CA contra o ataque antes da rolagem, se terminar a até 1,5m dele. Uma vez por descanso curto ou longo.",
+      "foraCombate": "Depois de um dia explorando um bairro, você tem vantagem em Investigação para identificar rotas de patrulha e sinais de crime nesse bairro. Pode treinar até seis voluntários por 1 hora para vigiar por 8 horas: recebem +2 Percepção passiva. Não ganham ficha de Guarda nem preveem crimes futuros."
     },
     {
       "id": "andarilho-fronteiras",
@@ -762,8 +762,8 @@
       "trilhaA": "telhado",
       "trilhaB": "horizonte",
       "descricao": "Você não pertence nem à cidade nem à selva — pertence às bordas entre elas. As muralhas, as estradas esquecidas, os portões que ninguém vigia. Você conhece os dois mundos e não deve lealdade a nenhum.",
-      "combate": "Você ignora terreno difícil de qualquer tipo (urbano ou selvagem) e pode usar ação bônus para atravessar 6m por qualquer rota, incluindo vertical (muros, árvores, telhados). Se estiver em uma fronteira (entre cidade e natureza), você tem +2 CA e +1d6 em ataques. Inimigos que tentam te seguir por terreno difícil ficam reduzidos à metade do deslocamento naquele turno.",
-      "foraCombate": "Você pode atravessar qualquer fronteira — muralhas, rios, montanhas, fronteiras políticas — sem ser parado, testado ou interrogado, desde que esteja sozinho ou com até 3 aliados. Também pode encontrar uma passagem secreta entre dois pontos quaisquer em 1 hora de busca (a critério do mestre, mas sempre existe uma). 1/sessão: pode desaparecer de um lugar e reaparecer em outro dentro da mesma região — como se o mundo tivesse uma porta dos fundos."
+      "combate": "Você ignora terreno difícil não mágico de entulho ou vegetação. 1/descanso curto ou longo, ação bônus: move até 3m, podendo escalar com apoios, gastando seu deslocamento e sem ataques de oportunidade.",
+      "foraCombate": "Você tem vantagem em Sobrevivência ou Investigação para procurar rotas alternativas entre cidade e arredores após 10 minutos de busca. Se nenhuma rota existir, identifica o obstáculo que a impede. Não cria passagem, não atravessa barreira nem teletransporta."
     },
     {
       "id": "naturalista-alquimico",
@@ -771,8 +771,8 @@
       "trilhaA": "horizonte",
       "trilhaB": "cadinho",
       "descricao": "Você transforma o que encontra em algo que nunca existiu. A floresta é seu laboratório, a estrada é sua bancada. Cada planta, cada mineral, cada inseto é um reagente esperando propósito.",
-      "combate": "Você carrega 3 reagentes instáveis preparados durante descansos. Como ação, pode arremessá-los: (a) Ácido Natural: 3d6 de dano em área 3m, CD 14 metade; (b) Veneno Paralisante: alvo faz Constituição (CD 14) ou fica paralisado 1 rodada; (c) Cura Selvagem: aliado a 9m recupera 3d8 PV e vantagem contra veneno por 1h. Você pode preparar 1 reagente por descanso curto em qualquer ambiente natural.",
-      "foraCombate": "Você pode identificar qualquer planta, mineral ou criatura natural em 1 minuto, sabendo suas propriedades, venenos e usos. Pode criar antídotos e curas para qualquer doença ou veneno natural em 1h, desde que tenha os ingredientes. Também pode transformar material natural em outro de valor equivalente em 1 dia (chumbo em prata, madeira em carvão, pedra em vidro) — não é mágico, é alquímico."
+      "combate": "Durante um descanso longo em ambiente natural com recursos, prepare dois reagentes: cura (ação para beber ou administrar a uma criatura a 1,5m, recuperando PV iguais a 1d8 + seu bônus de proficiência) ou ácido (ação, arremesso a 9m, uma criatura faz resistência de Destreza (CD 8 + seu bônus de proficiência + seu modificador de Inteligência), sofrendo 2d6 ácido ou metade). Eles expiram no próximo descanso longo.",
+      "foraCombate": "Com kit de herbalismo e 1 hora buscando plantas pertinentes, produza uma dose que concede vantagem no próximo teste contra veneno não mágico feito em até 1 hora após consumida. Uma dose por descanso longo. Não cura automaticamente doença nem transmuta materiais preciosos."
     },
     {
       "id": "pocao-equilibrio",
@@ -780,8 +780,8 @@
       "trilhaA": "cadinho",
       "trilhaB": "fio",
       "descricao": "Você destila o próprio corpo. Cada movimento seu é química, cada respiração é cálculo. Você não fica mais forte — fica mais preciso, mais rápido, mais impossível de derrubar.",
-      "combate": "Ação bônus: beba uma poção destilada de si mesmo (criada durante descanso curto, sem custo). Escolha um efeito por 1d4 rodadas: (a) +3m de deslocamento e +2 CA; (b) vantagem em Acrobacia e Destreza e ignora terreno difícil; (c) +2 em ataques e +1d6 de dano. Se você sofrer dano enquanto o efeito estiver ativo, ele persiste (não é interrompido). Você pode preparar mod. Constituição poções por descanso longo.",
-      "foraCombate": "Você pode alterar temporariamente seu corpo com uma dose: escolha por 1h — respirar na água, suportar frio/calor extremo, ou não precisar dormir. Também pode destilar um veneno ou droga em 1h a partir de qualquer substância ingerida, criando uma versão concentrada que dura 1 semana. Seus frascos nunca quebram por acidente."
+      "combate": "Durante um descanso longo, prepare uma dose pessoal que expira no próximo descanso longo. Como ação bônus, beba para ganhar por 1 minuto +1 CA e +1,5m de deslocamento, ou vantagem em Acrobacia e em resistências para evitar ficar caído (escolha ao beber). Não se acumula com outra dose.",
+      "foraCombate": "Em vez do efeito de combate, beba a mesma dose para prender a respiração por até 10 minutos ou ter vantagem em resistências contra clima extremo por 1 hora. O preparo é gratuito com suprimentos de alquimista; só você pode usar a dose."
     },
     {
       "id": "saltimbanco-andarilho",
@@ -789,8 +789,8 @@
       "trilhaA": "fio",
       "trilhaB": "estrada",
       "descricao": "A estrada é seu palco, o fio é seu chão. Você dança sobre o mundo como se ele fosse feito para isso. Cada cidade é um novo show; cada jornada, um novo número.",
-      "combate": "Ação bônus: entre em Estado de Performance. Enquanto durar (até o fim da cena), você pode se mover 3m após cada ataque seu (mesmo se errou), sem provocar ataques de oportunidade. Se você se mover para uma posição elevada ou diferente (telhado, mesa, corda), seu próximo ataque tem vantagem e +2d6 de dano. Usável mod. Destreza vezes por combate.",
-      "foraCombate": "Você pode se apresentar em qualquer lugar: em 10 minutos, reúne uma plateia e ganha 1d4×10 PO por apresentação (ou o equivalente em favores, informações, hospedagem). Pode ensinar truques de acrobacia a qualquer aliado em 1 dia: eles ganham proficiência em Acrobacia e +1,5m de deslocamento permanentemente. 1/sessão: pode fazer um número impossível (malabarismo com facas, equilíbrio extremo, salto sobre abismo) que deixa todos que assistem fascinados por 1 minuto — tempo suficiente para qualquer coisa."
+      "combate": "Uma vez em cada um dos seus turnos, após fazer um ataque, pode mover 1,5m gastando seu deslocamento, sem ataques de oportunidade do alvo. Uma vez por descanso curto ou longo, se terminar esse movimento num apoio elevado seguro, seu próximo ataque até o fim do turno causa +1d6 ao acertar.",
+      "foraCombate": "Após 10 minutos de apresentação, faça Atuação com vantagem para obter hospedagem modesta ou uma informação pública da plateia, se alguém puder oferecê-la. Não cria público nem receita garantida. Após 1 hora ensinando um aliado, ele tem vantagem em um teste de Acrobacia nas próximas 8 horas; um aliado treinado por vez."
     },
     {
       "id": "peregrino-sagrado",
@@ -798,8 +798,8 @@
       "trilhaA": "estrada",
       "trilhaB": "altar",
       "descricao": "Para você, a estrada é templo. Cada passo é prece, cada horizonte é revelação. Você não viaja para chegar — viaja para se tornar. E cada lugar que visita deixa uma marca sagrada em você.",
-      "combate": "Reação ao sofrer dano: você pode invocar a lembrança de um lugar sagrado que visitou. Escolha um efeito imediato: (a) cura 3d8 PV em si mesmo; (b) anula completamente o dano e o efeito da fonte (uma vez por combate); (c) teletransporta você e até 1 aliado a 9m para qualquer lugar a 18m que você já tenha visto nesta cena. Usável mod. Sabedoria vezes por dia.",
-      "foraCombate": "Você pode consagrar qualquer lugar com 1h de ritual: uma casa, uma encruzilhada, uma ruína, uma clareira. O lugar se torna sagrado para você e para quem você permitir: criaturas hostis não podem entrar (teste de Sabedoria CD 20), aliados curam 1 Dado de Vida extra ali, e você sempre sabe quando algo ameaça o lugar. Pode manter até 5 lugares sagrados ao mesmo tempo. Além disso, pode fazer uma peregrinação: em 3 dias de viagem a um lugar sagrado, você ganha uma revelação — o mestre responde uma pergunta verdadeira sobre o mundo."
+      "combate": "Reação após sofrer dano: ganhe PV temporários iguais a 1d8 + seu bônus de proficiência e mova 1,5m sem ataques de oportunidade, se continuar consciente. 1/descanso curto ou longo.",
+      "foraCombate": "Durante um descanso curto, consagre o acampamento até o próximo descanso longo. Você e até cinco companheiros podem somar 1d4 a uma resistência contra medo enquanto ali. Só um acampamento ativo; não bloqueia entrada hostil nem concede revelações absolutas."
     }
   ]
 }
