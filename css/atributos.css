@@ -1,0 +1,190 @@
+/* ===================================================================
+   ATRIBUTOS · calculadora de compra de pontos (D&D 5e)
+   Depende de css/styles.css para o tema base (cores, top-bar, botões).
+   =================================================================== */
+
+.container-atributos { max-width: 1080px; }
+
+/* `hidden` precisa vencer as regras de display das classes */
+[hidden] { display: none !important; }
+
+/* ---------- barra superior ---------- */
+.race-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+.field { display: flex; flex-direction: column; gap: 0.3rem; }
+.field label {
+  color: #ccc;
+  font-size: 0.65rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.field select {
+  background: #2a2a2a;
+  color: #eee;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 160px;
+  max-width: 200px;
+}
+.field select:focus-visible {
+  outline: 2px solid #d4b46a;
+  outline-offset: 1px;
+}
+.flex-picks { display: flex; gap: 0.4rem; }
+.flex-picks select { min-width: 118px; }
+
+/* pontos + reset formam um bloco que não se separa ao quebrar linha */
+.bar-direita {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-left: auto;
+}
+
+/* ---------- tabela de atributos ---------- */
+.tabela-atributos {
+  background: #1c1c1c;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 0.2rem 1.1rem 0.6rem;
+  overflow-x: auto;
+}
+.tabela-head,
+.atributo-linha {
+  display: grid;
+  grid-template-columns: 1.5fr 1.35fr 1fr 0.75fr 1fr 0.7fr;
+  gap: 0.6rem;
+  align-items: center;
+  min-width: 620px;
+}
+.tabela-head {
+  padding: 0.85rem 0 0.6rem;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 0.62rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #777;
+  font-weight: 700;
+}
+.tabela-head span:not(:first-child) { text-align: center; }
+
+.atributo-linha {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #232323;
+}
+.atributo-linha:last-child { border-bottom: none; }
+
+.attr-nome { display: flex; align-items: baseline; gap: 0.5rem; }
+.attr-abrev {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #e0b84a;
+  background: rgba(224, 184, 74, 0.1);
+  border: 1px solid rgba(224, 184, 74, 0.25);
+  border-radius: 5px;
+  padding: 0.1rem 0.35rem;
+}
+.attr-label { font-size: 0.95rem; color: #eaeaea; }
+
+.attr-controle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+.btn-step {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #323232;
+  color: #f2f2f2;
+  border: 1px solid #4c4c4c;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s;
+}
+.btn-step:hover:not(:disabled) {
+  background: #454545;
+  color: #fff;
+  border-color: #6a6a6a;
+}
+.btn-step:disabled {
+  background: #232323;
+  border-color: #2f2f2f;
+  color: #6a6a6a;
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.attr-valor {
+  min-width: 2.1rem;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f5f5f5;
+  font-variant-numeric: tabular-nums;
+}
+.attr-bonus,
+.attr-total,
+.attr-mod,
+.attr-custo {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.attr-bonus { color: #8f8f8f; font-size: 0.9rem; }
+.attr-bonus.positivo { color: #7bc47f; }
+.attr-total { font-size: 1.15rem; font-weight: 700; color: #fff; }
+.attr-mod { color: #bbb; font-size: 0.95rem; font-weight: 600; }
+.attr-custo { color: #666; font-size: 0.9rem; font-weight: 600; }
+.attr-custo.positivo { color: #e07b5a; }
+
+/* ---------- regras ---------- */
+.regras { margin-top: 1.4rem; color: #b6b6b6; font-size: 0.87rem; line-height: 1.65; }
+.regras h2 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: #888;
+  margin: 0 0 0.6rem;
+  font-weight: 700;
+}
+.regras p { margin: 0 0 0.7rem; max-width: 80ch; }
+.regras strong { color: #e0b84a; font-weight: 600; }
+.custo-ref {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0.9rem;
+}
+.custo-chip {
+  background: #202020;
+  border: 1px solid #2e2e2e;
+  border-radius: 7px;
+  padding: 0.22rem 0.5rem;
+  font-size: 0.75rem;
+  color: #aaa;
+  font-variant-numeric: tabular-nums;
+}
+.custo-chip b { color: #e0b84a; font-weight: 700; }
+.regras .fonte { color: #666; font-size: 0.78rem; font-style: italic; }
+
+@media (max-width: 560px) {
+  .tabela-atributos { padding: 0.2rem 0.6rem 0.6rem; }
+  .attr-abrev { display: none; }
+}

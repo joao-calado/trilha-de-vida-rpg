@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Calculadora de compra de pontos de atributos (D&D 5e) do sistema Trilhas de Vida.">
+<title>Trilhas de Vida · Atributos</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/atributos.css">
+</head>
+<body>
+<div class="container container-atributos">
+  <h1>⭒ Trilhas de Vida</h1>
+  <p class="subtitle">Compra de pontos • Livro do Jogador</p>
+
+  <nav class="tabs" aria-label="Seções do site">
+    <a class="tab" href="index.html">Trilhas</a>
+    <a class="tab" href="atributos.html" aria-current="page">Atributos</a>
+  </nav>
+
+  <div class="top-bar">
+    <div class="race-selector">
+      <div class="field">
+        <label for="racaSelect">Raça</label>
+        <select id="racaSelect"></select>
+      </div>
+      <div class="field" id="subracaBox" hidden>
+        <label for="subracaSelect">Subraça</label>
+        <select id="subracaSelect"></select>
+      </div>
+      <div class="field" id="flexBox" hidden>
+        <label id="flexLabel">Bônus flexíveis (+1 cada)</label>
+        <div class="flex-picks">
+          <select id="flex1" aria-labelledby="flexLabel"></select>
+          <select id="flex2" aria-labelledby="flexLabel"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="bar-direita">
+      <div class="points-display">
+        <div class="pt-item disponivel">
+          <span class="pt-value" id="ptOrcamento">27</span>
+          <span class="pt-label">Orçamento</span>
+        </div>
+        <div class="pt-item gasto">
+          <span class="pt-value" id="ptGasto">0</span>
+          <span class="pt-label">Gasto</span>
+        </div>
+        <div class="pt-item restante" id="ptRestanteBox">
+          <span class="pt-value" id="ptRestante">27</span>
+          <span class="pt-label">Restante</span>
+        </div>
+      </div>
+      <button class="btn-reset" id="btnReset" type="button">Resetar</button>
+    </div>
+  </div>
+
+  <div class="tabela-atributos" role="group" aria-label="Compra de atributos">
+    <div class="tabela-head" aria-hidden="true">
+      <span>Atributo</span>
+      <span>Valor</span>
+      <span>Bônus racial</span>
+      <span>Total</span>
+      <span>Modificador</span>
+      <span>Custo</span>
+    </div>
+    <div id="linhasAtributos"></div>
+  </div>
+
+  <section class="regras">
+    <h2>Como funciona</h2>
+    <p>
+      Você tem <strong>27 pontos</strong> para distribuir entre os seis atributos.
+      Cada atributo começa em <strong>8</strong> e pode chegar a <strong>15</strong>
+      antes dos ajustes raciais.
+    </p>
+    <p>
+      Os bônus de raça são aplicados <em>depois</em> da compra e
+      <strong>não custam pontos</strong> — por isso o total de um atributo pode
+      passar de 15 mesmo que o valor comprado pare em 15.
+    </p>
+    <div class="custo-ref" id="custoRef" aria-label="Tabela de custos por valor"></div>
+    <p class="fonte">Fonte: <em>Livro do Jogador</em>, p. 13 — compra de pontos.</p>
+  </section>
+</div>
+
+<script src="js/atributos.js"></script>
+</body>
+</html>
