@@ -1,0 +1,8 @@
+# Dependências de desenvolvimento (o site em si não usa nenhuma)
+node_modules/
+
+# Sistema operacional / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

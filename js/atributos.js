@@ -161,6 +161,134 @@ function podeDiminuir(id) {
 }
 
 // -------------------------------------------------------------------
+// PERSISTÊNCIA LOCAL (Issue #1)
+// js/persistencia.js cuida do localStorage; aqui traduzimos `estado`
+// para o formato salvo e validamos o que é restaurado.
+// -------------------------------------------------------------------
+function temPersistencia() {
+  return typeof Persistencia !== "undefined";
+}
+
+function mostrarAvisoPersistencia(texto) {
+  const aviso = document.getElementById("avisoPersistencia");
+  if (!aviso) return;
+  // Mostra antes de escrever para leitores de tela anunciarem a mensagem.
+  aviso.hidden = false;
+  aviso.textContent = texto;
+}
+
+function configurarAvisoPersistencia() {
+  const aviso = document.getElementById("avisoPersistencia");
+  if (!aviso) return;
+
+  if (!temPersistencia()) {
+    mostrarAvisoPersistencia(
+      "Não foi possível carregar js/persistencia.js; os atributos não serão salvos."
+    );
+    return;
+  }
+
+  Persistencia.aoFalhar((motivo) =>
+    mostrarAvisoPersistencia(motivo || Persistencia.MENSAGENS.falhaAoSalvar)
+  );
+
+  const status = Persistencia.status();
+  if (!status.ok) {
+    mostrarAvisoPersistencia(Persistencia.MENSAGENS.indisponivel);
+  } else if (status.semEspaco) {
+    mostrarAvisoPersistencia(Persistencia.MENSAGENS.falhaAoSalvar);
+  }
+}
+
+function contextoPersistencia() {
+  return {
+    idsAtributos: ATRIBUTOS.map((atributo) => atributo.id),
+    minimo: PONTOS_MIN,
+    maximo: PONTOS_MAX,
+    orcamento: ORCAMENTO,
+    custoDe,
+    racas: RACAS.map((raca) => ({
+      id: raca.id,
+      subracas: Array.isArray(raca.subracas) ? raca.subracas.map((sub) => sub.id) : [],
+      flexiveis: Number.isInteger(raca.flexiveis) ? raca.flexiveis : 0,
+      flexProibidos: Array.isArray(raca.flexProibidos) ? raca.flexProibidos : [],
+    })),
+  };
+}
+
+function montarEstadoPersistivel() {
+  return {
+    valores: { ...estado.valores },
+    racaId: estado.racaId,
+    subracaId: estado.subracaId,
+    flex: [...estado.flex],
+  };
+}
+
+// Última versão enviada ao localStorage. Evita regravar no carregamento
+// (quando nada mudou) e dá ao campo `salvoEm` o sentido de "última alteração".
+let ultimoAtributosSalvo = null;
+
+function marcarAtributosComoSalvos() {
+  ultimoAtributosSalvo = JSON.stringify(montarEstadoPersistivel());
+}
+
+function persistirAtributos() {
+  if (!temPersistencia()) return;
+  const estadoSalvo = montarEstadoPersistivel();
+  const serializado = JSON.stringify(estadoSalvo);
+  if (serializado === ultimoAtributosSalvo) return;
+  if (
+    Persistencia.salvarAtributos(
+      estadoSalvo,
+      ATRIBUTOS.map((atributo) => atributo.id)
+    )
+  ) {
+    ultimoAtributosSalvo = serializado;
+  }
+}
+
+function carregarEstadoSalvo() {
+  if (!temPersistencia()) {
+    marcarAtributosComoSalvos();
+    return;
+  }
+
+  const salvo = Persistencia.lerAtributos();
+  if (!salvo) {
+    if (Persistencia.estaBloqueada(Persistencia.CHAVES.atributos)) {
+      mostrarAvisoPersistencia(Persistencia.MENSAGENS.versaoMaisNova);
+    }
+    marcarAtributosComoSalvos();
+    return;
+  }
+
+  const normalizado = Persistencia.normalizarAtributos(salvo, contextoPersistencia());
+  if (!normalizado) {
+    marcarAtributosComoSalvos();
+    return;
+  }
+
+  ATRIBUTOS.forEach((atributo) => {
+    estado.valores[atributo.id] = normalizado.valores[atributo.id];
+  });
+  if (normalizado.racaId) estado.racaId = normalizado.racaId;
+  estado.subracaId = normalizado.subracaId;
+  estado.flex = normalizado.flex;
+
+  if (normalizado.ajustes.length) {
+    console.warn("[Persistência] Atributos salvos restaurados com ajustes:", normalizado.ajustes);
+    mostrarAvisoPersistencia(
+      "Os atributos salvos foram restaurados, mas alguns dados foram ignorados (valores, raça ou flexíveis inválidos). Detalhes no console."
+    );
+    // Não marca como salvo: o estado normalizado será regravado no próximo atualizar().
+    return;
+  }
+
+  marcarAtributosComoSalvos();
+}
+
+// -------------------------------------------------------------------
 // RENDERIZAÇÃO
 // -------------------------------------------------------------------
 function montarLinhas() {
@@ -341,6 +469,9 @@ function atualizar() {
   document.getElementById("ptGasto").textContent = gasto;
   document.getElementById("ptRestante").textContent = restante;
   document.getElementById("ptRestanteBox").classList.toggle("negativo", restante < 0);
+
+  // Toda alteração de atributos, raça, sub-raça ou flexíveis passa por aqui.
+  persistirAtributos();
 }
 
 // -------------------------------------------------------------------
@@ -360,6 +491,8 @@ function ajustar(id, delta) {
 }
 
 function iniciar() {
+  configurarAvisoPersistencia();
+  carregarEstadoSalvo();
   montarLinhas();
   preencherRacas();
   preencherSubracas();
