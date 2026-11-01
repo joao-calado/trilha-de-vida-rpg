@@ -1,4 +1,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
+/* `hidden` precisa vencer as regras de display das classes */
+[hidden] { display: none !important; }
 body {
   background: #0f0f0f;
   font-family: 'Segoe UI', system-ui, sans-serif;
@@ -74,6 +76,17 @@ h1 {
   transition: all 0.15s;
 }
 .btn-reset:hover { background: #3a3a3a; color: #fff; }
+.aviso-persistencia {
+  background: rgba(224, 123, 90, 0.1);
+  border: 1px solid rgba(224, 123, 90, 0.4);
+  color: #f0b8a8;
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+.aviso-persistencia::before { content: "⚠ "; }
 .viz-wrapper {
   width: 100%; position: relative; border-radius: 20px;
   background: #141414;

@@ -501,7 +501,14 @@ function definirOrigem(node) {
 }
 
 function resetar() {
-  if (!confirm("Tem certeza que deseja resetar todos os nós comprados?")) return;
+  if (
+    !confirm(
+      "Tem certeza que deseja resetar todos os nós comprados?" +
+        "\n\nO progresso salvo neste navegador também será zerado (o nível é mantido)."
+    )
+  ) {
+    return;
+  }
   nosComprados.clear();
   origemAtual = null;
   atualizarTudo();
@@ -516,6 +523,9 @@ function atualizarTudo() {
   if (modal.classList.contains("active") && noAtualModal) {
     atualizarBotoesModal(noAtualModal);
   }
+  // Toda mudança de estado (comprar, reembolsar, Origem, nível, reset)
+  // termina aqui, então este é o único ponto de gravação.
+  persistirPerfil();
 }
 
 function atualizarBarra() {
@@ -574,6 +584,119 @@ function configurarSeletorNivel() {
 // ===================================================================
 function configurarControles() {
   $("btnReset").addEventListener("click", resetar);
+}
+
+// ===================================================================
+// PERSISTÊNCIA LOCAL (Issue #1)
+// O módulo js/persistencia.js cuida do localStorage; aqui traduzimos o
+// estado do mapa para o formato salvo e validamos o que é restaurado.
+// ===================================================================
+function temPersistencia() {
+  return typeof Persistencia !== "undefined";
+}
+
+function mostrarAvisoPersistencia(texto) {
+  const aviso = $("avisoPersistencia");
+  if (!aviso) return;
+  // Mostra antes de escrever para leitores de tela anunciarem a mensagem.
+  aviso.hidden = false;
+  aviso.textContent = texto;
+}
+
+function configurarAvisoPersistencia() {
+  const aviso = $("avisoPersistencia");
+  if (!aviso) return;
+
+  if (!temPersistencia()) {
+    mostrarAvisoPersistencia(
+      "Não foi possível carregar js/persistencia.js; o progresso não será salvo."
+    );
+    return;
+  }
+
+  Persistencia.aoFalhar((motivo) =>
+    mostrarAvisoPersistencia(motivo || Persistencia.MENSAGENS.falhaAoSalvar)
+  );
+
+  const status = Persistencia.status();
+  if (!status.ok) {
+    mostrarAvisoPersistencia(Persistencia.MENSAGENS.indisponivel);
+  } else if (status.semEspaco) {
+    mostrarAvisoPersistencia(Persistencia.MENSAGENS.falhaAoSalvar);
+  }
+}
+
+function contextoPersistencia() {
+  return {
+    // Arrays (e não Set) para manter o módulo independente do DOM/realm.
+    idsValidos: todosNos.map((no) => no._id),
+    idsOrigem: todosNos
+      .filter((no) => no.tipo === "habilidade" && no.nivel === 1)
+      .map((no) => no._id),
+    maxNivel: Math.max(1, pontosPorNivel.length - 1),
+  };
+}
+
+function montarPerfilPersistivel() {
+  return {
+    nivelPersonagem,
+    origem: origemAtual,
+    nosComprados: [...nosComprados],
+  };
+}
+
+// Última versão enviada ao localStorage. Evita regravar no carregamento
+// (quando nada mudou) e dá ao campo `salvoEm` o sentido de "última alteração".
+let ultimoPerfilSalvo = null;
+
+function marcarPerfilComoSalvo() {
+  ultimoPerfilSalvo = JSON.stringify(montarPerfilPersistivel());
+}
+
+function persistirPerfil() {
+  if (!temPersistencia()) return;
+  const perfil = montarPerfilPersistivel();
+  const serializado = JSON.stringify(perfil);
+  if (serializado === ultimoPerfilSalvo) return;
+  if (Persistencia.salvarPerfil(perfil)) ultimoPerfilSalvo = serializado;
+}
+
+function carregarPerfilSalvo() {
+  if (!temPersistencia()) {
+    marcarPerfilComoSalvo();
+    return;
+  }
+
+  const salvo = Persistencia.lerPerfil();
+  if (!salvo) {
+    if (Persistencia.estaBloqueada(Persistencia.CHAVES.perfil)) {
+      mostrarAvisoPersistencia(Persistencia.MENSAGENS.versaoMaisNova);
+    }
+    marcarPerfilComoSalvo();
+    return;
+  }
+
+  const normalizado = Persistencia.normalizarPerfil(salvo, contextoPersistencia());
+  if (!normalizado) {
+    marcarPerfilComoSalvo();
+    return;
+  }
+
+  nosComprados = new Set(normalizado.nosComprados);
+  origemAtual = normalizado.origem;
+  nivelPersonagem = normalizado.nivelPersonagem;
+  nivelSelect.value = String(nivelPersonagem);
+
+  if (normalizado.ajustes.length) {
+    console.warn("[Persistência] Perfil salvo restaurado com ajustes:", normalizado.ajustes);
+    mostrarAvisoPersistencia(
+      "O perfil salvo foi restaurado, mas alguns dados foram ignorados (nós ou nível inválidos). Detalhes no console."
+    );
+    // Não marca como salvo: o estado normalizado será regravado no próximo atualizarTudo().
+    return;
+  }
+
+  marcarPerfilComoSalvo();
 }
 
 // ===================================================================
@@ -764,6 +887,8 @@ async function iniciar() {
     montarMapa();
     montarLegenda();
     configurarSeletorNivel();
+    configurarAvisoPersistencia();
+    carregarPerfilSalvo();
     configurarControles();
     configurarModal();
     configurarZoom();

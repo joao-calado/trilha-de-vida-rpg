@@ -118,6 +118,52 @@ O mapa oferece:
 - **Contador de pontos** no topo (disponível / gasto / restante)
 - **Seletor de nível** (1 a 20) que atualiza os pontos disponíveis
 - **Feedback visual:** nós comprados (contorno verde), Origem (contorno dourado), nós de nível 1 (anel tracejado indicando que podem ser Origem)
+- **Progresso salvo automaticamente** no navegador (veja [Persistência local](#persistência-local-localstorage))
+
+---
+
+## Persistência local (`localStorage`)
+
+O site não tem login nem servidor: o progresso fica apenas no seu navegador, sendo gravado automaticamente a cada mudança.
+
+| Página | O que é salvo | Chave no `localStorage` |
+|---|---|---|
+| `index.html` | nível do personagem, Trilha de Origem e nós comprados | `trilhas-vida:perfil` |
+| `atributos.html` | valores comprados, raça, sub-raça e bônus flexíveis | `trilhas-vida:atributos` |
+
+Cada chave guarda um envelope versionado (`salvoEm` é apenas informativo):
+
+```json
+{
+  "versao": 1,
+  "salvoEm": "2026-11-01T21:52:00.000Z",
+  "dados": { "nivelPersonagem": 5, "origem": "altar-nv1", "nosComprados": ["altar-nv1"] }
+}
+```
+
+### Segurança e limites
+
+- Nenhum dado sensível (senha, token, e-mail, cookies) é armazenado — só as escolhas do jogo. As listas de campos gravados são fechadas (`js/persistencia.js`), então nada extra chega ao `localStorage`.
+- O `localStorage` só guarda strings: os objetos são convertidos com `JSON.stringify` ao salvar e `JSON.parse` ao ler.
+- Se o navegador bloquear o `localStorage` (modo privado, cookies desativados) ou ele estiver cheio, o site continua funcionando normalmente e mostra um aviso — o progresso apenas não é salvo.
+- Com dados válidos, abrir a página sem interagir não cria nem reescreve registros. Se o registro salvo estiver corrompido ou desatualizado, ele é descartado ou normalizado no carregamento (com aviso).
+- Registros corrompidos ou de esquema antigo (e nós que não existem mais em `assets/trilhas.json`) são descartados com aviso no console e na tela, sem quebrar a página.
+- Se o registro vier de uma versão **mais nova** do site (esquema desconhecido), ele é preservado e a versão atual não o sobrescreve — a página mostra um aviso pedindo para atualizar o site.
+- Os dados ficam no navegador: limpar os dados do site, trocar de dispositivo ou usar outro navegador/perfil não os leva junto.
+- O `localStorage` é compartilhado entre abas: se você abrir o mapa em duas abas e comprar em ambas, a última gravação vence.
+
+### Apagar o progresso salvo
+
+- **Resetar** (no mapa) zera as compras e regrava o estado padrão, mantendo o nível selecionado.
+- Para apagar todos os dados do projeto de uma vez, rode no console do navegador:
+
+  ```js
+  Persistencia.limparTudo();
+  ```
+
+  (equivale a apagar os dados do site nas configurações do navegador) — depois recarregue a página para a interface refletir; sem recarregar, a primeira mudança de estado volta a gravar.
+
+Os helpers compartilhados ficam em `js/persistencia.js`: `salvarPerfil`, `lerPerfil`, `removerPerfil`, `salvarAtributos`, `lerAtributos`, `removerAtributos`, `limparTudo`, `estaBloqueada` e as funções puras `normalizarPerfil`/`normalizarAtributos`.
 
 ---
 
@@ -161,17 +207,43 @@ Qualquer servidor estático equivalente funciona (Live Server do VS Code, `npx s
 
 ```
 trilhas-vida/
-├── index.html            # Estrutura da página
+├── index.html                 # Mapa das trilhas
+├── atributos.html             # Calculadora de compra de pontos (D&D 5e)
 ├── css/
-│   └── styles.css        # Estilos da interface
+│   ├── styles.css             # Tema base e estilos do mapa
+│   └── atributos.css          # Estilos da calculadora
 ├── js/
-│   └── app.js            # Renderização do mapa e lógica de compra
+│   ├── persistencia.js        # localStorage: gravar, ler, remover e normalizar
+│   ├── app.js                 # Renderização do mapa e lógica de compra
+│   └── atributos.js           # Regras e cálculo dos atributos
 ├── assets/
-│   └── trilhas.json      # Fonte de dados: trilhas, nós, custos e pontos
-└── README.md             # Este arquivo
+│   └── trilhas.json           # Fonte de dados: trilhas, nós, custos e pontos
+├── tests/
+│   └── persistencia.test.mjs  # Testes da persistência (node:test)
+├── package.json               # Só para rodar os testes — o site não tem build
+└── README.md                  # Este arquivo
 ```
 
 A única dependência externa é o **D3.js**, carregado via CDN. O JSON é lido em tempo de execução, então basta editá-lo para atualizar o mapa — não é preciso mexer no HTML, no CSS ou no JS.
+
+---
+
+## Testes
+
+A persistência tem testes automatizados **sem dependências**: usam apenas o `node:test`, já incluído no Node.js 20+.
+
+```bash
+npm test        # ou: node --test
+```
+
+Eles cobrem gravar/ler/remover, o recarregamento da página (mesmo `localStorage`, novo contexto), dados corrompidos, versões desconhecidas, tamanho máximo, armazenamento bloqueado/cheio e a normalização dos dados salvos.
+
+Verificação manual no navegador:
+
+1. Rode `python3 -m http.server 8000` e abra `http://localhost:8000`.
+2. Compre nós, defina uma Origem e mude o nível; recarregue a página — o estado volta.
+3. Em `atributos.html`, ajuste valores, troque a raça e os bônus flexíveis; recarregue — o estado volta.
+4. Clique **Resetar** e recarregue — o mapa volta ao estado padrão.
 
 ---
 
