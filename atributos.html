@@ -53,11 +53,13 @@
           <span class="pt-label">Restante</span>
         </div>
       </div>
+      <button class="btn-reset btn-exportar" id="btnExportar" type="button" aria-label="Exportar imagem da ficha de atributos em PNG">Exportar imagem</button>
       <button class="btn-reset" id="btnReset" type="button">Resetar</button>
     </div>
   </div>
 
   <p class="aviso-persistencia" id="avisoPersistencia" role="status" aria-live="polite" hidden></p>
+  <p class="status-export" id="statusExport" role="status" aria-live="polite" hidden></p>
 
   <div class="tabela-atributos" role="group" aria-label="Compra de atributos">
     <div class="tabela-head" aria-hidden="true">
@@ -89,6 +91,7 @@
 </div>
 
 <script src="js/persistencia.js"></script>
+<script src="js/exportar.js"></script>
 <script src="js/atributos.js"></script>
 </body>
 </html>

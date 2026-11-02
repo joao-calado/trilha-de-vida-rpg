@@ -167,6 +167,18 @@ Os helpers compartilhados ficam em `js/persistencia.js`: `salvarPerfil`, `lerPer
 
 ---
 
+## Exportar a ficha de atributos (PNG)
+
+Na calculadora de atributos (`atributos.html`), o botão **Exportar imagem** (ao lado de "Resetar") baixa um PNG da ficha correspondente ao estado atual — inclusive o que foi restaurado do `localStorage`.
+
+- O nome do arquivo é `trilhas-atributos-<slug-da-raça>-<AAAA-MM-DD>.png`, com dia local e slug sem acentos (ex.: `trilhas-atributos-anao-da-colina-2026-11-01.png`).
+- A imagem tem 1800 × 1440 px (card de 900 × 720 em escala 2×), fundo opaco `#0f0f0f` e o mesmo tema escuro do site: título, raça/sub-raça (e bônus flexíveis do Meio-Elfo, quando houver), tabela com valor/bônus/total/modificador/custo, orçamento/gasto/restante e a data de exportação.
+- A exportação é **somente leitura**: não altera atributos, não grava no `localStorage` e não depende de `html2canvas`, CDN ou qualquer dependência nova. O card é um SVG montado a partir do estado e rasterizado em `<canvas>`.
+- Em `file://` (arquivo aberto direto do disco) a imagem não é gerada: a página orienta a usar um servidor local (`python3 -m http.server 8000`, veja [Como usar](#como-usar)). Em `http://` (local ou GitHub Pages) funciona normalmente.
+- Os helpers de download, data e nome de arquivo ficam em `js/exportar.js` (`window.Exportar`) e são compartilhados com a exportação do perfil em JSON.
+
+---
+
 ## Como usar
 
 ### Ver o mapa online
@@ -214,12 +226,14 @@ trilhas-vida/
 │   └── atributos.css          # Estilos da calculadora
 ├── js/
 │   ├── persistencia.js        # localStorage: gravar, ler, remover e normalizar
+│   ├── exportar.js            # Helpers puros de download, datas e slugs (PNG/JSON)
 │   ├── app.js                 # Renderização do mapa e lógica de compra
-│   └── atributos.js           # Regras e cálculo dos atributos
+│   └── atributos.js           # Regras, cálculo e exportação PNG dos atributos
 ├── assets/
 │   └── trilhas.json           # Fonte de dados: trilhas, nós, custos e pontos
 ├── tests/
-│   └── persistencia.test.mjs  # Testes da persistência (node:test)
+│   ├── persistencia.test.mjs  # Testes da persistência (node:test)
+│   └── exportar.test.mjs      # Testes dos helpers e do card SVG (node:test)
 ├── package.json               # Só para rodar os testes — o site não tem build
 └── README.md                  # Este arquivo
 ```
@@ -236,7 +250,7 @@ A persistência tem testes automatizados **sem dependências**: usam apenas o `n
 npm test        # ou: node --test
 ```
 
-Eles cobrem gravar/ler/remover, o recarregamento da página (mesmo `localStorage`, novo contexto), dados corrompidos, versões desconhecidas, tamanho máximo, armazenamento bloqueado/cheio e a normalização dos dados salvos.
+Eles cobrem gravar/ler/remover, o recarregamento da página (mesmo `localStorage`, novo contexto), dados corrompidos, versões desconhecidas, tamanho máximo, armazenamento bloqueado/cheio e a normalização dos dados salvos. A exportação tem testes próprios para os helpers de `js/exportar.js` (data local, slug sem acentos, escape XML e download), para os números do card SVG e para o fluxo de geração (canvas 2×, nome do arquivo, `file://` e falhas de `toBlob`).
 
 Verificação manual no navegador:
 
@@ -244,6 +258,7 @@ Verificação manual no navegador:
 2. Compre nós, defina uma Origem e mude o nível; recarregue a página — o estado volta.
 3. Em `atributos.html`, ajuste valores, troque a raça e os bônus flexíveis; recarregue — o estado volta.
 4. Clique **Resetar** e recarregue — o mapa volta ao estado padrão.
+5. Em `atributos.html` servido por `http://`, ajuste os atributos e clique **Exportar imagem**; confira o PNG baixado (nome, 1800 × 1440, tabela e barra de orçamento). Abrindo a página via `file://`, o clique deve apenas mostrar a mensagem pedindo um servidor local.
 
 ---
 
